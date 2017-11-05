@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Basic Tile Grid</title>
+</head>
+<body>
+
+<canvas id="main"></canvas>
+
+<script>
+
+    // the init function will contain all of the code and be called via the onLoad attribute of the HTML page
+    function init() {
+
+        // the map array. 0 = blank. 1 = filled
+        var map = [
+            [1,0,1,0,1],
+            [1,1,1,0,1],
+            [1,0,1,0,1]
+        ];
+
+        // this grabs the canvas by the id="main"
+        var ctx = document.getElementById("main").getContext("2d");
+
+        // two for loops to run through the array rows and their element values
+        for (var i = 0; i < map.length; i++) {
+            for ( var j = 0; j < map[i].length; j++){
+
+                // if statement to check if value is 1, and draws a square at that position
+                if (map [i][j] === 1) {
+                    ctx.fillStyle = '#FF0000';
+                    ctx.fillRect(j * 20, i * 20, 20, 20);
+                }
+            }
+        }
+    }
+
+    init();
+
+</script>
+
+</body>
+</html>

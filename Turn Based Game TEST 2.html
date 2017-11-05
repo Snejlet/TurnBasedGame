@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Test 2</title>
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css">
+    <!-- jQuery library -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <!-- Popper JS -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.6/umd/popper.min.js"></script>
+    <!-- Latest compiled JavaScript -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+</head>
+<body>
+
+<div class="row">
+    <canvas id="map" width="576" height="576" style="margin-left:25px; margin-top:10px; margin-right:10px; margin-bottom:10px"></canvas>
+
+    <div class="col-sm-1" style="border:2px solid #ccc">
+        <p>More Buttons will go in here.</p>
+        <button id="endTurnButton" onclick="endTurn()">End Turn</button>
+    </div>
+    <div>
+        <div class="col-md" style="border:2px solid #ccc">
+            <p id="playerTurnTracker">Player One Turn:</p>
+            <p id="playerTurnNumber" class="text-danger">1</p>
+        </div>
+    </div>
+</div>
+
+<script>
+
+    var mapGrid = [
+        [1,1,1,1,1,1,1,1,1],
+        [1,0,0,0,0,0,0,0,1],
+        [1,0,0,0,0,0,0,0,1],
+        [1,0,0,0,0,0,0,0,1],
+        [1,0,0,0,0,0,0,0,1],
+        [1,0,0,0,0,0,0,0,1],
+        [1,0,0,0,0,0,0,0,1],
+        [1,0,0,0,0,0,0,0,1],
+        [1,1,1,1,1,1,1,1,1]
+    ];
+
+    var graphics = [];
+
+    var playerTurn = 1;
+    var playerTurnCounter = 1;
+
+    function loadImg() {
+
+        var graphicsToLoad = ["Assets/dirt128outline.png", "Assets/grass128outline.png", "Assets/everard.png",
+            "Assets/stanvolm.png"];
+        var graphicsLoaded = 0;
+
+        for (var i = 0; i < graphicsToLoad.length; i++) {
+            graphics[i] = new Image();
+            graphics[i].src = graphicsToLoad[i];
+            graphics[i].onload = function() {
+                graphicsLoaded++;
+                if (graphicsLoaded === graphicsToLoad.length) {
+                    drawMap();
+                }
+            }
+        }
+    }
+
+    var playerOneX = 0;
+    var playerOneY = 4;
+    var playerTwoX = 8;
+    var playerTwoY = 4;
+
+    function drawMap() {
+
+        var ctx = document.getElementById("map").getContext("2d");
+        ctx.clearRect(0, 0, 576, 576);
+
+        for (var i = 0; i < mapGrid.length; i++) {
+            for (var j = 0; j < mapGrid[i].length; j++){
+                if (mapGrid[i][j] === 0) {
+                    ctx.drawImage(graphics[0], j * 64, i * 64, 64, 64)
+                }
+                if (mapGrid[i][j] === 1) {
+                    ctx.drawImage(graphics[1], j * 64, i * 64, 64, 64)
+                }
+                if (playerOneX === i && playerOneY === j) {
+                    ctx.drawImage(graphics[2], j * 64, i * 64, 64, 64)
+                }
+                if (playerTwoX === i && playerTwoY === j) {
+                    ctx.drawImage(graphics[3], j * 64, i * 64, 64, 64)
+                }
+            }
+        }
+    }
+
+    function endTurn() {
+
+        // sets value of playerTurn to 2 when player one presses end turn, and vice versa.
+        if (playerTurn === 1) {
+            playerTurn = playerTurn + 1;
+        } else if (playerTurn === 2) {
+            playerTurn = playerTurn - 1;
+        }
+
+        // changes value of player turn "p" element based on whose turn it is and what turn it is.
+        // could go in the above if statement, but who needs to make things that complicated?
+
+        if (playerTurn === 1) {
+            playerTurnCounter++;
+            document.getElementById("playerTurnTracker").innerHTML = "Player One Turn:";
+            document.getElementById("playerTurnNumber").innerHTML = playerTurnCounter;
+        } else if (playerTurn === 2) {
+            document.getElementById("playerTurnTracker").innerHTML = "Player Two turn:";
+        }
+
+    }
+
+    window.addEventListener("keyup", function(event) {
+        if (playerTurn === 1) {
+            console.log(event.keyCode + "(Player 1)");
+            switch (event.keyCode) {
+                case 87:
+                    if (playerOneX > 0) {
+                        playerOneX--;
+                        break;
+                    } else {
+                        break;
+                    }
+                case 83:
+                    if (playerOneX < 8) {
+                        playerOneX++;
+                        break;
+                    } else {
+                        break;
+                    }
+                case 65:
+                    if (playerOneY > 0) {
+                        playerOneY--;
+                        break;
+                    } else {
+                        break;
+                    }
+                case 68:
+                    if (playerOneY < 8) {
+                        playerOneY++;
+                        break;
+                    } else {
+                        break;
+                    }
+            }
+        } else if (playerTurn === 2) {
+            console.log(event.keyCode + "(Player 2)");
+            switch (event.keyCode) {
+                case 87:
+                    if (playerTwoX > 0) {
+                        playerTwoX--;
+                        break;
+                    } else {
+                        break;
+                    }
+                case 83:
+                    if (playerTwoX < 8) {
+                        playerTwoX++;
+                        break;
+                    } else {
+                        break;
+                    }
+                case 65:
+                    if (playerTwoY > 0) {
+                        playerTwoY--;
+                        break;
+                    } else {
+                        break;
+                    }
+                case 68:
+                    if (playerTwoY < 8) {
+                        playerTwoY++;
+                        break;
+                    } else {
+                        break;
+                    }
+            }
+        }
+        console.log(playerOneY);
+        drawMap();
+    });
+
+    loadImg();
+
+</script>
+
+</body>
+</html>

@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Basic Idea</title>
+</head>
+<body>
+
+<canvas id="main" width="520" height="520"></canvas>
+
+<div id = "turnCounter"></div>
+
+<button id="endTurnButton" onclick="endTurn()">End Turn</button>
+
+<script src = "endTurn.js"></script>
+<script>
+
+    //array to draw the map
+    var map = [
+        [1, 1, 1, 1, 1, 1, 1, 1, 1],
+        [1, 0, 0, 0, 0, 0, 0, 0, 1],
+        [1, 0, 0, 0, 0, 0, 0, 0, 1],
+        [1, 0, 0, 0, 0, 0, 0, 0, 1],
+        [1, 0, 0, 0, 0, 0, 0, 0, 1],
+        [1, 0, 0, 0, 0, 0, 0, 0, 1],
+        [1, 0, 0, 0, 0, 0, 0, 0, 1],
+        [1, 0, 0, 0, 0, 0, 0, 0, 1],
+        [1, 1, 1, 1, 1, 1, 1, 1, 1]
+    ];
+
+    var playerOneTurnCount = 1;
+
+    //array to hold the loaded images for use when drawing the map
+    var graphics = [];
+
+    function loadImg() {
+
+        //loads in the images for the assets. graphicsLoaded is a count to stop the for statement when all of
+        // the images are loaded in.
+        var graphicsToLoad = ["Assets/dirt52x52.png", "Assets/grass52x52.png", "Assets/brazen.png"],
+            graphicsLoaded = 0;
+
+        // cycles through the graphicsToLoad array and loads each image in turn (makes sure each one is fully
+        // loaded before moving onto the next to stop errors happening where an image isn't fully loaded yet.
+        for (var i = 0; i <graphicsToLoad.length; i++) {
+            graphics[i] = new Image();
+            graphics[i].src = graphicsToLoad[i];
+            graphics[i].onload = function() {
+                // increments the graphicsLoaded variable by 1 each time an image is loaded, and compares it
+                // against the graphicsToLoad array length to stop the forLoop when everything is loaded.
+                graphicsLoaded++;
+                if (graphicsLoaded === graphicsToLoad.length) {
+                    drawMap()
+                }
+            }
+        }
+    }
+
+    //Sets the player starting position. May move this later
+    var playerX = 8;
+    var playerY = 4;
+
+    function drawMap() {
+
+        // gets the canvas element and sets the context
+        var ctx = document.getElementById("main").getContext("2d");
+        // clears the map before it is redrawn. Stops 'ghosting' or elements from the previous draw still being
+        // visible (shouldn't be happening, but best to make sure.
+        ctx.clearRect(0, 0, 520, 520);
+
+        // loops through the map array and draws the relevant asset at that position from the graphics array.
+        // also checks the playerX & playerY variables to draw character starting position. This might need
+        // to move at a later date.
+        for (var i = 0; i < map.length; i++) {
+            for (var j = 0; j < map[i].length; j++) {
+                if (map [i][j] === 0) {
+                    ctx.drawImage(graphics[1], j * 52, i * 52, 52, 52)
+                }
+                if (map [i][j] === 1) {
+                    ctx.drawImage(graphics[0], j *52, i * 52, 52, 52)
+                }
+                if (playerX === i && playerY === j) {
+                    ctx.drawImage(graphics[2], j * 52, i * 52, 52, 52)
+                }
+            }
+        }
+    }
+
+    // EventListener to look for specific keyUp events to move the character avatar around the map.
+    window.addEventListener("keyup", function(event){
+        console.log(event.keyCode);
+        switch(event.keyCode){
+            case 87:
+                playerX--;
+                break;
+            case 83:
+                playerX++;
+                break;
+            case 65:
+                playerY--;
+                break;
+            case 68:
+                playerY++;
+                break;
+        }
+        drawMap();
+    });
+
+    loadImg();
+
+
+</script>
+
+</body>
+</html>

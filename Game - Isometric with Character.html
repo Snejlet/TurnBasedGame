@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Now with Added Beard</title>
+</head>
+<body>
+
+<h1>Do Move Yes</h1>
+
+<canvas id="main"/>
+
+<script>
+
+    // Create the isometric scope.
+
+    (function(isometric) {
+
+        // Two Dimensional Array storing the isometric map layout. Each number represents a tile.
+        var map = [
+            [1,0,0,0],
+            [1,0,0,1],
+            [0,0,1,1],
+            [1,1,1,1]
+        ];
+
+        var tileGraphics = [];
+
+        function loadImg() {
+
+            // Images to be loaded and used.
+            var tileGraphicsToLoad = ["Assets/dirt.png","Assets/grass.png","Assets/brazen.png"],
+                tileGraphicsLoaded = 0;
+
+            for (var i = 0; i < tileGraphicsToLoad.length; i++) {
+                tileGraphics[i] = new Image();
+                tileGraphics[i].src = tileGraphicsToLoad[i];
+                tileGraphics[i].onload = function() {
+                    // Once the image is loaded increment the loaded graphics count and check if all images are ready.
+                    tileGraphicsLoaded++;
+                    if (tileGraphicsLoaded === tileGraphicsToLoad.length) {
+                        drawMap();
+                    }
+                }
+            }
+        }
+
+        // place the Beard into the world, the unfortunate bugger
+        var playerX = 0;
+        var playerY = 3;
+
+        function drawMap() {
+
+            // create the canvas context
+            var ctx = document.getElementById('main').getContext('2d');
+            ctx.clearRect(0,0, 500, 500);
+
+            // Set tile pixel sizes
+            var tileH = 25;
+            var tileW = 52;
+
+            // mapX and mapY are offsets for map positioning.
+            var mapX = 76;
+            var mapY = 52;
+
+            var drawTile;
+
+            // loop through the map and draw out the image represented by the number.
+            for (var i = 0; i < map.length; i++) {
+                for (var j = 0; j < map[i].length; j++) {
+                    drawTile = map[i][j];
+                    // Draw the represented image number, at the desired X & Y coordinates followed by the graphic width and height.
+                    ctx.drawImage(tileGraphics[drawTile], (i - j) * tileH + mapX, (i + j) * tileH / 2 + mapY);
+                    if (playerX === i && playerY === j) {
+                        ctx.drawImage(tileGraphics[2], (i - j) * tileH + mapX, (i +j) * tileH / 2 + mapY - tileH);
+                    }
+                }
+            }
+        }
+
+        function init() {
+            // Remove Event Listener and load images.
+            isometric.removeEventListener('load', init);
+            loadImg();
+        };
+
+        // Add Event Listener to detect when page has fully loaded.
+        isometric.addEventListener('load', init, false);
+
+        isometric.addEventListener("keyup", function(e) {
+            console.log(e.keyCode);
+            switch(e.keyCode) {
+                case 65:
+                    playerX--;
+                    break;
+                case 68:
+                    playerX++;
+                    break;
+                case 87:
+                    playerY--;
+                    break;
+                case 83:
+                    playerY++;
+                    break;
+            }
+            drawMap();
+        });
+
+    })(this);
+
+</script>
+
+
+
+</body>
+</html>
