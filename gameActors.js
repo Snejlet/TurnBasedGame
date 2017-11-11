@@ -23,7 +23,7 @@ function Player2(xPos, yPos, name, hp, dmg, arm, spd) {
 var everard = new Player1(2, 4, "Everard", 0, 0, 0, 8);
 var stanvolm = new Player1(4, 0, "Stanvolm", 0, 0, 0, 4);
 var victahana = new Player1(3, 2, "Victahana", 0, 0, 0, 2);
-var quxharne = new Player1(5, 0, "Qu'Xharne", 0, 0, 0, 1);
+var quxharne = new Player1(5, 0, "Quxharne", 0, 0, 0, 1);
 
 // create new Player2 Actors.
 var goblinWarrior = new Player2(4, 17, "Goblin Warrior", 0, 0, 0, 5);

@@ -15,6 +15,26 @@ function checkCollisionUp() {
         if (mapGrid[victahana.xPos][victahana.yPos] === 5) {
             victahana.xPos++;
         }
+    } else if (currentActive === "Quxharne") {
+        if (mapGrid[quxharne.xPos][quxharne.yPos] === 5) {
+            quxharne.xPos++;
+        }
+    } else if (currentActive === "Goblin Warrior") {
+        if (mapGrid[goblinWarrior.xPos][goblinWarrior.yPos] === 5) {
+            goblinWarrior.xPos++;
+        }
+    } else if (currentActive === "Kobold Dragonshield") {
+        if (mapGrid[koboldDragonshield.xPos][koboldDragonshield.yPos] === 5) {
+            koboldDragonshield.xPos++;
+        }
+    } else if (currentActive === "Kobold Slinger") {
+        if (mapGrid[koboldSlinger.xPos][koboldSlinger.yPos] === 5) {
+            koboldSlinger.xPos++;
+        }
+    } else if (currentActive === "Kobold Mage") {
+        if (mapGrid[koboldMage.xPos][koboldMage.yPos] === 5) {
+            koboldMage.xPos++;
+        }
     }
 }
 
@@ -30,6 +50,26 @@ function checkCollisionDown() {
     } else if (currentActive === "Victahana") {
         if (mapGrid[victahana.xPos][victahana.yPos] === 5) {
             victahana.xPos--;
+        }
+    } else if (currentActive === "Quxharne") {
+        if (mapGrid[quxharne.xPos][quxharne.yPos] === 5) {
+            quxharne.xPos--;
+        }
+    } else if (currentActive === "Goblin Warrior") {
+        if (mapGrid[goblinWarrior.xPos][goblinWarrior.yPos] === 5) {
+            goblinWarrior.xPos--;
+        }
+    } else if (currentActive === "Kobold Dragonshield") {
+        if (mapGrid[koboldDragonshield.xPos][koboldDragonshield.yPos] === 5) {
+            koboldDragonshield.xPos--;
+        }
+    } else if (currentActive === "Kobold Slinger") {
+        if (mapGrid[koboldSlinger.xPos][koboldSlinger.yPos] === 5) {
+            koboldSlinger.xPos--;
+        }
+    } else if (currentActive === "Kobold Mage") {
+        if (mapGrid[koboldMage.xPos][koboldMage.yPos] === 5) {
+            koboldMage.xPos--;
         }
     }
 }
@@ -47,6 +87,26 @@ function checkCollisionLeft() {
         if (mapGrid[victahana.xPos][victahana.yPos] === 5) {
             victahana.yPos++;
         }
+    } else if (currentActive === "Quxharne") {
+        if (mapGrid[quxharne.xPos][quxharne.yPos] === 5) {
+            quxharne.yPos++;
+        }
+    } else if (currentActive === "Goblin Warrior") {
+        if (mapGrid[goblinWarrior.xPos][goblinWarrior.yPos] === 5) {
+            goblinWarrior.yPos++;
+        }
+    } else if (currentActive === "Kobold Dragonshield") {
+        if (mapGrid[koboldDragonshield.xPos][koboldDragonshield.yPos] === 5) {
+            koboldDragonshield.yPos++;
+        }
+    } else if (currentActive === "Kobold Slinger") {
+        if (mapGrid[koboldSlinger.xPos][koboldSlinger.yPos] === 5) {
+            koboldSlinger.yPos++;
+        }
+    } else if (currentActive === "Kobold Mage") {
+        if (mapGrid[koboldMage.xPos][koboldMage.yPos] === 5) {
+            koboldMage.yPos++;
+        }
     }
 }
 
@@ -62,6 +122,26 @@ function checkCollisionRight() {
     } else if (currentActive === "Victahana") {
         if (mapGrid[victahana.xPos][victahana.yPos] === 5) {
             victahana.yPos--;
+        }
+    } else if (currentActive === "Quxharne") {
+        if (mapGrid[quxharne.xPos][quxharne.yPos] === 5) {
+            quxharne.yPos--;
+        }
+    } else if (currentActive === "Goblin Warrior") {
+        if (mapGrid[goblinWarrior.xPos][goblinWarrior.yPos] === 5) {
+            goblinWarrior.yPos--;
+        }
+    } else if (currentActive === "Kobold Dragonshield") {
+        if (mapGrid[koboldDragonshield.xPos][koboldDragonshield.yPos] === 5) {
+            koboldDragonshield.yPos--;
+        }
+    } else if (currentActive === "Kobold Slinger") {
+        if (mapGrid[koboldSlinger.xPos][koboldSlinger.yPos] === 5) {
+            koboldSlinger.yPos--;
+        }
+    } else if (currentActive === "Kobold Mage") {
+        if (mapGrid[koboldMage.xPos][koboldMage.yPos] === 5) {
+            koboldMage.yPos--;
         }
     }
 }
@@ -172,6 +252,181 @@ window.addEventListener("keyup", function(event) {
             case 68:
                 if (victahana.yPos < 17) {
                     victahana.yPos++;
+                    checkCollisionRight();
+                    break;
+                } else {
+                    break;
+                }
+        }
+    } else if (currentActive === "Quxharne") {
+        switch(event.keyCode) {
+            case 87:
+                if (quxharne.xPos > 0) {
+                    quxharne.xPos--;
+                    checkCollisionUp();
+                    break;
+                } else {
+                    break;
+                }
+            case 83:
+                if (quxharne.xPos < 9) {
+                    quxharne.xPos++;
+                    checkCollisionDown();
+                    break;
+                } else {
+                    break;
+                }
+            case 65:
+                if (quxharne.yPos > 0) {
+                    quxharne.yPos--;
+                    checkCollisionLeft();
+                    break;
+                } else {
+                    break;
+                }
+            case 68:
+                if (quxharne.yPos < 17) {
+                    quxharne.yPos++;
+                    checkCollisionRight();
+                    break;
+                } else {
+                    break;
+                }
+        }
+    } else if (currentActive === "Goblin Warrior") {
+        switch(event.keyCode) {
+            case 87:
+                if (goblinWarrior.xPos > 0) {
+                    goblinWarrior.xPos--;
+                    checkCollisionUp();
+                    break;
+                } else {
+                    break;
+                }
+            case 83:
+                if (goblinWarrior.xPos < 9) {
+                    goblinWarrior.xPos++;
+                    checkCollisionDown();
+                    break;
+                } else {
+                    break;
+                }
+            case 65:
+                if (goblinWarrior.yPos > 0) {
+                    goblinWarrior.yPos--;
+                    checkCollisionLeft();
+                    break;
+                } else {
+                    break;
+                }
+            case 68:
+                if (goblinWarrior.yPos < 17) {
+                    goblinWarrior.yPos++;
+                    checkCollisionRight();
+                    break;
+                } else {
+                    break;
+                }
+        }
+    } else if (currentActive === "Kobold Dragonshield") {
+        switch(event.keyCode) {
+            case 87:
+                if (koboldDragonshield.xPos > 0) {
+                    koboldDragonshield.xPos--;
+                    checkCollisionUp();
+                    break;
+                } else {
+                    break;
+                }
+            case 83:
+                if (koboldDragonshield.xPos < 9) {
+                    koboldDragonshield.xPos++;
+                    checkCollisionDown();
+                    break;
+                } else {
+                    break;
+                }
+            case 65:
+                if (koboldDragonshield.yPos > 0) {
+                    koboldDragonshield.yPos--;
+                    checkCollisionLeft();
+                    break;
+                } else {
+                    break;
+                }
+            case 68:
+                if (koboldDragonshield.yPos < 17) {
+                    koboldDragonshield.yPos++;
+                    checkCollisionRight();
+                    break;
+                } else {
+                    break;
+                }
+        }
+    } else if (currentActive === "Kobold Slinger") {
+        switch(event.keyCode) {
+            case 87:
+                if (koboldSlinger.xPos > 0) {
+                    koboldSlinger.xPos--;
+                    checkCollisionUp();
+                    break;
+                } else {
+                    break;
+                }
+            case 83:
+                if (koboldSlinger.xPos < 9) {
+                    koboldSlinger.xPos++;
+                    checkCollisionDown();
+                    break;
+                } else {
+                    break;
+                }
+            case 65:
+                if (koboldSlinger.yPos > 0) {
+                    koboldSlinger.yPos--;
+                    checkCollisionLeft();
+                    break;
+                } else {
+                    break;
+                }
+            case 68:
+                if (koboldSlinger.yPos < 17) {
+                    koboldSlinger.yPos++;
+                    checkCollisionRight();
+                    break;
+                } else {
+                    break;
+                }
+        }
+    } else if (currentActive === "Kobold Mage") {
+        switch(event.keyCode) {
+            case 87:
+                if (koboldMage.xPos > 0) {
+                    koboldMage.xPos--;
+                    checkCollisionUp();
+                    break;
+                } else {
+                    break;
+                }
+            case 83:
+                if (koboldMage.xPos < 9) {
+                    koboldMage.xPos++;
+                    checkCollisionDown();
+                    break;
+                } else {
+                    break;
+                }
+            case 65:
+                if (koboldMage.yPos > 0) {
+                    koboldMage.yPos--;
+                    checkCollisionLeft();
+                    break;
+                } else {
+                    break;
+                }
+            case 68:
+                if (koboldMage.yPos < 17) {
+                    koboldMage.yPos++;
                     checkCollisionRight();
                     break;
                 } else {
