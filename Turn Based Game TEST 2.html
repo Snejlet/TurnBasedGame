@@ -34,7 +34,7 @@
     var mapGrid = [
         [1,1,1,1,1,1,1,1,1],
         [1,0,0,0,0,0,0,0,1],
-        [1,0,0,0,0,0,0,0,1],
+        [1,0,2,0,0,0,0,0,1],
         [1,0,0,0,0,0,0,0,1],
         [1,0,0,0,0,0,0,0,1],
         [1,0,0,0,0,0,0,0,1],
@@ -121,12 +121,21 @@
             console.log(event.keyCode + "(Player 1)");
             switch (event.keyCode) {
                 case 87:
+                    //this if statement stops the player from moving upward if the current tile they are on is
+                    // a 2 in the array. Would mean I'd need to set a border around anything I wanted to have
+                    // collision in the game though. Not ideal, but hey, it fucking works. Need to set this
+                    // for every direction for both players too, which would make the movement really messy to read.
+                    // remember to ask Andrew if there's a better way of doing this, because this feels ass-backwards.
+                    if (mapGrid[playerOneX][playerOneY] === 2) {
+                        break;
+                    }
                     if (playerOneX > 0) {
                         playerOneX--;
                         break;
                     } else {
                         break;
                     }
+
                 case 83:
                     if (playerOneX < 8) {
                         playerOneX++;
