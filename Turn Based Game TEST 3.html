@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Gaem</title>
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css">
+    <!-- jQuery library -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <!-- Popper JS -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.6/umd/popper.min.js"></script>
+    <!-- Latest compiled JavaScript -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+</head>
+<body>
+
+<div class="row">
+    <canvas id="map" width="1154" height="642" style="margin-left:25px; margin-top:10px; margin-right:10px; margin-bottom:10px"></canvas>
+
+    <div class="col-sm-1" style="border:2px solid #ccc">
+        <p>More buttons will go in here.</p>
+        <button id="endTurnButton" onclick="endTurn()">End Turn</button>
+    </div>
+
+    <div>
+        <div class="col-md" style="border:2px solid #ccc">
+            <p id="playerTurnTracker">Player One Turn:</p>
+            <p id="playerTurnNumber" class="text-danger">1</p>
+        </div>
+    </div>
+</div>
+
+<script src="gameMovement.js"></script>
+<script src="gameGraphics.js"></script>
+
+<script>
+
+    /*
+    This is the array that holds the tile positions in the map grid
+    in this array:
+    1 = Can't move up
+    2 = Can't move right
+    3 = Can't move down
+    4 = Can't move left
+    5 = Collision object (in case I find a better way of doing this
+    find a better way of doing this. I miss when this was readable at a glance.
+    */
+    var mapGrid = [
+        [5,5,0,0,0,5,5,0,5,0,0,0,0,0,0,0,5,5],
+        [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,5],
+        [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
+        [0,0,0,0,0,0,0,0,0,5,5,5,5,0,0,0,0,0],
+        [0,0,0,0,0,0,0,5,0,5,5,5,5,5,5,5,5,0],
+        [0,0,0,0,0,0,0,0,0,5,5,5,5,5,5,5,5,0],
+        [0,0,5,5,0,0,0,0,0,0,0,0,5,5,5,0,0,0],
+        [0,0,5,5,0,0,0,0,0,0,0,5,5,5,0,0,0,0],
+        [0,0,0,0,0,0,0,0,5,5,0,0,5,0,0,0,0,0],
+        [5,5,0,0,0,0,0,5,5,5,5,0,0,0,0,0,0,0]
+    ];
+
+
+
+    loadImg();
+
+</script>
+</body>
+</html>
