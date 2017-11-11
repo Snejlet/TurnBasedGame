@@ -59,7 +59,8 @@ function drawMap() {
     for (var i = 0; i < mapGrid.length; i++) {
         for (var j = 0; j < mapGrid[i].length; j++) {
             //this is to highlight tiles I want to have collision on
-            /*if (mapGrid[i][j] === 5) {
+            /*
+            if (mapGrid[i][j] === 5) {
                 ctx.drawImage(graphics[1], j * 64, i * 64, 64, 64)
             }*/
             // places sprites at the starting position defined in gameActors.js
