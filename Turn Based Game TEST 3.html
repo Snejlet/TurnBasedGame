@@ -24,12 +24,14 @@
 
     <div>
         <div class="col-md" style="border:2px solid #ccc">
-            <p id="playerTurnTracker">Player One Turn:</p>
-            <p id="playerTurnNumber" class="text-danger">1</p>
+            <p id="turnNumber">Round 1</p>
+            <p id="playerTurnTracker"></p>
+            <p id="playerCharacterName" class="text-danger"></p>
         </div>
     </div>
 </div>
 
+<script src="gameTurn.js"></script>
 <script src="gameActors.js"></script>
 <script src="gameMovement.js"></script>
 <script src="gameGraphics.js"></script>
@@ -37,10 +39,9 @@
 
 <script>
 
-    // this keeps track of the player turn
-    playerTurn = 1;
-
     loadImg();
+
+    var currentActive = "";
 
 </script>
 </body>
