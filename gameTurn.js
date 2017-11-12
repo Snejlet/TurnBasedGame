@@ -22,6 +22,11 @@ var currentActive = "";
 
 function endTurn() {
 
+    // changes who is currently active in the currentlyActive variable, which is used to control sprite movement.
+    // breaks out of the loop after one pass, the turnOrderReset variable holds the position in the loop that
+    // it will start from when the End Turn button is next clicked. Every time the turnOrderReset variable value hits
+    // 8 (current number of characters being tracked), it is reset to zero and the roundNumber variable is incremented
+    // by 1 for the purpose of the UI element.
     for (var i = turnOrderReset; i < initiative.length; i++) {
         document.getElementById("playerTurnTracker").innerHTML = initiative[i].text;
         document.getElementById("playerCharacterName").innerHTML = initiative[i].name;
