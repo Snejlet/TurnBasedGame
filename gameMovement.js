@@ -1,3 +1,17 @@
+// stores the maximum movement value for the character
+var movesRemaining;
+
+// when the sprite makes a valid move, subtracts 1 from the movesRemaining var. When movesRemaining === 0, disables
+// movement.
+function calculateRemaining() {
+
+    movesRemaining--;
+    console.log("move remaining "+movesRemaining);
+    if (movesRemaining === 0) {
+        console.log("All gone");
+    }
+}
+
 // The checkCollision functions check which tile the character is on AFTER they move, and if it is a collision tile,
 // moves them back to the tile they just left (so it appears as if they haven't moved.)
 function checkCollisionUp() {
@@ -151,40 +165,48 @@ window.addEventListener("keyup", function(event) {
 // checks which player's turn it is, and moves the appropriate sprite
         //console.log(event.keyCode + "(Player 1)");
     if (currentActive === "Everard") {
-        switch (event.keyCode) {
-            case 87:
-                // checks if the player is about to move off the map. If not: allows move. if so: prevents move.
-                if (everard.xPos > 0) {
-                    everard.xPos--;
-                    checkCollisionUp();
-                    break;
-                } else {
-                    break;
-                }
-            case 83:
-                if (everard.xPos < 9) {
-                    everard.xPos++;
-                    checkCollisionDown();
-                    break;
-                } else {
-                    break;
-                }
-            case 65:
-                if (everard.yPos > 0) {
-                    everard.yPos--;
-                    checkCollisionLeft();
-                    break;
-                } else {
-                    break;
-                }
-            case 68:
-                if (everard.yPos < 17) {
-                    everard.yPos++;
-                    checkCollisionRight();
-                    break;
-                } else {
-                    break;
-                }
+        if (movesRemaining > 0) {
+            switch (event.keyCode) {
+                case 87:
+                    // checks if the player is about to move off the map. If not: allows move. if so: prevents move.
+                    if (everard.xPos > 0) {
+                        everard.xPos--;
+                        checkCollisionUp();
+                        calculateRemaining();
+                        break;
+                    } else {
+                        break;
+                    }
+                case 83:
+                    if (everard.xPos < 9) {
+                        everard.xPos++;
+                        checkCollisionDown();
+                        calculateRemaining();
+                        break;
+                    } else {
+                        break;
+                    }
+                case 65:
+                    if (everard.yPos > 0) {
+                        everard.yPos--;
+                        checkCollisionLeft();
+                        calculateRemaining();
+                        break;
+                    } else {
+                        break;
+                    }
+                case 68:
+                    if (everard.yPos < 17) {
+                        everard.yPos++;
+                        checkCollisionRight();
+                        calculateRemaining();
+                        break;
+                    } else {
+                        break;
+                    }
+            }
+        } else {
+            alert("Out of cheese error. Redo from start")
         }
     } else if (currentActive === "Stanvolm") {
         switch (event.keyCode) {

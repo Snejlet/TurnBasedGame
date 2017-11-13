@@ -28,7 +28,8 @@ function loadImg() {
     // the assets I want to load
     var graphicsToLoad = ["Assets/map577x321.png", "Assets/tileHighlight.png", "Assets/everard.png",
         "Assets/stanvolm.png", "Assets/victahana.png", "Assets/quxharne.png", "Assets/goblinWarrior.png",
-        "Assets/koboldDragonshield.png", "Assets/koboldSlinger.png", "Assets/koboldMage.png"];
+        "Assets/koboldDragonshield.png", "Assets/koboldSlinger.png", "Assets/koboldMage.png",
+        "Assets/tileHighlight.png"];
     // this will be incremented when an image is loaded, and is used to stop the for loop when all images are loaded.
     var graphicsLoaded = 0;
 

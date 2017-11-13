@@ -20,6 +20,8 @@
     <div class="col-sm-1" style="border:2px solid #ccc">
         <p>More buttons will go in here.</p>
         <button id="endTurnButton" onclick="endTurn()">End Turn</button>
+        <button id="move" onclick="moveSprite()">Move</button>
+        <button id="test" onclick="testFunction()">Test</button>
     </div>
 
     <div>
@@ -41,8 +43,33 @@
 
     loadImg();
 
+    function moveSprite() {
+
+        var ctx = document.getElementById("map").getContext("2d");
+
+        var range = everard.mv;
 
 
+        for (var i = 0; i < mapGrid.length; i++) {
+            for (var j = 0; j < mapGrid[i].length; j++) {
+                if (everard.xPos === i && everard.yPos === j) {
+                    ctx.drawImage(graphics[10], j * 64, i * 64, 64, 64);
+                    ctx.drawImage(graphics[10], (j * 64) + 64, (i * 64) + 64, 64, 64);
+                    ctx.drawImage(graphics[10], j * 64, (i * 64) + 64, 64, 64);
+                    ctx.drawImage(graphics[10], (j * 64) + 64, i * 64, 64, 64);
+                    ctx.drawImage(graphics[10], (j * 64) - 64, (i * 64) - 64, 64, 64);
+                    ctx.drawImage(graphics[10], j * 64, (i * 64) - 64, 64, 64);
+                    ctx.drawImage(graphics[10], (j * 64) - 64, i * 64, 64, 64);
+                    ctx.drawImage(graphics[10], (j * 64) - 64, (i * 64) + 64, 64, 64);
+                    ctx.drawImage(graphics[10], (j * 64) + 64, (i * 64) - 64, 64, 64);
+                    ctx.drawImage(graphics[10], j * 64, (i * 64) + (64 * 2), 64, 64);
+                    ctx.drawImage(graphics[10], j * 64, (i * 64) - (64 * 2), 64, 64);
+                    ctx.drawImage(graphics[10], (j * 64) + (64 * 2), i * 64, 64, 64);
+                    ctx.drawImage(graphics[10], (j * 64) - (64 * 2), i * 64, 64, 64);
+                }
+            }
+        }
+    }
 </script>
 </body>
 </html>

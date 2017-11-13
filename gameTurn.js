@@ -40,4 +40,10 @@ function endTurn() {
         }
         break;
     }
+
+    // check who is the currently active sprite, and set the moves remaining variable (in gameMovement.js) to be equal
+    // to their maximum movement value.
+    if (currentActive === "Everard") {
+        movesRemaining = everard.mv;
+    }
 }
