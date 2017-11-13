@@ -2,6 +2,9 @@
 //could not get it working. Got frustrated, deleted it all.
 //going to do this manually instead. Remember to ask Andrew about this annoying shit on Monday.
 
+
+
+
 var initiative = [
     {name: "Everard", speed: 8, text: "Player One:" },
     {name: "Kobold Slinger", speed: 7, text: "Player Two:"},
@@ -39,6 +42,8 @@ function endTurn() {
             document.getElementById("turnNumber").innerHTML = "Round " + roundNumber;
         }
         break;
+
+
     }
 
     // check who is the currently active sprite, and set the moves remaining variable (in gameMovement.js) to be equal

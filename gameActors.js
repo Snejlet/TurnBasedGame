@@ -1,3 +1,5 @@
+var actorArray = [];
+
 // create the Actor prototype, or class, or constructor or whatever the hell this actually is.
 function Actor(xPos, yPos, name, hp, dmg, arm, spd, mv) {
     this.xPos = xPos;
@@ -13,6 +15,8 @@ function Actor(xPos, yPos, name, hp, dmg, arm, spd, mv) {
 // create the Player1 whatever, and inherit the attributes of Actor. This will eventually be relevant.
 function Player1(xPos, yPos, name, hp, dmg, arm, spd, mv) {
     Actor.call(this, xPos, yPos, name, hp, dmg, arm, spd, mv);
+    // push each actor into the actorArray[] when they are created.
+    actorArray.push(this);
 }
 
 // create the Player2 thingy, and inherit the attributes of Actor.

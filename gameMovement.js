@@ -12,6 +12,18 @@ function calculateRemaining() {
     }
 }
 
+// REDO MOVEMENT USING THE FOLLOWING
+
+/*
+var len = arr.length
+
+for (var i = 0; i < len, i++) {
+    var actor = arr[i];
+    (if actor === currentActive) {
+    do the movement code here
+    };
+ */
+
 // The checkCollision functions check which tile the character is on AFTER they move, and if it is a collision tile,
 // moves them back to the tile they just left (so it appears as if they haven't moved.)
 function checkCollisionUp() {
