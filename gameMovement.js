@@ -1,6 +1,60 @@
 // stores the maximum movement value for the character
 var movesRemaining;
 
+// stores the length of the actorArray[]. Saves every function and check having to check that, which should aid
+// performance. Need to check if this will update when something is removed from the array at a later date.
+var actLen = actorArray.length;
+
+// The checkCollision functions check which tile the character is on AFTER they move, and if it is a collision tile,
+// moves them back to the tile they just left (so it appears as if they haven't moved.)
+function checkCollisionUp() {
+    for (var i = 0; i < actLen; i ++) {
+        if (actorArray[i].name === currentActive) {
+            // stores currently active actor
+            var active = actorArray[i];
+            // checks if the tile the actor just moved onto was marked as a 5 in the map array
+            if (mapGrid[active.xPos][active.yPos] === 5) {
+                //console.log("Move to tile " + actorArray[i].xPos + "," + actorArray[i].yPos);
+                active.xPos++;
+                //console.log("Returned to tile " + actorArray[i].xPos + "," + actorArray[i].yPos)
+            }
+        }
+    }
+}
+
+function checkCollisionDown() {
+    for (var i = 0; i < actLen; i ++) {
+        if (actorArray[i].name === currentActive) {
+            var active = actorArray[i];
+            if (mapGrid[active.xPos][active.yPos] === 5) {
+                active.xPos--;
+            }
+        }
+    }
+}
+
+function checkCollisionLeft() {
+    for (var i = 0; i < actLen; i ++) {
+        if (actorArray[i].name === currentActive) {
+            var active = actorArray[i];
+            if (mapGrid[active.xPos][active.yPos] === 5) {
+                active.yPos++;
+            }
+        }
+    }
+}
+
+function checkCollisionRight() {
+    for (var i = 0; i < actLen; i ++) {
+        if (actorArray[i].name === currentActive) {
+            var active = actorArray[i];
+            if (mapGrid[active.xPos][active.yPos] === 5) {
+                active.yPos--;
+            }
+        }
+    }
+}
+
 // when the sprite makes a valid move, subtracts 1 from the movesRemaining var. When movesRemaining === 0, disables
 // movement.
 function calculateRemaining() {
@@ -12,460 +66,93 @@ function calculateRemaining() {
     }
 }
 
-// REDO MOVEMENT USING THE FOLLOWING
+function highlightRemaining() {
+    for (var k = 0; k < actLen; k++) {
+        if (actorArray[k].name === currentActive) {
+            // stores the currently active actor (i.e. actorArray[i]
+            var active = actorArray[k];
 
-/*
-var len = arr.length
+            // sets the map context for the purpose of this function
+            var ctx = document.getElementById("map").getContext("2d");
 
-for (var i = 0; i < len, i++) {
-    var actor = arr[i];
-    (if actor === currentActive) {
-    do the movement code here
-    };
- */
-
-// The checkCollision functions check which tile the character is on AFTER they move, and if it is a collision tile,
-// moves them back to the tile they just left (so it appears as if they haven't moved.)
-function checkCollisionUp() {
-    if (currentActive === "Everard") {
-        if (mapGrid[everard.xPos][everard.yPos] === 5) {
-            console.log("Move to tile " + everard.xPos + "," + everard.yPos);
-            everard.xPos++;
-            console.log("Returned to tile " + everard.xPos + "," + everard.yPos)
-        }
-    } else if (currentActive === "Stanvolm") {
-        if (mapGrid[stanvolm.xPos][stanvolm.yPos] === 5) {
-            stanvolm.xPos++;
-        }
-    } else if (currentActive === "Victahana") {
-        if (mapGrid[victahana.xPos][victahana.yPos] === 5) {
-            victahana.xPos++;
-        }
-    } else if (currentActive === "Quxharne") {
-        if (mapGrid[quxharne.xPos][quxharne.yPos] === 5) {
-            quxharne.xPos++;
-        }
-    } else if (currentActive === "Goblin Warrior") {
-        if (mapGrid[goblinWarrior.xPos][goblinWarrior.yPos] === 5) {
-            goblinWarrior.xPos++;
-        }
-    } else if (currentActive === "Kobold Dragonshield") {
-        if (mapGrid[koboldDragonshield.xPos][koboldDragonshield.yPos] === 5) {
-            koboldDragonshield.xPos++;
-        }
-    } else if (currentActive === "Kobold Slinger") {
-        if (mapGrid[koboldSlinger.xPos][koboldSlinger.yPos] === 5) {
-            koboldSlinger.xPos++;
-        }
-    } else if (currentActive === "Kobold Mage") {
-        if (mapGrid[koboldMage.xPos][koboldMage.yPos] === 5) {
-            koboldMage.xPos++;
-        }
-    }
-}
-
-function checkCollisionDown() {
-    if (currentActive === "Everard") {
-        if (mapGrid[everard.xPos][everard.yPos] === 5) {
-            everard.xPos--;
-        }
-    } else if (currentActive === "Stanvolm") {
-        if (mapGrid[stanvolm.xPos][stanvolm.yPos] === 5) {
-            stanvolm.xPos--;
-        }
-    } else if (currentActive === "Victahana") {
-        if (mapGrid[victahana.xPos][victahana.yPos] === 5) {
-            victahana.xPos--;
-        }
-    } else if (currentActive === "Quxharne") {
-        if (mapGrid[quxharne.xPos][quxharne.yPos] === 5) {
-            quxharne.xPos--;
-        }
-    } else if (currentActive === "Goblin Warrior") {
-        if (mapGrid[goblinWarrior.xPos][goblinWarrior.yPos] === 5) {
-            goblinWarrior.xPos--;
-        }
-    } else if (currentActive === "Kobold Dragonshield") {
-        if (mapGrid[koboldDragonshield.xPos][koboldDragonshield.yPos] === 5) {
-            koboldDragonshield.xPos--;
-        }
-    } else if (currentActive === "Kobold Slinger") {
-        if (mapGrid[koboldSlinger.xPos][koboldSlinger.yPos] === 5) {
-            koboldSlinger.xPos--;
-        }
-    } else if (currentActive === "Kobold Mage") {
-        if (mapGrid[koboldMage.xPos][koboldMage.yPos] === 5) {
-            koboldMage.xPos--;
-        }
-    }
-}
-
-function checkCollisionLeft() {
-    if (currentActive === "Everard") {
-        if (mapGrid[everard.xPos][everard.yPos] === 5) {
-            everard.yPos++;
-        }
-    } else if (currentActive === "Stanvolm") {
-        if (mapGrid[stanvolm.xPos][stanvolm.yPos] === 5) {
-            stanvolm.yPos++;
-        }
-    } else if (currentActive === "Victahana") {
-        if (mapGrid[victahana.xPos][victahana.yPos] === 5) {
-            victahana.yPos++;
-        }
-    } else if (currentActive === "Quxharne") {
-        if (mapGrid[quxharne.xPos][quxharne.yPos] === 5) {
-            quxharne.yPos++;
-        }
-    } else if (currentActive === "Goblin Warrior") {
-        if (mapGrid[goblinWarrior.xPos][goblinWarrior.yPos] === 5) {
-            goblinWarrior.yPos++;
-        }
-    } else if (currentActive === "Kobold Dragonshield") {
-        if (mapGrid[koboldDragonshield.xPos][koboldDragonshield.yPos] === 5) {
-            koboldDragonshield.yPos++;
-        }
-    } else if (currentActive === "Kobold Slinger") {
-        if (mapGrid[koboldSlinger.xPos][koboldSlinger.yPos] === 5) {
-            koboldSlinger.yPos++;
-        }
-    } else if (currentActive === "Kobold Mage") {
-        if (mapGrid[koboldMage.xPos][koboldMage.yPos] === 5) {
-            koboldMage.yPos++;
-        }
-    }
-}
-
-function checkCollisionRight() {
-    if (currentActive === "Everard") {
-        if (mapGrid[everard.xPos][everard.yPos] === 5) {
-            everard.yPos--;
-        }
-    } else if (currentActive === "Stanvolm") {
-        if (mapGrid[stanvolm.xPos][stanvolm.yPos] === 5) {
-            stanvolm.yPos--;
-        }
-    } else if (currentActive === "Victahana") {
-        if (mapGrid[victahana.xPos][victahana.yPos] === 5) {
-            victahana.yPos--;
-        }
-    } else if (currentActive === "Quxharne") {
-        if (mapGrid[quxharne.xPos][quxharne.yPos] === 5) {
-            quxharne.yPos--;
-        }
-    } else if (currentActive === "Goblin Warrior") {
-        if (mapGrid[goblinWarrior.xPos][goblinWarrior.yPos] === 5) {
-            goblinWarrior.yPos--;
-        }
-    } else if (currentActive === "Kobold Dragonshield") {
-        if (mapGrid[koboldDragonshield.xPos][koboldDragonshield.yPos] === 5) {
-            koboldDragonshield.yPos--;
-        }
-    } else if (currentActive === "Kobold Slinger") {
-        if (mapGrid[koboldSlinger.xPos][koboldSlinger.yPos] === 5) {
-            koboldSlinger.yPos--;
-        }
-    } else if (currentActive === "Kobold Mage") {
-        if (mapGrid[koboldMage.xPos][koboldMage.yPos] === 5) {
-            koboldMage.yPos--;
-        }
-    }
-}
-
-// looks for a keyup event
-window.addEventListener("keyup", function(event) {
-// checks which player's turn it is, and moves the appropriate sprite
-        //console.log(event.keyCode + "(Player 1)");
-    if (currentActive === "Everard") {
-        if (movesRemaining > 0) {
-            switch (event.keyCode) {
-                case 87:
-                    // checks if the player is about to move off the map. If not: allows move. if so: prevents move.
-                    if (everard.xPos > 0) {
-                        everard.xPos--;
-                        checkCollisionUp();
-                        calculateRemaining();
-                        break;
-                    } else {
-                        break;
+            for (var i = 0; i < mapGrid.length; i++) {
+                for (var j = 0; j < mapGrid[i].length; j++) {
+                    if (active.xPos === i && active.yPos === j) {
+                        console.log("is it getting this far?");
+                        ctx.drawImage(graphics[10], j * 64, i * 64, 64, 64);
+                        ctx.drawImage(graphics[10], (j * 64) + 64, (i * 64) + 64, 64, 64);
+                        ctx.drawImage(graphics[10], j * 64, (i * 64) + 64, 64, 64);
+                        ctx.drawImage(graphics[10], (j * 64) + 64, i * 64, 64, 64);
+                        ctx.drawImage(graphics[10], (j * 64) - 64, (i * 64) - 64, 64, 64);
+                        ctx.drawImage(graphics[10], j * 64, (i * 64) - 64, 64, 64);
+                        ctx.drawImage(graphics[10], (j * 64) - 64, i * 64, 64, 64);
+                        ctx.drawImage(graphics[10], (j * 64) - 64, (i * 64) + 64, 64, 64);
+                        ctx.drawImage(graphics[10], (j * 64) + 64, (i * 64) - 64, 64, 64);
+                        ctx.drawImage(graphics[10], j * 64, (i * 64) + (64 * 2), 64, 64);
+                        ctx.drawImage(graphics[10], j * 64, (i * 64) - (64 * 2), 64, 64);
+                        ctx.drawImage(graphics[10], (j * 64) + (64 * 2), i * 64, 64, 64);
+                        ctx.drawImage(graphics[10], (j * 64) - (64 * 2), i * 64, 64, 64);
                     }
-                case 83:
-                    if (everard.xPos < 9) {
-                        everard.xPos++;
-                        checkCollisionDown();
-                        calculateRemaining();
-                        break;
-                    } else {
-                        break;
-                    }
-                case 65:
-                    if (everard.yPos > 0) {
-                        everard.yPos--;
-                        checkCollisionLeft();
-                        calculateRemaining();
-                        break;
-                    } else {
-                        break;
-                    }
-                case 68:
-                    if (everard.yPos < 17) {
-                        everard.yPos++;
-                        checkCollisionRight();
-                        calculateRemaining();
-                        break;
-                    } else {
-                        break;
-                    }
+                }
             }
-        } else {
-            alert("Out of cheese error. Redo from start")
         }
-    } else if (currentActive === "Stanvolm") {
-        switch (event.keyCode) {
-            case 87:
-                // checks if the player is about to move off the map. If not: allows move. if so: prevents move.
-                if (stanvolm.xPos > 0) {
-                    stanvolm.xPos--;
-                    checkCollisionUp();
-                    break;
-                } else {
-                    break;
+    }
+}
+
+// listens for a key up event.
+window.addEventListener("keyup", function(event) {
+    for (var i = 0; i < actLen; i++) {
+        // compares actorArray[i].name to the currentActive variable, and then moves the relevant sprite based on
+        // the key up event.
+        if (actorArray[i].name === currentActive) {
+            // stores the currently active actor
+            var active = actorArray[i];
+            //stops the sprite from moving when movesRemaining == 0. Need to update some kind of feedback for the
+            // player eventually.
+            if (movesRemaining > 0) {
+                switch (event.keyCode) {
+                    case 87:
+                        //checks if the player is about to move off of the map, and prevents the movement if so.
+                        if (active.xPos > 0) {
+                            active.xPos--;
+                            checkCollisionUp();
+                            calculateRemaining();
+                            highlightRemaining();
+                            break;
+                        } else {
+                            break;
+                        }
+                    case 83:
+                        if (active.xPos < 9) {
+                            active.xPos++;
+                            checkCollisionDown();
+                            calculateRemaining();
+                            break;
+                        } else {
+                            break;
+                        }
+                    case 65:
+                        if (active.yPos > 0) {
+                            active.yPos--;
+                            checkCollisionLeft();
+                            calculateRemaining();
+                            break;
+                        } else {
+                            break;
+                        }
+                    case 68:
+                        if (active.yPos < 17) {
+                            active.yPos++;
+                            checkCollisionRight();
+                            calculateRemaining();
+                            break;
+                        } else {
+                            break;
+                        }
                 }
-            case 83:
-                if (stanvolm.xPos < 9) {
-                    stanvolm.xPos++;
-                    checkCollisionDown();
-                    break;
-                } else {
-                    break;
-                }
-            case 65:
-                if (stanvolm.yPos > 0) {
-                    stanvolm.yPos--;
-                    checkCollisionLeft();
-                    break;
-                } else {
-                    break;
-                }
-            case 68:
-                if (stanvolm.yPos < 17) {
-                    stanvolm.yPos++;
-                    checkCollisionRight();
-                    break;
-                } else {
-                    break;
-                }
-        }
-    } else if (currentActive === "Victahana") {
-        switch (event.keyCode) {
-            case 87:
-                // checks if the player is about to move off the map. If not: allows move. if so: prevents move.
-                if (victahana.xPos > 0) {
-                    victahana.xPos--;
-                    checkCollisionUp();
-                    break;
-                } else {
-                    break;
-                }
-            case 83:
-                if (victahana.xPos < 9) {
-                    victahana.xPos++;
-                    checkCollisionDown();
-                    break;
-                } else {
-                    break;
-                }
-            case 65:
-                if (victahana.yPos > 0) {
-                    victahana.yPos--;
-                    checkCollisionLeft();
-                    break;
-                } else {
-                    break;
-                }
-            case 68:
-                if (victahana.yPos < 17) {
-                    victahana.yPos++;
-                    checkCollisionRight();
-                    break;
-                } else {
-                    break;
-                }
-        }
-    } else if (currentActive === "Quxharne") {
-        switch(event.keyCode) {
-            case 87:
-                if (quxharne.xPos > 0) {
-                    quxharne.xPos--;
-                    checkCollisionUp();
-                    break;
-                } else {
-                    break;
-                }
-            case 83:
-                if (quxharne.xPos < 9) {
-                    quxharne.xPos++;
-                    checkCollisionDown();
-                    break;
-                } else {
-                    break;
-                }
-            case 65:
-                if (quxharne.yPos > 0) {
-                    quxharne.yPos--;
-                    checkCollisionLeft();
-                    break;
-                } else {
-                    break;
-                }
-            case 68:
-                if (quxharne.yPos < 17) {
-                    quxharne.yPos++;
-                    checkCollisionRight();
-                    break;
-                } else {
-                    break;
-                }
-        }
-    } else if (currentActive === "Goblin Warrior") {
-        switch(event.keyCode) {
-            case 87:
-                if (goblinWarrior.xPos > 0) {
-                    goblinWarrior.xPos--;
-                    checkCollisionUp();
-                    break;
-                } else {
-                    break;
-                }
-            case 83:
-                if (goblinWarrior.xPos < 9) {
-                    goblinWarrior.xPos++;
-                    checkCollisionDown();
-                    break;
-                } else {
-                    break;
-                }
-            case 65:
-                if (goblinWarrior.yPos > 0) {
-                    goblinWarrior.yPos--;
-                    checkCollisionLeft();
-                    break;
-                } else {
-                    break;
-                }
-            case 68:
-                if (goblinWarrior.yPos < 17) {
-                    goblinWarrior.yPos++;
-                    checkCollisionRight();
-                    break;
-                } else {
-                    break;
-                }
-        }
-    } else if (currentActive === "Kobold Dragonshield") {
-        switch(event.keyCode) {
-            case 87:
-                if (koboldDragonshield.xPos > 0) {
-                    koboldDragonshield.xPos--;
-                    checkCollisionUp();
-                    break;
-                } else {
-                    break;
-                }
-            case 83:
-                if (koboldDragonshield.xPos < 9) {
-                    koboldDragonshield.xPos++;
-                    checkCollisionDown();
-                    break;
-                } else {
-                    break;
-                }
-            case 65:
-                if (koboldDragonshield.yPos > 0) {
-                    koboldDragonshield.yPos--;
-                    checkCollisionLeft();
-                    break;
-                } else {
-                    break;
-                }
-            case 68:
-                if (koboldDragonshield.yPos < 17) {
-                    koboldDragonshield.yPos++;
-                    checkCollisionRight();
-                    break;
-                } else {
-                    break;
-                }
-        }
-    } else if (currentActive === "Kobold Slinger") {
-        switch(event.keyCode) {
-            case 87:
-                if (koboldSlinger.xPos > 0) {
-                    koboldSlinger.xPos--;
-                    checkCollisionUp();
-                    break;
-                } else {
-                    break;
-                }
-            case 83:
-                if (koboldSlinger.xPos < 9) {
-                    koboldSlinger.xPos++;
-                    checkCollisionDown();
-                    break;
-                } else {
-                    break;
-                }
-            case 65:
-                if (koboldSlinger.yPos > 0) {
-                    koboldSlinger.yPos--;
-                    checkCollisionLeft();
-                    break;
-                } else {
-                    break;
-                }
-            case 68:
-                if (koboldSlinger.yPos < 17) {
-                    koboldSlinger.yPos++;
-                    checkCollisionRight();
-                    break;
-                } else {
-                    break;
-                }
-        }
-    } else if (currentActive === "Kobold Mage") {
-        switch(event.keyCode) {
-            case 87:
-                if (koboldMage.xPos > 0) {
-                    koboldMage.xPos--;
-                    checkCollisionUp();
-                    break;
-                } else {
-                    break;
-                }
-            case 83:
-                if (koboldMage.xPos < 9) {
-                    koboldMage.xPos++;
-                    checkCollisionDown();
-                    break;
-                } else {
-                    break;
-                }
-            case 65:
-                if (koboldMage.yPos > 0) {
-                    koboldMage.yPos--;
-                    checkCollisionLeft();
-                    break;
-                } else {
-                    break;
-                }
-            case 68:
-                if (koboldMage.yPos < 17) {
-                    koboldMage.yPos++;
-                    checkCollisionRight();
-                    break;
-                } else {
-                    break;
-                }
+            } else {
+                alert("++Out of cheese error++Please reboot universe++Redo from start++");
+            }
         }
     }
     drawMap()
