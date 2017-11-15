@@ -12,4 +12,7 @@ Figure out how to get the round number to increment at the start of the first ac
 Add in literally all of the abilities for characters.
     -figure out all of the abilities for characters.
 
+Remove a line of pixels from the top and left side of the tile highlight. Replace with transparent pixels (so it fits
+    properly within the tile outlines).
+
 Add in a "Spawn far too many kobolds!" button. V. IMPORTANT
