@@ -16,6 +16,7 @@ function checkCollisionUp() {
             if (mapGrid[active.xPos][active.yPos] === 5) {
                 //console.log("Move to tile " + actorArray[i].xPos + "," + actorArray[i].yPos);
                 active.xPos++;
+                movesRemaining++;
                 //console.log("Returned to tile " + actorArray[i].xPos + "," + actorArray[i].yPos)
             }
         }
@@ -28,6 +29,7 @@ function checkCollisionDown() {
             var active = actorArray[i];
             if (mapGrid[active.xPos][active.yPos] === 5) {
                 active.xPos--;
+                movesRemaining++;
             }
         }
     }
@@ -39,6 +41,7 @@ function checkCollisionLeft() {
             var active = actorArray[i];
             if (mapGrid[active.xPos][active.yPos] === 5) {
                 active.yPos++;
+                movesRemaining++;
             }
         }
     }
@@ -50,19 +53,9 @@ function checkCollisionRight() {
             var active = actorArray[i];
             if (mapGrid[active.xPos][active.yPos] === 5) {
                 active.yPos--;
+                movesRemaining++;
             }
         }
-    }
-}
-
-// when the sprite makes a valid move, subtracts 1 from the movesRemaining var. When movesRemaining === 0, disables
-// movement.
-function calculateRemaining() {
-
-    movesRemaining--;
-    console.log("move remaining "+movesRemaining);
-    if (movesRemaining === 0) {
-        console.log("All gone");
     }
 }
 
@@ -72,31 +65,68 @@ function highlightRemaining() {
             // stores the currently active actor (i.e. actorArray[i]
             var active = actorArray[k];
 
+            var j = active.yPos;
+            var i = active.xPos;
+
+            var threeonej = j * 64;
+            var threeonei = (i * 64) + (64 * 3);
             // sets the map context for the purpose of this function
             var ctx = document.getElementById("map").getContext("2d");
 
-            for (var i = 0; i < mapGrid.length; i++) {
-                for (var j = 0; j < mapGrid[i].length; j++) {
-                    if (active.xPos === i && active.yPos === j) {
-                        console.log("is it getting this far?");
-                        ctx.drawImage(graphics[10], j * 64, i * 64, 64, 64);
-                        ctx.drawImage(graphics[10], (j * 64) + 64, (i * 64) + 64, 64, 64);
-                        ctx.drawImage(graphics[10], j * 64, (i * 64) + 64, 64, 64);
-                        ctx.drawImage(graphics[10], (j * 64) + 64, i * 64, 64, 64);
-                        ctx.drawImage(graphics[10], (j * 64) - 64, (i * 64) - 64, 64, 64);
-                        ctx.drawImage(graphics[10], j * 64, (i * 64) - 64, 64, 64);
-                        ctx.drawImage(graphics[10], (j * 64) - 64, i * 64, 64, 64);
-                        ctx.drawImage(graphics[10], (j * 64) - 64, (i * 64) + 64, 64, 64);
-                        ctx.drawImage(graphics[10], (j * 64) + 64, (i * 64) - 64, 64, 64);
-                        ctx.drawImage(graphics[10], j * 64, (i * 64) + (64 * 2), 64, 64);
-                        ctx.drawImage(graphics[10], j * 64, (i * 64) - (64 * 2), 64, 64);
-                        ctx.drawImage(graphics[10], (j * 64) + (64 * 2), i * 64, 64, 64);
-                        ctx.drawImage(graphics[10], (j * 64) - (64 * 2), i * 64, 64, 64);
-                    }
+            if (movesRemaining === 3) {
+                ctx.drawImage(graphics[10], threeonej, threeonei, 64, 64);
+                ctx.drawImage(graphics[10], j * 64, (i * 64) - (64 * 3), 64, 64);
+                ctx.drawImage(graphics[10], (j * 64) + (64 * 3), i * 64, 64, 64);
+                ctx.drawImage(graphics[10], (j * 64) - (64 * 3), i * 64, 64, 64);
+                ctx.drawImage(graphics[10], (j * 64) + 64, (i * 64) + (64 * 2), 64, 64);
+                ctx.drawImage(graphics[10], (j * 64) + (64 * 2), (i * 64) + 64, 64, 64);
+                ctx.drawImage(graphics[10], (j * 64) - 64, (i * 64) + ( 64 * 2), 64, 64);
+                ctx.drawImage(graphics[10], (j * 64) - (64 * 2), (i * 64) + 64, 64, 64);
+                ctx.drawImage(graphics[10], (j * 64) - (64 * 2), (i * 64) - 64, 64, 64);
+                ctx.drawImage(graphics[10], (j * 64) - 64, (i * 64) - (64 * 2), 64, 64);
+                ctx.drawImage(graphics[10], (j * 64) + 64, (i * 64) - (64 * 2), 64, 64);
+                ctx.drawImage(graphics[10], (j * 64) + (64 * 2), (i * 64) - 64, 64, 64);
+
+                ctx.drawImage(graphics[10], (j * 64) - 64, (i * 64) + 64, 64, 64);
+                ctx.drawImage(graphics[10], (j * 64) + 64, (i * 64) - 64, 64, 64);
+                ctx.drawImage(graphics[10], j * 64, (i * 64) + (64 * 2), 64, 64);
+                ctx.drawImage(graphics[10], j * 64, (i * 64) - (64 * 2), 64, 64);
+                ctx.drawImage(graphics[10], (j * 64) + (64 * 2), i * 64, 64, 64);
+                ctx.drawImage(graphics[10], (j * 64) - (64 * 2), i * 64, 64, 64);
+                ctx.drawImage(graphics[10], (j * 64) + 64, (i * 64) + 64, 64, 64);
+                ctx.drawImage(graphics[10], (j * 64) - 64, (i * 64) - 64, 64, 64);
+
+                ctx.drawImage(graphics[10], j * 64, i * 64, 64, 64);
+                ctx.drawImage(graphics[10], j * 64, (i * 64) + 64, 64, 64);
+                ctx.drawImage(graphics[10], (j * 64) + 64, i * 64, 64, 64);
+                ctx.drawImage(graphics[10], j * 64, (i * 64) - 64, 64, 64);
+                ctx.drawImage(graphics[10], (j * 64) - 64, i * 64, 64, 64);
+            } else if (movesRemaining === 2) {
+                ctx.drawImage(graphics[10], (j * 64) - 64, (i * 64) + 64, 64, 64);
+                ctx.drawImage(graphics[10], (j * 64) + 64, (i * 64) - 64, 64, 64);
+                ctx.drawImage(graphics[10], j * 64, (i * 64) + (64 * 2), 64, 64);
+                ctx.drawImage(graphics[10], j * 64, (i * 64) - (64 * 2), 64, 64);
+                ctx.drawImage(graphics[10], (j * 64) + (64 * 2), i * 64, 64, 64);
+                ctx.drawImage(graphics[10], (j * 64) - (64 * 2), i * 64, 64, 64);
+                ctx.drawImage(graphics[10], (j * 64) + 64, (i * 64) + 64, 64, 64);
+                ctx.drawImage(graphics[10], (j * 64) - 64, (i * 64) - 64, 64, 64);
+
+                ctx.drawImage(graphics[10], j * 64, i * 64, 64, 64);
+                ctx.drawImage(graphics[10], j * 64, (i * 64) + 64, 64, 64);
+                ctx.drawImage(graphics[10], (j * 64) + 64, i * 64, 64, 64);
+                ctx.drawImage(graphics[10], j * 64, (i * 64) - 64, 64, 64);
+                ctx.drawImage(graphics[10], (j * 64) - 64, i * 64, 64, 64);
+            } else if (movesRemaining === 1) {
+                ctx.drawImage(graphics[10], j * 64, i * 64, 64, 64);
+                ctx.drawImage(graphics[10], j * 64, (i * 64) + 64, 64, 64);
+                ctx.drawImage(graphics[10], (j * 64) + 64, i * 64, 64, 64);
+                ctx.drawImage(graphics[10], j * 64, (i * 64) - 64, 64, 64);
+                ctx.drawImage(graphics[10], (j * 64) - 64, i * 64, 64, 64);
+            } else {
+                drawMap();
+            }
                 }
             }
-        }
-    }
 }
 
 // listens for a key up event.
@@ -116,7 +146,8 @@ window.addEventListener("keyup", function(event) {
                         if (active.xPos > 0) {
                             active.xPos--;
                             checkCollisionUp();
-                            calculateRemaining();
+                            movesRemaining--;
+                            drawMap();
                             highlightRemaining();
                             break;
                         } else {
@@ -126,7 +157,9 @@ window.addEventListener("keyup", function(event) {
                         if (active.xPos < 9) {
                             active.xPos++;
                             checkCollisionDown();
-                            calculateRemaining();
+                            movesRemaining--;
+                            drawMap();
+                            highlightRemaining();
                             break;
                         } else {
                             break;
@@ -135,7 +168,9 @@ window.addEventListener("keyup", function(event) {
                         if (active.yPos > 0) {
                             active.yPos--;
                             checkCollisionLeft();
-                            calculateRemaining();
+                            movesRemaining--;
+                            drawMap();
+                            highlightRemaining();
                             break;
                         } else {
                             break;
@@ -144,7 +179,9 @@ window.addEventListener("keyup", function(event) {
                         if (active.yPos < 17) {
                             active.yPos++;
                             checkCollisionRight();
-                            calculateRemaining();
+                            movesRemaining--;
+                            drawMap();
+                            highlightRemaining();
                             break;
                         } else {
                             break;
@@ -155,5 +192,4 @@ window.addEventListener("keyup", function(event) {
             }
         }
     }
-    drawMap()
 });

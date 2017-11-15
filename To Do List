@@ -1,0 +1,15 @@
+Stop the tileHighlights from appearing on collision tiles, and tiles which contain other objects they should not be
+    able to pass through (e.g. other actors).
+    -poss. loop through mapGrid[] and check value of position in array, and have it not draw if it is position 5.
+    -not sure about other actors. Poss. a second for loop within the first, but that seems like it would be really
+        inefficient.
+
+Figure out how to get the round number to increment at the start of the first actor's turn in the new round, not
+    at the start of the last actor's turn in the previous round (which is the current case).
+        -poss. trigger a loop to start when the turnOrderReset value is reset to 0, and have the loop end at the start
+        of the next round which causes the round number to increment then.
+
+Add in literally all of the abilities for characters.
+    -figure out all of the abilities for characters.
+
+Add in a "Spawn far too many kobolds!" button. V. IMPORTANT

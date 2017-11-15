@@ -20,21 +20,21 @@
     <div class="col-sm-1" style="border:2px solid #ccc">
         <p>More buttons will go in here.</p>
         <button id="endTurnButton" onclick="endTurn()">End Turn</button>
-        <button id="move" onclick="moveSprite()">Move</button>
+        <button id="resetMove" onclick ="resetMove()">Undo Move</button>
         <button id="test" onclick="testFunction()">Test</button>
     </div>
 
     <div>
         <div class="col-md" style="border:2px solid #ccc">
             <p id="turnNumber">Round 1</p>
-            <p id="playerTurnTracker"></p>
+            <p id="playerTurnTracker" class="text-success"></p>
             <p id="playerCharacterName" class="text-danger"></p>
         </div>
     </div>
 </div>
 
-<script src="gameTurn.js"></script>
 <script src="gameActors.js"></script>
+<script src="gameTurn.js"></script>
 <script src="gameMovement.js"></script>
 <script src="gameGraphics.js"></script>
 
@@ -42,34 +42,6 @@
 <script>
 
     loadImg();
-
-    function moveSprite() {
-
-        var ctx = document.getElementById("map").getContext("2d");
-
-        var range = everard.mv;
-
-
-        for (var i = 0; i < mapGrid.length; i++) {
-            for (var j = 0; j < mapGrid[i].length; j++) {
-                if (everard.xPos === i && everard.yPos === j) {
-                    ctx.drawImage(graphics[10], j * 64, i * 64, 64, 64);
-                    ctx.drawImage(graphics[10], (j * 64) + 64, (i * 64) + 64, 64, 64);
-                    ctx.drawImage(graphics[10], j * 64, (i * 64) + 64, 64, 64);
-                    ctx.drawImage(graphics[10], (j * 64) + 64, i * 64, 64, 64);
-                    ctx.drawImage(graphics[10], (j * 64) - 64, (i * 64) - 64, 64, 64);
-                    ctx.drawImage(graphics[10], j * 64, (i * 64) - 64, 64, 64);
-                    ctx.drawImage(graphics[10], (j * 64) - 64, i * 64, 64, 64);
-                    ctx.drawImage(graphics[10], (j * 64) - 64, (i * 64) + 64, 64, 64);
-                    ctx.drawImage(graphics[10], (j * 64) + 64, (i * 64) - 64, 64, 64);
-                    ctx.drawImage(graphics[10], j * 64, (i * 64) + (64 * 2), 64, 64);
-                    ctx.drawImage(graphics[10], j * 64, (i * 64) - (64 * 2), 64, 64);
-                    ctx.drawImage(graphics[10], (j * 64) + (64 * 2), i * 64, 64, 64);
-                    ctx.drawImage(graphics[10], (j * 64) - (64 * 2), i * 64, 64, 64);
-                }
-            }
-        }
-    }
 
     function testFunction() {
         /*

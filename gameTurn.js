@@ -1,54 +1,66 @@
-//tried many, many things to get the bloody sort function working using attributes from the Actors.
-//could not get it working. Got frustrated, deleted it all.
-//going to do this manually instead. Remember to ask Andrew about this annoying shit on Monday.
-
-
-
-
-var initiative = [
-    {name: "Everard", speed: 8, text: "Player One:" },
-    {name: "Kobold Slinger", speed: 7, text: "Player Two:"},
-    {name: "Kobold Dragonshield", speed: 6, text: "Player Two:"},
-    {name: "Goblin Warrior", speed: 5, text: "Player Two:"},
-    {name: "Stanvolm", speed: 4, text: "Player One:"},
-    {name: "Kobold Mage", speed: 3, text: "Player Two:"},
-    {name: "Victahana", speed: 2, text: "Player One:"},
-    {name: "Quxharne", speed: 1, text: "Player One:"}
-];
-
+// stores the array of actors, sorted by speed.
+var initiative = [];
+//stores the length of the actorArray[]
+var len = actorArray.length;
 // used to reset the turn order to the first value in the initiative array
 var turnOrderReset = 0;
+// tracks the current round number
 var roundNumber = 1;
-
 // keeps track of who is currently active for the purpose of moving the correct sprite.
 var currentActive = "";
+// stores the remaining movement points an actor has this turn.
+var movesRemaining;
+// stores the currently active actor object for use in the endTurn() and resetMove()
+var active;
+
+// adds the actors from actorArray and sorts them based on initiative.
+for (var i = 0; i < len; i++){
+    initiative[i] = actorArray[i];
+}
+
+// variables to store the starting X and Y co-ordinates of the actor, for use in the resetMove()
+var xStartPos;
+var yStartPos;
 
 function endTurn() {
 
-    // changes who is currently active in the currentlyActive variable, which is used to control sprite movement.
-    // breaks out of the loop after one pass, the turnOrderReset variable holds the position in the loop that
-    // it will start from when the End Turn button is next clicked. Every time the turnOrderReset variable value hits
-    // 8 (current number of characters being tracked), it is reset to zero and the roundNumber variable is incremented
-    // by 1 for the purpose of the UI element.
-    for (var i = turnOrderReset; i < initiative.length; i++) {
-        document.getElementById("playerTurnTracker").innerHTML = initiative[i].text;
-        document.getElementById("playerCharacterName").innerHTML = initiative[i].name;
-        currentActive = initiative[i].name;
+    // clears any lingering tileHighlight's from unspent movement points from the previous actor.
+    drawMap();
+
+    // sorts the initiative array in descending order (i.e. highest speed to lowest speed).
+    initiative.sort(function(a, b){
+        return b.spd - a.spd;
+    });
+
+    // loops through the initiative
+    for (var i = turnOrderReset; i < len; i++) {
+        active = initiative[i];
+        xStartPos = active.xPos;
+        yStartPos = active.yPos;
+        console.log(active.spd);
+        document.getElementById("playerTurnTracker").innerHTML = active.player;
+        document.getElementById("playerCharacterName").innerHTML = active.name;
+        currentActive = active.name;
         turnOrderReset++;
-        console.log(currentActive);
-        if (turnOrderReset === 8) {
+        movesRemaining = active.mv;
+        console.log(active.name);
+        if (turnOrderReset === len) {
             turnOrderReset = 0;
             roundNumber++;
             document.getElementById("turnNumber").innerHTML = "Round " + roundNumber;
         }
         break;
-
-
     }
 
-    // check who is the currently active sprite, and set the moves remaining variable (in gameMovement.js) to be equal
-    // to their maximum movement value.
-    if (currentActive === "Everard") {
-        movesRemaining = everard.mv;
-    }
+    // highlights the maximum remaining moves the actor can make this turn.
+    highlightRemaining();
+}
+
+function resetMove() {
+
+    movesRemaining = active.mv;
+    active.xPos = xStartPos;
+    active.yPos = yStartPos;
+    drawMap();
+    highlightRemaining();
 }
