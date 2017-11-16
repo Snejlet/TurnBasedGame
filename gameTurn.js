@@ -18,32 +18,33 @@ for (var i = 0; i < len; i++){
     initiative[i] = actorArray[i];
 }
 
+// sorts the initiative array in descending order (i.e. highest speed to lowest speed).
+initiative.sort(function(a, b){
+    return b.spd - a.spd;
+});
+
 // variables to store the starting X and Y co-ordinates of the actor, for use in the resetMove()
 var xStartPos;
 var yStartPos;
 
 function endTurn() {
-
     // clears any lingering tileHighlight's from unspent movement points from the previous actor.
     drawMap();
 
-    // sorts the initiative array in descending order (i.e. highest speed to lowest speed).
-    initiative.sort(function(a, b){
-        return b.spd - a.spd;
-    });
-
     // loops through the initiative
     for (var i = turnOrderReset; i < len; i++) {
+        console.log(actPosX[i]+" "+actPosY[i]);
         active = initiative[i];
         xStartPos = active.xPos;
         yStartPos = active.yPos;
         console.log(active.spd);
-        document.getElementById("playerTurnTracker").innerHTML = active.player;
-        document.getElementById("playerCharacterName").innerHTML = active.name;
         currentActive = active.name;
         turnOrderReset++;
-        movesRemaining = active.mv;
+        movesRemaining = active.tu;
         console.log(active.name);
+        document.getElementById("playerTurnTracker").innerHTML = active.player;
+        document.getElementById("playerCharacterName").innerHTML = active.name;
+        document.getElementById("uiMovesRemaining").innerHTML = "Turn Units: "+movesRemaining+"/"+active.tu;
         if (turnOrderReset === len) {
             turnOrderReset = 0;
             roundNumber++;
@@ -58,7 +59,7 @@ function endTurn() {
 
 function resetMove() {
 
-    movesRemaining = active.mv;
+    movesRemaining = active.tu;
     active.xPos = xStartPos;
     active.yPos = yStartPos;
     drawMap();

@@ -5,6 +5,23 @@ var movesRemaining;
 // performance. Need to check if this will update when something is removed from the array at a later date.
 var actLen = actorArray.length;
 
+// arrays to store the positions of all of the actors on the map for the purpose of collision
+var actPosX = [];
+var actPosY = [];
+var actName = [];
+
+// variables to store the length of the above arrays. Saves on loops through the array.
+var actPosXLen = actPosX.length;
+var actPosYLen = actPosY.length;
+
+// loops through the actorArray and adds the X and Y co-ordinates to the relevant arrays above (i.e. actPosX[] and
+// actPosY[]) on load in order to provide collision based on starting position.
+for (var i = 0; i < actLen; i++) {
+    actPosX[i] = initiative[i].xPos;
+    actPosY[i] = initiative[i].yPos;
+    actName[i] = initiative[i].name;
+}
+
 // The checkCollision functions check which tile the character is on AFTER they move, and if it is a collision tile,
 // moves them back to the tile they just left (so it appears as if they haven't moved.)
 function checkCollisionUp() {
@@ -20,6 +37,12 @@ function checkCollisionUp() {
                 //console.log("Returned to tile " + actorArray[i].xPos + "," + actorArray[i].yPos)
             }
         }
+        /*
+        if (active.xPos === actPosX[i] && active.yPos === actPosY[i] && active.name !== actName[i]) {
+            active.xPos++;
+            movesRemaining++;
+        }
+        */
     }
 }
 
@@ -32,6 +55,13 @@ function checkCollisionDown() {
                 movesRemaining++;
             }
         }
+        /*
+        if (active.xPos === actPosX[i] && active.yPos === actPosY[i] && active.name !== actName[i]) {
+
+            active.xPos--;
+            movesRemaining++;
+        }
+        */
     }
 }
 
@@ -44,6 +74,12 @@ function checkCollisionLeft() {
                 movesRemaining++;
             }
         }
+        /*
+        if (active.xPos === actPosX[i] && active.yPos === actPosY[i] && active.name !== actName[i]) {
+            active.yPos++;
+            movesRemaining++;
+        }
+        */
     }
 }
 
@@ -56,6 +92,12 @@ function checkCollisionRight() {
                 movesRemaining++;
             }
         }
+        /*
+        if (active.xPos === actPosX[i] && active.yPos === actPosY[i] && active.name !== actName[i]) {
+            active.yPos--;
+            movesRemaining++;
+        }
+        */
     }
 }
 
@@ -68,13 +110,122 @@ function highlightRemaining() {
             var j = active.yPos;
             var i = active.xPos;
 
-            var threeonej = j * 64;
-            var threeonei = (i * 64) + (64 * 3);
             // sets the map context for the purpose of this function
             var ctx = document.getElementById("map").getContext("2d");
 
-            if (movesRemaining === 3) {
-                ctx.drawImage(graphics[10], threeonej, threeonei, 64, 64);
+            if (movesRemaining === 5) {
+                ctx.drawImage(graphics[10], j * 64, (i * 64) - (64 * 5), 64, 64);
+                ctx.drawImage(graphics[10], (j * 64) + 64, (i * 64) - (64 * 4), 64, 64);
+                ctx.drawImage(graphics[10], (j * 64) + (64 * 2), (i * 64) - (64 * 3), 64, 64);
+                ctx.drawImage(graphics[10], (j * 64) + (64 * 3), (i * 64) - (64 * 2), 64, 64);
+                ctx.drawImage(graphics[10], (j * 64) + (64 * 4), (i * 64) - 64, 64, 64);
+                ctx.drawImage(graphics[10], (j * 64) + (64 * 5), i * 64, 64, 64);
+                ctx.drawImage(graphics[10], (j * 64) + (64 * 4), (i * 64) + 64, 64, 64);
+                ctx.drawImage(graphics[10], (j * 64) + (64 * 3), (i * 64) + (64 * 2), 64, 64);
+                ctx.drawImage(graphics[10], (j * 64) + (64 * 2), (i * 64) + (64 * 3), 64, 64);
+                ctx.drawImage(graphics[10], (j * 64) + 64, (i * 64) + (64 * 4), 64, 64);
+                ctx.drawImage(graphics[10], j * 64, (i * 64) + (64 * 5), 64, 64);
+                ctx.drawImage(graphics[10], (j * 64) - 64, (i * 64) - (64 * 4), 64, 64);
+                ctx.drawImage(graphics[10], (j * 64) - (64 * 2), (i * 64) - (64 * 3), 64, 64);
+                ctx.drawImage(graphics[10], (j * 64) - (64 * 3), (i * 64) - (64 * 2), 64, 64);
+                ctx.drawImage(graphics[10], (j * 64) - (64 * 4), (i * 64) - 64, 64, 64);
+                ctx.drawImage(graphics[10], (j * 64) - (64 * 5), i * 64, 64, 64);
+                ctx.drawImage(graphics[10], (j * 64) - (64 * 4), (i * 64) + 64, 64, 64);
+                ctx.drawImage(graphics[10], (j * 64) - (64 * 3), (i * 64) + (64 * 2), 64, 64);
+                ctx.drawImage(graphics[10], (j * 64) - (64 * 2), (i * 64) + (64 * 3), 64, 64);
+                ctx.drawImage(graphics[10], (j * 64) - 64, (i * 64) + (64 * 4), 64, 64);
+
+                ctx.drawImage(graphics[10], j * 64, (i * 64) + (64 * 4), 64, 64);
+                ctx.drawImage(graphics[10], (j * 64) + (64 * 4), i * 64, 64, 64);
+                ctx.drawImage(graphics[10], j * 64, (i * 64) - (64 * 4), 64, 64);
+                ctx.drawImage(graphics[10], (j * 64) - (64 * 4), i * 64, 64, 64);
+                ctx.drawImage(graphics[10], (j * 64) + 64, (i * 64) + (64 * 3), 64, 64);
+                ctx.drawImage(graphics[10], (j * 64) + (64 * 2), (i * 64) + (64 * 2), 64, 64);
+                ctx.drawImage(graphics[10], (j * 64) + (64 * 3), (i * 64) + 64, 64, 64);
+                ctx.drawImage(graphics[10], (j * 64) - 64, (i * 64) + (64 * 3), 64, 64);
+                ctx.drawImage(graphics[10], (j * 64) - (64 * 2), (i * 64) + (64 * 2), 64, 64);
+                ctx.drawImage(graphics[10], (j * 64) - (64 * 3), (i * 64) + 64, 64, 64);
+                ctx.drawImage(graphics[10], (j * 64) - (64 * 3), (i * 64) - 64, 64, 64);
+                ctx.drawImage(graphics[10], (j * 64) - (64 * 2), (i * 64) - (64 * 2), 64, 64);
+                ctx.drawImage(graphics[10], (j * 64) - 64, (i * 64) - (64 * 3), 64, 64);
+                ctx.drawImage(graphics[10], (j * 64) + 64, (i * 64) - (64 * 3), 64, 64);
+                ctx.drawImage(graphics[10], (j * 64) + (64 * 2), (i * 64) - (64 * 2), 64, 64);
+                ctx.drawImage(graphics[10], (j * 64) + (64 * 3), (i * 64) - 64, 64, 64);
+
+                ctx.drawImage(graphics[10], j * 64, (i * 64) + (64 * 3), 64, 64);
+                ctx.drawImage(graphics[10], j * 64, (i * 64) - (64 * 3), 64, 64);
+                ctx.drawImage(graphics[10], (j * 64) + (64 * 3), i * 64, 64, 64);
+                ctx.drawImage(graphics[10], (j * 64) - (64 * 3), i * 64, 64, 64);
+                ctx.drawImage(graphics[10], (j * 64) + 64, (i * 64) + (64 * 2), 64, 64);
+                ctx.drawImage(graphics[10], (j * 64) + (64 * 2), (i * 64) + 64, 64, 64);
+                ctx.drawImage(graphics[10], (j * 64) - 64, (i * 64) + ( 64 * 2), 64, 64);
+                ctx.drawImage(graphics[10], (j * 64) - (64 * 2), (i * 64) + 64, 64, 64);
+                ctx.drawImage(graphics[10], (j * 64) - (64 * 2), (i * 64) - 64, 64, 64);
+                ctx.drawImage(graphics[10], (j * 64) - 64, (i * 64) - (64 * 2), 64, 64);
+                ctx.drawImage(graphics[10], (j * 64) + 64, (i * 64) - (64 * 2), 64, 64);
+                ctx.drawImage(graphics[10], (j * 64) + (64 * 2), (i * 64) - 64, 64, 64);
+
+                ctx.drawImage(graphics[10], (j * 64) - 64, (i * 64) + 64, 64, 64);
+                ctx.drawImage(graphics[10], (j * 64) + 64, (i * 64) - 64, 64, 64);
+                ctx.drawImage(graphics[10], j * 64, (i * 64) + (64 * 2), 64, 64);
+                ctx.drawImage(graphics[10], j * 64, (i * 64) - (64 * 2), 64, 64);
+                ctx.drawImage(graphics[10], (j * 64) + (64 * 2), i * 64, 64, 64);
+                ctx.drawImage(graphics[10], (j * 64) - (64 * 2), i * 64, 64, 64);
+                ctx.drawImage(graphics[10], (j * 64) + 64, (i * 64) + 64, 64, 64);
+                ctx.drawImage(graphics[10], (j * 64) - 64, (i * 64) - 64, 64, 64);
+
+                ctx.drawImage(graphics[10], j * 64, i * 64, 64, 64);
+                ctx.drawImage(graphics[10], j * 64, (i * 64) + 64, 64, 64);
+                ctx.drawImage(graphics[10], (j * 64) + 64, i * 64, 64, 64);
+                ctx.drawImage(graphics[10], j * 64, (i * 64) - 64, 64, 64);
+                ctx.drawImage(graphics[10], (j * 64) - 64, i * 64, 64, 64);
+            } else if (movesRemaining === 4) {
+                ctx.drawImage(graphics[10], j * 64, (i * 64) + (64 * 4), 64, 64);
+                ctx.drawImage(graphics[10], (j * 64) + (64 * 4), i * 64, 64, 64);
+                ctx.drawImage(graphics[10], j * 64, (i * 64) - (64 * 4), 64, 64);
+                ctx.drawImage(graphics[10], (j * 64) - (64 * 4), i * 64, 64, 64);
+                ctx.drawImage(graphics[10], (j * 64) + 64, (i * 64) + (64 * 3), 64, 64);
+                ctx.drawImage(graphics[10], (j * 64) + (64 * 2), (i * 64) + (64 * 2), 64, 64);
+                ctx.drawImage(graphics[10], (j * 64) + (64 * 3), (i * 64) + 64, 64, 64);
+                ctx.drawImage(graphics[10], (j * 64) - 64, (i * 64) + (64 * 3), 64, 64);
+                ctx.drawImage(graphics[10], (j * 64) - (64 * 2), (i * 64) + (64 * 2), 64, 64);
+                ctx.drawImage(graphics[10], (j * 64) - (64 * 3), (i * 64) + 64, 64, 64);
+                ctx.drawImage(graphics[10], (j * 64) - (64 * 3), (i * 64) - 64, 64, 64);
+                ctx.drawImage(graphics[10], (j * 64) - (64 * 2), (i * 64) - (64 * 2), 64, 64);
+                ctx.drawImage(graphics[10], (j * 64) - 64, (i * 64) - (64 * 3), 64, 64);
+                ctx.drawImage(graphics[10], (j * 64) + 64, (i * 64) - (64 * 3), 64, 64);
+                ctx.drawImage(graphics[10], (j * 64) + (64 * 2), (i * 64) - (64 * 2), 64, 64);
+                ctx.drawImage(graphics[10], (j * 64) + (64 * 3), (i * 64) - 64, 64, 64);
+
+                ctx.drawImage(graphics[10], j * 64, (i * 64) + (64 * 3), 64, 64);
+                ctx.drawImage(graphics[10], j * 64, (i * 64) - (64 * 3), 64, 64);
+                ctx.drawImage(graphics[10], (j * 64) + (64 * 3), i * 64, 64, 64);
+                ctx.drawImage(graphics[10], (j * 64) - (64 * 3), i * 64, 64, 64);
+                ctx.drawImage(graphics[10], (j * 64) + 64, (i * 64) + (64 * 2), 64, 64);
+                ctx.drawImage(graphics[10], (j * 64) + (64 * 2), (i * 64) + 64, 64, 64);
+                ctx.drawImage(graphics[10], (j * 64) - 64, (i * 64) + ( 64 * 2), 64, 64);
+                ctx.drawImage(graphics[10], (j * 64) - (64 * 2), (i * 64) + 64, 64, 64);
+                ctx.drawImage(graphics[10], (j * 64) - (64 * 2), (i * 64) - 64, 64, 64);
+                ctx.drawImage(graphics[10], (j * 64) - 64, (i * 64) - (64 * 2), 64, 64);
+                ctx.drawImage(graphics[10], (j * 64) + 64, (i * 64) - (64 * 2), 64, 64);
+                ctx.drawImage(graphics[10], (j * 64) + (64 * 2), (i * 64) - 64, 64, 64);
+
+                ctx.drawImage(graphics[10], (j * 64) - 64, (i * 64) + 64, 64, 64);
+                ctx.drawImage(graphics[10], (j * 64) + 64, (i * 64) - 64, 64, 64);
+                ctx.drawImage(graphics[10], j * 64, (i * 64) + (64 * 2), 64, 64);
+                ctx.drawImage(graphics[10], j * 64, (i * 64) - (64 * 2), 64, 64);
+                ctx.drawImage(graphics[10], (j * 64) + (64 * 2), i * 64, 64, 64);
+                ctx.drawImage(graphics[10], (j * 64) - (64 * 2), i * 64, 64, 64);
+                ctx.drawImage(graphics[10], (j * 64) + 64, (i * 64) + 64, 64, 64);
+                ctx.drawImage(graphics[10], (j * 64) - 64, (i * 64) - 64, 64, 64);
+
+                ctx.drawImage(graphics[10], j * 64, i * 64, 64, 64);
+                ctx.drawImage(graphics[10], j * 64, (i * 64) + 64, 64, 64);
+                ctx.drawImage(graphics[10], (j * 64) + 64, i * 64, 64, 64);
+                ctx.drawImage(graphics[10], j * 64, (i * 64) - 64, 64, 64);
+                ctx.drawImage(graphics[10], (j * 64) - 64, i * 64, 64, 64);
+            } else if (movesRemaining === 3) {
+                ctx.drawImage(graphics[10], j * 64, (i * 64) + (64 * 3), 64, 64);
                 ctx.drawImage(graphics[10], j * 64, (i * 64) - (64 * 3), 64, 64);
                 ctx.drawImage(graphics[10], (j * 64) + (64 * 3), i * 64, 64, 64);
                 ctx.drawImage(graphics[10], (j * 64) - (64 * 3), i * 64, 64, 64);
@@ -135,9 +286,9 @@ window.addEventListener("keyup", function(event) {
         // compares actorArray[i].name to the currentActive variable, and then moves the relevant sprite based on
         // the key up event.
         if (actorArray[i].name === currentActive) {
-            console.log(event.keyCode);
             // stores the currently active actor
             var active = actorArray[i];
+            //console.log(event.keyCode+" "+active.name);
             switch (event.keyCode) {
                 case 82:
                     resetMove();
@@ -154,6 +305,7 @@ window.addEventListener("keyup", function(event) {
                             movesRemaining--;
                             drawMap();
                             highlightRemaining();
+                            document.getElementById("uiMovesRemaining").innerHTML = "Turn Units: "+movesRemaining+"/"+active.tu;
                             break;
                         } else {
                             break;
@@ -165,6 +317,7 @@ window.addEventListener("keyup", function(event) {
                             movesRemaining--;
                             drawMap();
                             highlightRemaining();
+                            document.getElementById("uiMovesRemaining").innerHTML = "Turn Units: "+movesRemaining+"/"+active.tu;
                             break;
                         } else {
                             break;
@@ -176,6 +329,7 @@ window.addEventListener("keyup", function(event) {
                             movesRemaining--;
                             drawMap();
                             highlightRemaining();
+                            document.getElementById("uiMovesRemaining").innerHTML = "Turn Units: "+movesRemaining+"/"+active.tu;
                             break;
                         } else {
                             break;
@@ -187,13 +341,14 @@ window.addEventListener("keyup", function(event) {
                             movesRemaining--;
                             drawMap();
                             highlightRemaining();
+                            document.getElementById("uiMovesRemaining").innerHTML = "Turn Units: "+movesRemaining+"/"+active.tu;
                             break;
                         } else {
                             break;
                         }
                 }
             } else {
-                alert("++Out of cheese error++Please reboot universe++Redo from start++");
+                console.log("You're out of moves.")
             }
         }
     }
