@@ -135,8 +135,13 @@ window.addEventListener("keyup", function(event) {
         // compares actorArray[i].name to the currentActive variable, and then moves the relevant sprite based on
         // the key up event.
         if (actorArray[i].name === currentActive) {
+            console.log(event.keyCode);
             // stores the currently active actor
             var active = actorArray[i];
+            switch (event.keyCode) {
+                case 82:
+                    resetMove();
+            }
             //stops the sprite from moving when movesRemaining == 0. Need to update some kind of feedback for the
             // player eventually.
             if (movesRemaining > 0) {
