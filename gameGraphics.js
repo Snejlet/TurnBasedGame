@@ -52,13 +52,13 @@ function drawMap() {
     // gets the canvas HTML element and sets the context
     var ctx = document.getElementById("map").getContext("2d");
     // clears everything when drawMap() is called
-    ctx.clearRect(0,0,577,321);
+    ctx.clearRect(0,0,1154,642);
 
     //draws in the entire map (doubled base resolution. looks like crap now. fix this later)
     ctx.drawImage(graphics[0], 0, 0, 1154, 642);
 
-    for (var i = 0; i < mapGrid.length; i++) {
-        for (var j = 0; j < mapGrid[i].length; j++) {
+    for (var j = 0; j < mapGrid.length; j++) {
+        for (var i = 0; i < mapGrid[j].length; i++) {
             //this is to highlight tiles I want to have collision on
             /*
             if (mapGrid[i][j] === 5) {
@@ -66,28 +66,28 @@ function drawMap() {
             }*/
             // places sprites at the starting position defined in gameActors.js
             if (everard.xPos === i && everard.yPos === j) {
-                ctx.drawImage(graphics[2], j * 64, i * 64, 64, 64)
+                ctx.drawImage(graphics[2], i * 64, j * 64, 64, 64)
             }
             if (stanvolm.xPos === i && stanvolm.yPos === j) {
-                ctx.drawImage(graphics[3], j * 64, i * 64, 64, 64)
+                ctx.drawImage(graphics[3], i * 64, j * 64, 64, 64)
             }
             if (victahana.xPos === i && victahana.yPos === j) {
-                ctx.drawImage(graphics[4], j * 64, i * 64, 64, 64)
+                ctx.drawImage(graphics[4], i * 64, j * 64, 64, 64)
             }
             if (quxharne.xPos === i && quxharne.yPos === j) {
-                ctx.drawImage(graphics[5], j * 64, i * 64, 64, 64)
+                ctx.drawImage(graphics[5], i * 64, j * 64, 64, 64)
             }
             if (goblinWarrior.xPos === i && goblinWarrior.yPos === j) {
-                ctx.drawImage(graphics[6], j * 64, i * 64, 64, 64)
+                ctx.drawImage(graphics[6], i * 64, j * 64, 64, 64)
             }
             if (koboldDragonshield.xPos === i && koboldDragonshield.yPos === j) {
-                ctx.drawImage(graphics[7], j * 64, i * 64, 64, 64)
+                ctx.drawImage(graphics[7], i * 64, j * 64, 64, 64)
             }
             if (koboldSlinger.xPos === i && koboldSlinger.yPos === j) {
-                ctx.drawImage(graphics[8], j * 64, i * 64, 64, 64)
+                ctx.drawImage(graphics[8], i * 64, j * 64, 64, 64)
             }
             if (koboldMage.xPos === i && koboldMage.yPos === j) {
-                ctx.drawImage(graphics[9], j * 64, i * 64, 64, 64)
+                ctx.drawImage(graphics[9], i * 64, j * 64, 64, 64)
             }
         }
     }

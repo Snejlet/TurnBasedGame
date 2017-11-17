@@ -13,9 +13,9 @@ function checkCollisionUp() {
             // stores currently active actor
             var active = initiative[i];
             // checks if the tile the actor just moved onto was marked as a 5 in the map array
-            if (mapGrid[active.xPos][active.yPos] === 5) {
+            if (mapGrid[active.yPos][active.xPos] === 5) {
                 //console.log("Move to tile " + initiative[i].xPos + "," + initiative[i].yPos);
-                active.xPos++;
+                active.yPos++;
                 movesRemaining++;
                 //console.log("Returned to tile " + initiative[i].xPos + "," + initiative[i].yPos)
             }
@@ -25,7 +25,7 @@ function checkCollisionUp() {
         // through the tile it began the turn on.
         if (initiative[i].name !== currentActive.name && currentActive.xPos === initiative[i].xPos &&
             currentActive.yPos === initiative[i].yPos) {
-            currentActive.xPos++;
+            currentActive.yPos++;
             movesRemaining++;
         }
     }
@@ -35,41 +35,7 @@ function checkCollisionDown() {
     for (var i = 0; i < len; i ++) {
         if (initiative[i].name === currentActive.name) {
             var active = initiative[i];
-            if (mapGrid[active.xPos][active.yPos] === 5) {
-                active.xPos--;
-                movesRemaining++;
-            }
-        }
-        if (initiative[i].name !== currentActive.name && currentActive.xPos === initiative[i].xPos &&
-            currentActive.yPos === initiative[i].yPos) {
-            currentActive.xPos--;
-            movesRemaining++;
-        }
-    }
-}
-
-function checkCollisionLeft() {
-    for (var i = 0; i < len; i ++) {
-        if (initiative[i].name === currentActive.name) {
-            var active = initiative[i];
-            if (mapGrid[active.xPos][active.yPos] === 5) {
-                active.yPos++;
-                movesRemaining++;
-            }
-        }
-        if (initiative[i].name !== currentActive.name && currentActive.xPos === initiative[i].xPos &&
-            currentActive.yPos === initiative[i].yPos) {
-            currentActive.yPos++;
-            movesRemaining++;
-        }
-    }
-}
-
-function checkCollisionRight() {
-    for (var i = 0; i < len; i ++) {
-        if (initiative[i].name === currentActive.name) {
-            var active = initiative[i];
-            if (mapGrid[active.xPos][active.yPos] === 5) {
+            if (mapGrid[active.yPos][active.xPos] === 5) {
                 active.yPos--;
                 movesRemaining++;
             }
@@ -82,14 +48,48 @@ function checkCollisionRight() {
     }
 }
 
+function checkCollisionLeft() {
+    for (var i = 0; i < len; i ++) {
+        if (initiative[i].name === currentActive.name) {
+            var active = initiative[i];
+            if (mapGrid[active.yPos][active.xPos] === 5) {
+                active.xPos++;
+                movesRemaining++;
+            }
+        }
+        if (initiative[i].name !== currentActive.name && currentActive.xPos === initiative[i].xPos &&
+            currentActive.yPos === initiative[i].yPos) {
+            currentActive.xPos++;
+            movesRemaining++;
+        }
+    }
+}
+
+function checkCollisionRight() {
+    for (var i = 0; i < len; i ++) {
+        if (initiative[i].name === currentActive.name) {
+            var active = initiative[i];
+            if (mapGrid[active.yPos][active.xPos] === 5) {
+                active.xPos--;
+                movesRemaining++;
+            }
+        }
+        if (initiative[i].name !== currentActive.name && currentActive.xPos === initiative[i].xPos &&
+            currentActive.yPos === initiative[i].yPos) {
+            currentActive.xPos--;
+            movesRemaining++;
+        }
+    }
+}
+
 function highlightRemaining() {
     for (var k = 0; k < len; k++) {
         if (initiative[k].name === currentActive.name) {
             // stores the currently active actor (i.e. initiative[i]
             var active = initiative[k];
 
-            var j = active.yPos;
-            var i = active.xPos;
+            var i = active.yPos;
+            var j = active.xPos;
 
             // sets the map context for the purpose of this function
             var ctx = document.getElementById("map").getContext("2d");
@@ -280,8 +280,8 @@ window.addEventListener("keyup", function(event) {
                 switch (event.keyCode) {
                     case 87:
                         //checks if the player is about to move off of the map, and prevents the movement if so.
-                        if (active.xPos > 0) {
-                            active.xPos--;
+                        if (active.yPos > 0) {
+                            active.yPos--;
                             checkCollisionUp();
                             movesRemaining--;
                             drawMap();
@@ -293,8 +293,8 @@ window.addEventListener("keyup", function(event) {
                             break;
                         }
                     case 83:
-                        if (active.xPos < 9) {
-                            active.xPos++;
+                        if (active.yPos < 9) {
+                            active.yPos++;
                             checkCollisionDown();
                             movesRemaining--;
                             drawMap();
@@ -305,8 +305,8 @@ window.addEventListener("keyup", function(event) {
                             break;
                         }
                     case 65:
-                        if (active.yPos > 0) {
-                            active.yPos--;
+                        if (active.xPos > 0) {
+                            active.xPos--;
                             checkCollisionLeft();
                             movesRemaining--;
                             drawMap();
@@ -317,8 +317,8 @@ window.addEventListener("keyup", function(event) {
                             break;
                         }
                     case 68:
-                        if (active.yPos < 17) {
-                            active.yPos++;
+                        if (active.xPos < 17) {
+                            active.xPos++;
                             checkCollisionRight();
                             movesRemaining--;
                             drawMap();

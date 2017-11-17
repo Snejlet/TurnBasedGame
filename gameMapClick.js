@@ -2,15 +2,12 @@
 var xClick;
 var yClick;
 
-// called when the canvas is clicked
-function mapClicked() {
-
+var canvasClicked = function(event) {
     var elem = document.getElementById("map"),
         // variables to hold the offset from the edge of the screen to the top and left edges of the canvas
         elemLeft = elem.offsetLeft,
         elemTop = elem.offsetTop;
 
-    elem.addEventListener('click', function(event) {
         // subtracts the elemLeft and elemTop from the mouse click x and y co-ordinates on the page to determine the
         // x and y co-ordinates on the canvas.
         var generalx = event.pageX - elemLeft,
@@ -78,6 +75,11 @@ function mapClicked() {
             yClick = 9
         }
 
-        console.log(xClick+" "+yClick)
-    })
-}
+        //console.log(xClick+" "+yClick);
+
+    if (stab === 1) {
+        stabItInnaFace()
+    }
+};
+
+window.addEventListener('click', canvasClicked, true);
