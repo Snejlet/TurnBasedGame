@@ -19,8 +19,9 @@
 
     <div class="col-sm-1" style="border:2px solid #ccc">
         <p>More buttons will go in here.</p>
-        <button id="endTurnButton" onclick="endTurn()">End Turn</button>
-        <button id="resetMove" onclick ="resetMove()">Undo Move</button>
+        <button id="startGame" style="display:block" onclick="startGame()">Begin</button>
+        <button id="endTurnButton" style="display:none" onclick="endTurn()">End Turn</button>
+        <button id="resetMove" style="display:none" onclick ="resetMove()">Undo Move</button>
         <button id="test" onclick="testFunction()">Test</button>
     </div>
 
@@ -32,6 +33,12 @@
             <p id="uiMovesRemaining"></p>
         </div>
     </div>
+</div>
+
+<div>
+    <p>Hotkeys:</p>
+    <p>WADS to move</p>
+    <p>R to reset movement</p>
 </div>
 
 <script src="gameActors.js"></script>

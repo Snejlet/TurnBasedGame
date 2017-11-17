@@ -16,29 +16,3 @@ Remove a line of pixels from the top and left side of the tile highlight. Replac
     properly within the tile outlines).
 
 Add in a "Spawn far too many kobolds!" button. V. IMPORTANT
-
-Ask Andrew why using this code:
-function checkCollisionUp() {
-    for (var i = 0; i < actLen; i ++) {
-        // stores currently active actor
-        var active = actorArray[i];
-        if (actorArray[i] === currentActive) {
-            // checks if the tile the actor just moved onto was marked as a 5 in the map array
-            if (mapGrid[active.xPos][active.yPos] === 5) {
-                //console.log("Move to tile " + actorArray[i].xPos + "," + actorArray[i].yPos);
-                active.xPos++;
-                movesRemaining++;
-                //console.log("Returned to tile " + actorArray[i].xPos + "," + actorArray[i].yPos)
-            }
-        }
-        if (active.xPos === actPosX[i] && active.yPos === actPosY[i]) {
-            active.xPos++;
-            movesRemaining++;
-        }
-    }
-}
-in the checkCollision functions was causing all of the other actors to move up one X position (i.e. down one tile on the
-screen), but only on the first movement of the currently active sprite, but not on the subsequent movements.
-Note: Putting the:
-var active = actorArray[i];
-into the first if statement fixes this.

@@ -7,11 +7,13 @@ var turnOrderReset = 0;
 // tracks the current round number
 var roundNumber = 1;
 // keeps track of who is currently active for the purpose of moving the correct sprite.
-var currentActive = "";
+var currentActive;
 // stores the remaining movement points an actor has this turn.
 var movesRemaining;
 // stores the currently active actor object for use in the endTurn() and resetMove()
 var active;
+// stores the integer which will be used in the incrementRound() For Loop.
+var delay = 0;
 
 // adds the actors from actorArray and sorts them based on initiative.
 for (var i = 0; i < len; i++){
@@ -27,18 +29,29 @@ initiative.sort(function(a, b){
 var xStartPos;
 var yStartPos;
 
+function startGame() {
+    var end = document.getElementById("endTurnButton");
+    var undo = document.getElementById("resetMove");
+    var begin = document.getElementById("startGame");
+
+    end.style.display = "block";
+    undo.style.display = "block";
+    begin.style.display = "none";
+
+    endTurn();
+}
+
 function endTurn() {
     // clears any lingering tileHighlight's from unspent movement points from the previous actor.
     drawMap();
 
     // loops through the initiative
     for (var i = turnOrderReset; i < len; i++) {
-        console.log(actPosX[i]+" "+actPosY[i]);
         active = initiative[i];
         xStartPos = active.xPos;
         yStartPos = active.yPos;
         console.log(active.spd);
-        currentActive = active.name;
+        currentActive = active;
         turnOrderReset++;
         movesRemaining = active.tu;
         console.log(active.name);
@@ -47,7 +60,6 @@ function endTurn() {
         document.getElementById("uiMovesRemaining").innerHTML = "Turn Units: "+movesRemaining+"/"+active.tu;
         if (turnOrderReset === len) {
             turnOrderReset = 0;
-            roundNumber++;
             document.getElementById("turnNumber").innerHTML = "Round " + roundNumber;
         }
         break;

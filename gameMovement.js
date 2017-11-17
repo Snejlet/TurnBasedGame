@@ -1,111 +1,92 @@
 // stores the maximum movement value for the character
 var movesRemaining;
 
-// stores the length of the actorArray[]. Saves every function and check having to check that, which should aid
+// stores the length of the initiative[]. Saves every function and check having to check that, which should aid
 // performance. Need to check if this will update when something is removed from the array at a later date.
-var actLen = actorArray.length;
-
-// arrays to store the positions of all of the actors on the map for the purpose of collision
-var actPosX = [];
-var actPosY = [];
-var actName = [];
-
-// variables to store the length of the above arrays. Saves on loops through the array.
-var actPosXLen = actPosX.length;
-var actPosYLen = actPosY.length;
-
-// loops through the actorArray and adds the X and Y co-ordinates to the relevant arrays above (i.e. actPosX[] and
-// actPosY[]) on load in order to provide collision based on starting position.
-for (var i = 0; i < actLen; i++) {
-    actPosX[i] = initiative[i].xPos;
-    actPosY[i] = initiative[i].yPos;
-    actName[i] = initiative[i].name;
-}
+var len = initiative.length;
 
 // The checkCollision functions check which tile the character is on AFTER they move, and if it is a collision tile,
 // moves them back to the tile they just left (so it appears as if they haven't moved.)
 function checkCollisionUp() {
-    for (var i = 0; i < actLen; i ++) {
-        if (actorArray[i].name === currentActive) {
+    for (var i = 0; i < len; i ++) {
+        if (initiative[i].name === currentActive.name) {
             // stores currently active actor
-            var active = actorArray[i];
+            var active = initiative[i];
             // checks if the tile the actor just moved onto was marked as a 5 in the map array
             if (mapGrid[active.xPos][active.yPos] === 5) {
-                //console.log("Move to tile " + actorArray[i].xPos + "," + actorArray[i].yPos);
+                //console.log("Move to tile " + initiative[i].xPos + "," + initiative[i].yPos);
                 active.xPos++;
                 movesRemaining++;
-                //console.log("Returned to tile " + actorArray[i].xPos + "," + actorArray[i].yPos)
+                //console.log("Returned to tile " + initiative[i].xPos + "," + initiative[i].yPos)
             }
         }
-        /*
-        if (active.xPos === actPosX[i] && active.yPos === actPosY[i] && active.name !== actName[i]) {
-            active.xPos++;
+        // checks the currently active actor's X and Y co-ordinates against the X and Y co-ordintes of every other
+        // actor within the initiative[]. It does not check its own position, as that would prevent it from moving
+        // through the tile it began the turn on.
+        if (initiative[i].name !== currentActive.name && currentActive.xPos === initiative[i].xPos &&
+            currentActive.yPos === initiative[i].yPos) {
+            currentActive.xPos++;
             movesRemaining++;
         }
-        */
     }
 }
 
 function checkCollisionDown() {
-    for (var i = 0; i < actLen; i ++) {
-        if (actorArray[i].name === currentActive) {
-            var active = actorArray[i];
+    for (var i = 0; i < len; i ++) {
+        if (initiative[i].name === currentActive.name) {
+            var active = initiative[i];
             if (mapGrid[active.xPos][active.yPos] === 5) {
                 active.xPos--;
                 movesRemaining++;
             }
         }
-        /*
-        if (active.xPos === actPosX[i] && active.yPos === actPosY[i] && active.name !== actName[i]) {
-
-            active.xPos--;
+        if (initiative[i].name !== currentActive.name && currentActive.xPos === initiative[i].xPos &&
+            currentActive.yPos === initiative[i].yPos) {
+            currentActive.xPos--;
             movesRemaining++;
         }
-        */
     }
 }
 
 function checkCollisionLeft() {
-    for (var i = 0; i < actLen; i ++) {
-        if (actorArray[i].name === currentActive) {
-            var active = actorArray[i];
+    for (var i = 0; i < len; i ++) {
+        if (initiative[i].name === currentActive.name) {
+            var active = initiative[i];
             if (mapGrid[active.xPos][active.yPos] === 5) {
                 active.yPos++;
                 movesRemaining++;
             }
         }
-        /*
-        if (active.xPos === actPosX[i] && active.yPos === actPosY[i] && active.name !== actName[i]) {
-            active.yPos++;
+        if (initiative[i].name !== currentActive.name && currentActive.xPos === initiative[i].xPos &&
+            currentActive.yPos === initiative[i].yPos) {
+            currentActive.yPos++;
             movesRemaining++;
         }
-        */
     }
 }
 
 function checkCollisionRight() {
-    for (var i = 0; i < actLen; i ++) {
-        if (actorArray[i].name === currentActive) {
-            var active = actorArray[i];
+    for (var i = 0; i < len; i ++) {
+        if (initiative[i].name === currentActive.name) {
+            var active = initiative[i];
             if (mapGrid[active.xPos][active.yPos] === 5) {
                 active.yPos--;
                 movesRemaining++;
             }
         }
-        /*
-        if (active.xPos === actPosX[i] && active.yPos === actPosY[i] && active.name !== actName[i]) {
-            active.yPos--;
+        if (initiative[i].name !== currentActive.name && currentActive.xPos === initiative[i].xPos &&
+            currentActive.yPos === initiative[i].yPos) {
+            currentActive.yPos--;
             movesRemaining++;
         }
-        */
     }
 }
 
 function highlightRemaining() {
-    for (var k = 0; k < actLen; k++) {
-        if (actorArray[k].name === currentActive) {
-            // stores the currently active actor (i.e. actorArray[i]
-            var active = actorArray[k];
+    for (var k = 0; k < len; k++) {
+        if (initiative[k].name === currentActive.name) {
+            // stores the currently active actor (i.e. initiative[i]
+            var active = initiative[k];
 
             var j = active.yPos;
             var i = active.xPos;
@@ -282,12 +263,12 @@ function highlightRemaining() {
 
 // listens for a key up event.
 window.addEventListener("keyup", function(event) {
-    for (var i = 0; i < actLen; i++) {
-        // compares actorArray[i].name to the currentActive variable, and then moves the relevant sprite based on
+    for (var i = 0; i < len; i++) {
+        // compares initiative[i].name to the currentActive variable, and then moves the relevant sprite based on
         // the key up event.
-        if (actorArray[i].name === currentActive) {
+        if (initiative[i].name === currentActive.name) {
             // stores the currently active actor
-            var active = actorArray[i];
+            var active = initiative[i];
             //console.log(event.keyCode+" "+active.name);
             switch (event.keyCode) {
                 case 82:
@@ -306,6 +287,7 @@ window.addEventListener("keyup", function(event) {
                             drawMap();
                             highlightRemaining();
                             document.getElementById("uiMovesRemaining").innerHTML = "Turn Units: "+movesRemaining+"/"+active.tu;
+                            console.log(active.xPos+", "+active.yPos);
                             break;
                         } else {
                             break;
