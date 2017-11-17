@@ -57,7 +57,7 @@ function endTurn() {
         console.log(active.name);
         document.getElementById("playerTurnTracker").innerHTML = active.player;
         document.getElementById("playerCharacterName").innerHTML = active.name;
-        document.getElementById("uiMovesRemaining").innerHTML = "Turn Units: "+movesRemaining+"/"+active.tu;
+        document.getElementById("uiMovesRemaining").innerHTML = "Turn Units: " + movesRemaining + "/" + active.tu;
         if (turnOrderReset === len) {
             turnOrderReset = 0;
             document.getElementById("turnNumber").innerHTML = "Round " + roundNumber;
@@ -66,7 +66,82 @@ function endTurn() {
     }
 
     // highlights the maximum remaining moves the actor can make this turn.
-    highlightRemaining();
+    highlightRemaining()
+
+    // couldn't find a better way of doing this that worked. Think about this later.
+    if (active.name === "Everard") {
+        $(".everard").show();
+        $(".stanvolm").hide();
+        $(".victahana").hide();
+        $(".quxharne").hide();
+        $(".koboldDragonshield").hide();
+        $(".koboldSlinger").hide();
+        $(".koboldMage").hide();
+        $(".goblinWarrior").hide();
+    } else if (active.name === "Stanvolm") {
+        $(".everard").hide();
+        $(".stanvolm").show();
+        $(".victahana").hide();
+        $(".quxharne").hide();
+        $(".koboldDragonshield").hide();
+        $(".koboldSlinger").hide();
+        $(".koboldMage").hide();
+        $(".goblinWarrior").hide();
+    } else if (active.name === "Victahana") {
+        $(".everard").hide();
+        $(".stanvolm").hide();
+        $(".victahana").show();
+        $(".quxharne").hide();
+        $(".koboldDragonshield").hide();
+        $(".koboldSlinger").hide();
+        $(".koboldMage").hide();
+        $(".goblinWarrior").hide();
+    } else if (active.name === "Quxharne") {
+        $(".everard").hide();
+        $(".stanvolm").hide();
+        $(".victahana").hide();
+        $(".quxharne").show();
+        $(".koboldDragonshield").hide();
+        $(".koboldSlinger").hide();
+        $(".koboldMage").hide();
+        $(".goblinWarrior").hide();
+    } else if (active.name === "Kobold Dragonshield") {
+        $(".everard").hide();
+        $(".stanvolm").hide();
+        $(".victahana").hide();
+        $(".quxharne").hide();
+        $(".koboldDragonshield").show();
+        $(".koboldSlinger").hide();
+        $(".koboldMage").hide();
+        $(".goblinWarrior").hide();
+    } else if (active.name === "Kobold Slinger") {
+        $(".everard").hide();
+        $(".stanvolm").hide();
+        $(".victahana").hide();
+        $(".quxharne").hide();
+        $(".koboldDragonshield").hide();
+        $(".koboldSlinger").show();
+        $(".koboldMage").hide();
+        $(".goblinWarrior").hide();
+    } else if (active.name === "Kobold Mage") {
+        $(".everard").hide();
+        $(".stanvolm").hide();
+        $(".victahana").hide();
+        $(".quxharne").hide();
+        $(".koboldDragonshield").hide();
+        $(".koboldSlinger").hide();
+        $(".koboldMage").show();
+        $(".goblinWarrior").hide();
+    } else if (active.name === "Goblin Warrior") {
+        $(".everard").hide();
+        $(".stanvolm").hide();
+        $(".victahana").hide();
+        $(".quxharne").hide();
+        $(".koboldDragonshield").hide();
+        $(".koboldSlinger").hide();
+        $(".koboldMage").hide();
+        $(".goblinWarrior").show();
+    }
 }
 
 function resetMove() {

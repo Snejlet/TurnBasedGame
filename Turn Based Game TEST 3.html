@@ -15,13 +15,17 @@
 <body>
 
 <div class="row">
-    <canvas id="map" onclick="mapClicked()" width="1154" height="642" style="margin-left:25px; margin-top:10px; margin-right:10px; margin-bottom:10px"></canvas>
+    <canvas id="map" width="1154" height="642" style="margin-left:25px; margin-top:10px; margin-right:10px; margin-bottom:10px"></canvas>
 
     <div class="col-sm-1" style="border:2px solid #ccc">
         <p>More buttons will go in here.</p>
         <button id="startGame" style="display:block" onclick="startGame()">Begin</button>
         <button id="endTurnButton" style="display:none" onclick="endTurn()">End Turn</button>
         <button id="resetMove" style="display:none" onclick ="resetMove()">Undo Move</button>
+        <button class="everard" style="display:none" onclick="stabButton()">Stab It Inna Face!</button>
+        <p class="everard" style="display:none" >Range: 1 <br>
+                            Damage: 1 <br>
+                            Turn Units: 2</p>
         <button id="test" onclick="testFunction()">Test</button>
     </div>
 
@@ -44,6 +48,7 @@
 <script src="gameMapClick.js"></script>
 <script src="gameActors.js"></script>
 <script src="gameTurn.js"></script>
+<script src="gameAbilities.js"></script>
 <script src="gameMovement.js"></script>
 <script src="gameGraphics.js"></script>
 

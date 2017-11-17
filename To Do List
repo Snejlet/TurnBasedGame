@@ -15,4 +15,8 @@ Add in literally all of the abilities for characters.
 Remove a line of pixels from the top and left side of the tile highlight. Replace with transparent pixels (so it fits
     properly within the tile outlines).
 
+In gameTurn.js on line 72:
+    Find a better way of writing the show/hide functionality for actor specific abilities and buttons. Can't think of a
+    good way of doing that right now.
+
 Add in a "Spawn far too many kobolds!" button. V. IMPORTANT
