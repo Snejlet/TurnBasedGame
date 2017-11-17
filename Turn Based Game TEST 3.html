@@ -15,7 +15,7 @@
 <body>
 
 <div class="row">
-    <canvas id="map" width="1154" height="642" style="margin-left:25px; margin-top:10px; margin-right:10px; margin-bottom:10px"></canvas>
+    <canvas id="map" onclick="mapClicked()" width="1154" height="642" style="margin-left:25px; margin-top:10px; margin-right:10px; margin-bottom:10px"></canvas>
 
     <div class="col-sm-1" style="border:2px solid #ccc">
         <p>More buttons will go in here.</p>
@@ -41,6 +41,7 @@
     <p>R to reset movement</p>
 </div>
 
+<script src="gameMapClick.js"></script>
 <script src="gameActors.js"></script>
 <script src="gameTurn.js"></script>
 <script src="gameMovement.js"></script>
@@ -52,17 +53,8 @@
     loadImg();
 
     function testFunction() {
-        /*
-        console.log("unsorted"+initiative2);
-        initiative2.sort();
-        console.log("sorted"+initiative2);
-        */
 
-        // testing the actorArray. Contains everything that it should, and can call attributes from it without any
-        // real issues.
-        console.log(actorArray[0].name);
     }
-
 
 </script>
 </body>
