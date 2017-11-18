@@ -19,4 +19,7 @@ In gameTurn.js on line 72:
     Find a better way of writing the show/hide functionality for actor specific abilities and buttons. Can't think of a
     good way of doing that right now.
 
+In gameAbilities.js on line 28:
+    The ability IF statements don't actually check if there is another actor in that tile. Really ought to fix that.
+
 Add in a "Spawn far too many kobolds!" button. V. IMPORTANT

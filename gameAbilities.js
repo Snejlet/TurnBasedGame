@@ -24,6 +24,7 @@ function stabItInnaFace() {
         upY = currentY - 1,
         downY = currentY + 1;
 
+    //This code doesn't actually check if there is another actor in the clicked tile. Should probably fix that.
     if (xClick === leftX && yClick === currentY) {
         alert("Yay")
     } else if (xClick === rightX && yClick === currentY) {
