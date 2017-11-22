@@ -76,9 +76,17 @@ var canvasClicked = function(event) {
         }
 
         //console.log(xClick+" "+yClick);
+    // calls the relevant character ability function if the associated HTML button has been clicked
+    if (everardStab === 1) {
+        everardStabItInnaFace()
+    }
 
-    if (stab === 1) {
-        stabItInnaFace()
+    if (everardShoot === 1) {
+        everardShootItInnaFace()
+    }
+
+    if (stanvolmMissile === 1) {
+        stanvolmMagicMissile();
     }
 };
 

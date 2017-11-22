@@ -6,6 +6,7 @@ var len = actorArray.length;
 var turnOrderReset = 0;
 // tracks the current round number
 var roundNumber = 1;
+
 // keeps track of who is currently active for the purpose of moving the correct sprite.
 var currentActive;
 // stores the remaining movement points an actor has this turn.
@@ -151,4 +152,5 @@ function resetMove() {
     active.yPos = yStartPos;
     drawMap();
     highlightRemaining();
+    document.getElementById("uiMovesRemaining").innerHTML = "Turn Units: " + movesRemaining + "/" + active.tu;
 }

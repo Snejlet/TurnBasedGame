@@ -19,7 +19,17 @@ In gameTurn.js on line 72:
     Find a better way of writing the show/hide functionality for actor specific abilities and buttons. Can't think of a
     good way of doing that right now.
 
-In gameAbilities.js on line 28:
-    The ability IF statements don't actually check if there is another actor in that tile. Really ought to fix that.
+In gameAbilities:
+    Ranged abilities will work on things that are on the same X or Y axis as the current actor, but do not handle
+    diagonals.
+    -Poss. solvable by setting up two arrays that hold all of the possible xPositions away from the current actor
+        (i.e. [currentX -1][currentX -2] etc, and the same for the yPositions. Then get it to loop through the two of
+        those arrays, and check if it ever equals two of those values at the same time.
+        -This would also possibly make the writing of the if statements to check for an actor under the mouse click a
+        little easier to write.
+    -Have rough working version on line 72. However, this creates a square around the character of possible target
+        tiles. Would prefer if it was more like the possible movement tiles (i.e. pretty much a square, but rotated
+        45 degrees). Need to figure out how to do that without having to write lengthly bloody code like I did for the
+        tile highlights.
 
 Add in a "Spawn far too many kobolds!" button. V. IMPORTANT
