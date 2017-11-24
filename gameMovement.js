@@ -287,7 +287,7 @@ window.addEventListener("keyup", function(event) {
                             drawMap();
                             highlightRemaining();
                             document.getElementById("uiMovesRemaining").innerHTML = "Turn Units: "+movesRemaining+"/"+active.tu;
-                            console.log(active.xPos+", "+active.yPos);
+                            //console.log(active.xPos+", "+active.yPos);
                             break;
                         } else {
                             break;

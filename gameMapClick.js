@@ -88,6 +88,34 @@ var canvasClicked = function(event) {
     if (stanvolmMissile === 1) {
         stanvolmMagicMissile();
     }
+
+    if (stanvolmShield === 1) {
+        stanvolmMageShield();
+    }
+
+    if (victahanaShield === 1) {
+        victahanaShieldBash();
+    }
+
+    if (victahanaDefense === 1) {
+            victahanaStoicDefense();
+    }
+
+    if (quxharneProtect === 1) {
+            quxharneSpiritsProtect();
+    }
+
+    if (quxharneHarm === 1) {
+            quxharneSpiritsHarm();
+    }
+
+    if (koboldDragonUnhindered === 1) {
+            koboldDragonUnhinderedSlash();
+    }
+
+    if (koboldDragonShield === 1) {
+            koboldDragonShieldUp();
+    }
 };
 
 window.addEventListener('click', canvasClicked, true);

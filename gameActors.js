@@ -34,6 +34,6 @@ var quxharne = new Player1(0, 5, "Player 1", "Quxharne", 0, 0, 0, 1, 3);
 
 // create new Player2 Actors.
 var goblinWarrior = new Player2(17, 4, "Player 2", "Goblin Warrior", 0, 0, 0, 7, 5);
-var koboldDragonshield = new Player2(16, 6, "Player 2", "Kobold Dragonshield", 0, 0, 0, 3, 3);
+var koboldDragonshield = new Player2(16, 6, "Player 2", "Kobold Dragonshield", 0, 0, 0, 3, 4);
 var koboldSlinger = new Player2(13, 8, "Player 2", "Kobold Slinger", 0, 0, 0, 6, 5);
 var koboldMage = new Player2(14, 7, "Player 2", "Kobold Mage", 0, 0, 0, 4, 4);
