@@ -23,15 +23,33 @@ var mapGrid = [
 
 // this array will hold the images loaded by loadImg()
 var graphics = [];
+var highlights = [];
 
 function loadImg() {
     // the assets I want to load
     var graphicsToLoad = ["Assets/map577x321.png", "Assets/tileHighlight.png", "Assets/everard.png",
         "Assets/stanvolm.png", "Assets/victahana.png", "Assets/quxharne.png", "Assets/goblinWarrior.png",
         "Assets/koboldDragonshield.png", "Assets/koboldSlinger.png", "Assets/koboldMage.png",
-        "Assets/tileHighlight.png", "Assets/tileAttackHighlight.png"];
+        "Assets/tileHighlight.png"];
+    var highlightsToLoad = ["Assets/tileAttackHighlight.png", "Assets/tileAttackHighlight3.png",
+        "Assets/tileAttackHighlight5.png", "Assets/tileAttackHighlight7.png", "Assets/tileAttackHighlight9.png",
+        "Assets/tileAttackHighlight11.png", "Assets/tileAttackHighlight13.png", "Assets/tileAttackHighlight15.png",
+        "Assets/tileAttackHighlight17.png"];
     // this will be incremented when an image is loaded, and is used to stop the for loop when all images are loaded.
     var graphicsLoaded = 0;
+    var highlightsLoaded = 0;
+    var highlightsLoadedCheck = 0;
+
+    for (var j = 0; j < highlightsToLoad.length; j++) {
+        highlights[j] = new Image();
+        highlights[j].src = highlightsToLoad[j];
+        highlights[j].onload = function() {
+            highlightsLoaded++;
+            if (highlightsLoaded === highlightsToLoad.length) {
+                highlightsLoadedCheck = 1;
+            }
+        }
+    }
 
     // loops through graphicsToLoad and loads the images, increments graphicsLoaded, and stores the images in graphics[],
     // then calls drawMap() once everything is loaded.
@@ -40,7 +58,7 @@ function loadImg() {
         graphics[i].src = graphicsToLoad[i];
         graphics[i].onload = function() {
             graphicsLoaded++;
-            if (graphicsLoaded === graphicsToLoad.length) {
+            if (graphicsLoaded === graphicsToLoad.length && highlightsLoadedCheck === 1) {
                 drawMap()
             }
         }
