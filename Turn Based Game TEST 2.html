@@ -51,7 +51,7 @@
     function loadImg() {
 
         var graphicsToLoad = ["Assets/dirt128outline.png", "Assets/grass128outline.png", "Assets/everard.png",
-            "Assets/stanvolm.png"];
+            "Assets/stanvolm.png", "Assets/tileHighlight.png", "Assets/tileAttackHighlight.png"];
         var graphicsLoaded = 0;
 
         for (var i = 0; i < graphicsToLoad.length; i++) {
@@ -76,6 +76,7 @@
         var ctx = document.getElementById("map").getContext("2d");
         ctx.clearRect(0, 0, 576, 576);
 
+
         for (var i = 0; i < mapGrid.length; i++) {
             for (var j = 0; j < mapGrid[i].length; j++){
                 if (mapGrid[i][j] === 0) {
@@ -92,6 +93,15 @@
                 }
             }
         }
+
+        for (var k = 0; k < moveHigh.length; k++) {
+            ctx.drawImage(moveHigh[k].image, moveHigh[k].xLoc, moveHigh[k].yLoc, moveHigh[k].height, moveHigh[k].width)
+        }
+        /*
+        ctx.drawImage(left1.image, left1.xLoc, left1.yLoc, left1.height, left1.width);
+        ctx.drawImage(left2.image, left2.xLoc, left2.yLoc, left2.height, left2.width);
+        console.log(left1.image + " " + left1.xLoc + " " + left1.yLoc + " " + left1.height + " " + left1.width);
+        */
     }
 
     function endTurn() {
@@ -196,6 +206,20 @@
     });
 
     loadImg();
+
+    var moveHigh = [];
+
+    function Highlight(image, xLoc, yLoc, height, width) {
+        this.image = image;
+        this.xLoc = xLoc;
+        this.yLoc = yLoc;
+        this.height = height;
+        this.width = width;
+        moveHigh.push(this);
+    }
+
+    var left1 = new Highlight(graphics[4], playerOneY * 64, playerOneX * 64, 64, 64);
+    var left2 = new Highlight(graphics[4], (playerOneY * 64) + 64, playerOneX * 64, 64, 64)
 
 </script>
 
