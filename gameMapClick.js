@@ -116,6 +116,18 @@ var canvasClicked = function(event) {
     if (koboldDragonShield === 1) {
             koboldDragonShieldUp();
     }
+
+    if (koboldSlingerSkirmishing === 1) {
+            koboldSlingerSkirmish();
+    }
+
+    if (koboldSlingerSling === 1) {
+            koboldSlingerSlingShot();
+    }
+
+    if (koboldMageMissile === 1) {
+            koboldMageMagicMissile();
+    }
 };
 
 window.addEventListener('click', canvasClicked, true);
