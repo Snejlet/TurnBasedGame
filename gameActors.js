@@ -27,7 +27,7 @@ function Player2(xPos, yPos, player, name, hp, dmg, arm, spd, tu) {
 }
 
 // create new Player1 Actors.
-var everard = new Player1(3, 3, "Player 1", "Everard", 0, 0, 0, 8, 5);
+var everard = new Player1(3, 3, "Player 1", "Everard", 0, 0, 0, 8, 6);
 var stanvolm = new Player1(0, 4, "Player 1", "Stanvolm", 0, 0, 0, 5, 4);
 var victahana = new Player1(2, 3, "Player 1", "Victahana", 0, 0, 0, 2, 3);
 var quxharne = new Player1(0, 5, "Player 1", "Quxharne", 0, 0, 0, 1, 3);

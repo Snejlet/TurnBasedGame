@@ -94,171 +94,197 @@ function highlightRemaining() {
             // sets the map context for the purpose of this function
             var ctx = document.getElementById("map").getContext("2d");
 
-            if (movesRemaining === 5) {
-                ctx.drawImage(graphics[10], j * 64, (i * 64) - (64 * 5), 64, 64);
-                ctx.drawImage(graphics[10], (j * 64) + 64, (i * 64) - (64 * 4), 64, 64);
-                ctx.drawImage(graphics[10], (j * 64) + (64 * 2), (i * 64) - (64 * 3), 64, 64);
-                ctx.drawImage(graphics[10], (j * 64) + (64 * 3), (i * 64) - (64 * 2), 64, 64);
-                ctx.drawImage(graphics[10], (j * 64) + (64 * 4), (i * 64) - 64, 64, 64);
-                ctx.drawImage(graphics[10], (j * 64) + (64 * 5), i * 64, 64, 64);
-                ctx.drawImage(graphics[10], (j * 64) + (64 * 4), (i * 64) + 64, 64, 64);
-                ctx.drawImage(graphics[10], (j * 64) + (64 * 3), (i * 64) + (64 * 2), 64, 64);
-                ctx.drawImage(graphics[10], (j * 64) + (64 * 2), (i * 64) + (64 * 3), 64, 64);
-                ctx.drawImage(graphics[10], (j * 64) + 64, (i * 64) + (64 * 4), 64, 64);
-                ctx.drawImage(graphics[10], j * 64, (i * 64) + (64 * 5), 64, 64);
-                ctx.drawImage(graphics[10], (j * 64) - 64, (i * 64) - (64 * 4), 64, 64);
-                ctx.drawImage(graphics[10], (j * 64) - (64 * 2), (i * 64) - (64 * 3), 64, 64);
-                ctx.drawImage(graphics[10], (j * 64) - (64 * 3), (i * 64) - (64 * 2), 64, 64);
-                ctx.drawImage(graphics[10], (j * 64) - (64 * 4), (i * 64) - 64, 64, 64);
-                ctx.drawImage(graphics[10], (j * 64) - (64 * 5), i * 64, 64, 64);
-                ctx.drawImage(graphics[10], (j * 64) - (64 * 4), (i * 64) + 64, 64, 64);
-                ctx.drawImage(graphics[10], (j * 64) - (64 * 3), (i * 64) + (64 * 2), 64, 64);
-                ctx.drawImage(graphics[10], (j * 64) - (64 * 2), (i * 64) + (64 * 3), 64, 64);
-                ctx.drawImage(graphics[10], (j * 64) - 64, (i * 64) + (64 * 4), 64, 64);
+            showMovement1(movesRemaining, i,j, ctx);
+        }
+    }
+}
+function showMovement1(mr,i,j,ctx) {
+    console.log("in show movement "+mr);
+    if (mr == 0){
+        console.log("mr is 0"+mr);
 
-                ctx.drawImage(graphics[10], j * 64, (i * 64) + (64 * 4), 64, 64);
-                ctx.drawImage(graphics[10], (j * 64) + (64 * 4), i * 64, 64, 64);
-                ctx.drawImage(graphics[10], j * 64, (i * 64) - (64 * 4), 64, 64);
-                ctx.drawImage(graphics[10], (j * 64) - (64 * 4), i * 64, 64, 64);
-                ctx.drawImage(graphics[10], (j * 64) + 64, (i * 64) + (64 * 3), 64, 64);
-                ctx.drawImage(graphics[10], (j * 64) + (64 * 2), (i * 64) + (64 * 2), 64, 64);
-                ctx.drawImage(graphics[10], (j * 64) + (64 * 3), (i * 64) + 64, 64, 64);
-                ctx.drawImage(graphics[10], (j * 64) - 64, (i * 64) + (64 * 3), 64, 64);
-                ctx.drawImage(graphics[10], (j * 64) - (64 * 2), (i * 64) + (64 * 2), 64, 64);
-                ctx.drawImage(graphics[10], (j * 64) - (64 * 3), (i * 64) + 64, 64, 64);
-                ctx.drawImage(graphics[10], (j * 64) - (64 * 3), (i * 64) - 64, 64, 64);
-                ctx.drawImage(graphics[10], (j * 64) - (64 * 2), (i * 64) - (64 * 2), 64, 64);
-                ctx.drawImage(graphics[10], (j * 64) - 64, (i * 64) - (64 * 3), 64, 64);
-                ctx.drawImage(graphics[10], (j * 64) + 64, (i * 64) - (64 * 3), 64, 64);
-                ctx.drawImage(graphics[10], (j * 64) + (64 * 2), (i * 64) - (64 * 2), 64, 64);
-                ctx.drawImage(graphics[10], (j * 64) + (64 * 3), (i * 64) - 64, 64, 64);
+        drawMap();
+        return;
+    }
+    for (var ol = mr; ol>=1; ol--){
+        var u=0;
+        for (var d = ol; d>=1; d--){
 
-                ctx.drawImage(graphics[10], j * 64, (i * 64) + (64 * 3), 64, 64);
-                ctx.drawImage(graphics[10], j * 64, (i * 64) - (64 * 3), 64, 64);
-                ctx.drawImage(graphics[10], (j * 64) + (64 * 3), i * 64, 64, 64);
-                ctx.drawImage(graphics[10], (j * 64) - (64 * 3), i * 64, 64, 64);
-                ctx.drawImage(graphics[10], (j * 64) + 64, (i * 64) + (64 * 2), 64, 64);
-                ctx.drawImage(graphics[10], (j * 64) + (64 * 2), (i * 64) + 64, 64, 64);
-                ctx.drawImage(graphics[10], (j * 64) - 64, (i * 64) + ( 64 * 2), 64, 64);
-                ctx.drawImage(graphics[10], (j * 64) - (64 * 2), (i * 64) + 64, 64, 64);
-                ctx.drawImage(graphics[10], (j * 64) - (64 * 2), (i * 64) - 64, 64, 64);
-                ctx.drawImage(graphics[10], (j * 64) - 64, (i * 64) - (64 * 2), 64, 64);
-                ctx.drawImage(graphics[10], (j * 64) + 64, (i * 64) - (64 * 2), 64, 64);
-                ctx.drawImage(graphics[10], (j * 64) + (64 * 2), (i * 64) - 64, 64, 64);
+            ctx.drawImage(graphics[10], (j * 64)+ (64*u), (i * 64) - (64 * d), 64, 64);
+            ctx.drawImage(graphics[10], (j * 64) + (64 * d), (i * 64)+ (64*u), 64, 64);
+            ctx.drawImage(graphics[10], (j * 64)- (64*u), (i * 64) + (64 * d), 64, 64);
+            ctx.drawImage(graphics[10], (j * 64) - (64 * d), (i * 64)- (64*u), 64, 64);
+            u++;
+        }
+    }
+}
+function showMovement(mr,i,j,ctx){
+    if (movesRemaining === 5) {
+        ctx.drawImage(graphics[10], (j * 64) + (64 * 0), (i * 64) - (64 * 5), 64, 64);
+        ctx.drawImage(graphics[10], (j * 64) + (64 * 1), (i * 64) - (64 * 4), 64, 64);
+        ctx.drawImage(graphics[10], (j * 64) + (64 * 2), (i * 64) - (64 * 3), 64, 64);
+        ctx.drawImage(graphics[10], (j * 64) + (64 * 3), (i * 64) - (64 * 2), 64, 64);
+        ctx.drawImage(graphics[10], (j * 64) + (64 * 4), (i * 64) - (64 * 1), 64, 64);
 
-                ctx.drawImage(graphics[10], (j * 64) - 64, (i * 64) + 64, 64, 64);
-                ctx.drawImage(graphics[10], (j * 64) + 64, (i * 64) - 64, 64, 64);
-                ctx.drawImage(graphics[10], j * 64, (i * 64) + (64 * 2), 64, 64);
-                ctx.drawImage(graphics[10], j * 64, (i * 64) - (64 * 2), 64, 64);
-                ctx.drawImage(graphics[10], (j * 64) + (64 * 2), i * 64, 64, 64);
-                ctx.drawImage(graphics[10], (j * 64) - (64 * 2), i * 64, 64, 64);
-                ctx.drawImage(graphics[10], (j * 64) + 64, (i * 64) + 64, 64, 64);
-                ctx.drawImage(graphics[10], (j * 64) - 64, (i * 64) - 64, 64, 64);
+        ctx.drawImage(graphics[10], (j * 64) + (64 * 5), (i * 64) + (64 * 0), 64, 64);
+        ctx.drawImage(graphics[10], (j * 64) + (64 * 4), (i * 64) + 64, 64, 64);
+        ctx.drawImage(graphics[10], (j * 64) + (64 * 3), (i * 64) + (64 * 2), 64, 64);
+        ctx.drawImage(graphics[10], (j * 64) + (64 * 2), (i * 64) + (64 * 3), 64, 64);
+        ctx.drawImage(graphics[10], (j * 64) + (64 * 1), (i * 64) + (64 * 4), 64, 64);
 
-                ctx.drawImage(graphics[10], j * 64, i * 64, 64, 64);
-                ctx.drawImage(graphics[10], j * 64, (i * 64) + 64, 64, 64);
-                ctx.drawImage(graphics[10], (j * 64) + 64, i * 64, 64, 64);
-                ctx.drawImage(graphics[10], j * 64, (i * 64) - 64, 64, 64);
-                ctx.drawImage(graphics[10], (j * 64) - 64, i * 64, 64, 64);
-            } else if (movesRemaining === 4) {
-                ctx.drawImage(graphics[10], j * 64, (i * 64) + (64 * 4), 64, 64);
-                ctx.drawImage(graphics[10], (j * 64) + (64 * 4), i * 64, 64, 64);
-                ctx.drawImage(graphics[10], j * 64, (i * 64) - (64 * 4), 64, 64);
-                ctx.drawImage(graphics[10], (j * 64) - (64 * 4), i * 64, 64, 64);
-                ctx.drawImage(graphics[10], (j * 64) + 64, (i * 64) + (64 * 3), 64, 64);
-                ctx.drawImage(graphics[10], (j * 64) + (64 * 2), (i * 64) + (64 * 2), 64, 64);
-                ctx.drawImage(graphics[10], (j * 64) + (64 * 3), (i * 64) + 64, 64, 64);
-                ctx.drawImage(graphics[10], (j * 64) - 64, (i * 64) + (64 * 3), 64, 64);
-                ctx.drawImage(graphics[10], (j * 64) - (64 * 2), (i * 64) + (64 * 2), 64, 64);
-                ctx.drawImage(graphics[10], (j * 64) - (64 * 3), (i * 64) + 64, 64, 64);
-                ctx.drawImage(graphics[10], (j * 64) - (64 * 3), (i * 64) - 64, 64, 64);
-                ctx.drawImage(graphics[10], (j * 64) - (64 * 2), (i * 64) - (64 * 2), 64, 64);
-                ctx.drawImage(graphics[10], (j * 64) - 64, (i * 64) - (64 * 3), 64, 64);
-                ctx.drawImage(graphics[10], (j * 64) + 64, (i * 64) - (64 * 3), 64, 64);
-                ctx.drawImage(graphics[10], (j * 64) + (64 * 2), (i * 64) - (64 * 2), 64, 64);
-                ctx.drawImage(graphics[10], (j * 64) + (64 * 3), (i * 64) - 64, 64, 64);
+        ctx.drawImage(graphics[10], (j * 64) - (64 * 0), (i * 64) - (64 * 5), 64, 64);
+        ctx.drawImage(graphics[10], (j * 64) - (64 * 1), (i * 64) - (64 * 4), 64, 64);
+        ctx.drawImage(graphics[10], (j * 64) - (64 * 2), (i * 64) - (64 * 3), 64, 64);
+        ctx.drawImage(graphics[10], (j * 64) - (64 * 3), (i * 64) - (64 * 2), 64, 64);
+        ctx.drawImage(graphics[10], (j * 64) - (64 * 4), (i * 64) - 64, 64, 64);
 
-                ctx.drawImage(graphics[10], j * 64, (i * 64) + (64 * 3), 64, 64);
-                ctx.drawImage(graphics[10], j * 64, (i * 64) - (64 * 3), 64, 64);
-                ctx.drawImage(graphics[10], (j * 64) + (64 * 3), i * 64, 64, 64);
-                ctx.drawImage(graphics[10], (j * 64) - (64 * 3), i * 64, 64, 64);
-                ctx.drawImage(graphics[10], (j * 64) + 64, (i * 64) + (64 * 2), 64, 64);
-                ctx.drawImage(graphics[10], (j * 64) + (64 * 2), (i * 64) + 64, 64, 64);
-                ctx.drawImage(graphics[10], (j * 64) - 64, (i * 64) + ( 64 * 2), 64, 64);
-                ctx.drawImage(graphics[10], (j * 64) - (64 * 2), (i * 64) + 64, 64, 64);
-                ctx.drawImage(graphics[10], (j * 64) - (64 * 2), (i * 64) - 64, 64, 64);
-                ctx.drawImage(graphics[10], (j * 64) - 64, (i * 64) - (64 * 2), 64, 64);
-                ctx.drawImage(graphics[10], (j * 64) + 64, (i * 64) - (64 * 2), 64, 64);
-                ctx.drawImage(graphics[10], (j * 64) + (64 * 2), (i * 64) - 64, 64, 64);
+        ctx.drawImage(graphics[10], (j * 64) - (64 * 5), (i * 64) + (64 * 0), 64, 64);
+        ctx.drawImage(graphics[10], (j * 64) - (64 * 4), (i * 64) + (64 * 1), 64, 64);
+        ctx.drawImage(graphics[10], (j * 64) - (64 * 3), (i * 64) + (64 * 2), 64, 64);
+        ctx.drawImage(graphics[10], (j * 64) - (64 * 2), (i * 64) + (64 * 3), 64, 64);
+        ctx.drawImage(graphics[10], (j * 64) - (64 * 1), (i * 64) + (64 * 4), 64, 64);
 
-                ctx.drawImage(graphics[10], (j * 64) - 64, (i * 64) + 64, 64, 64);
-                ctx.drawImage(graphics[10], (j * 64) + 64, (i * 64) - 64, 64, 64);
-                ctx.drawImage(graphics[10], j * 64, (i * 64) + (64 * 2), 64, 64);
-                ctx.drawImage(graphics[10], j * 64, (i * 64) - (64 * 2), 64, 64);
-                ctx.drawImage(graphics[10], (j * 64) + (64 * 2), i * 64, 64, 64);
-                ctx.drawImage(graphics[10], (j * 64) - (64 * 2), i * 64, 64, 64);
-                ctx.drawImage(graphics[10], (j * 64) + 64, (i * 64) + 64, 64, 64);
-                ctx.drawImage(graphics[10], (j * 64) - 64, (i * 64) - 64, 64, 64);
+        ctx.drawImage(graphics[10], j * 64, (i * 64) + (64 * 4), 64, 64);
+        ctx.drawImage(graphics[10], (j * 64) + (64 * 4), i * 64, 64, 64);
+        ctx.drawImage(graphics[10], j * 64, (i * 64) - (64 * 4), 64, 64);
+        ctx.drawImage(graphics[10], (j * 64) - (64 * 4), i * 64, 64, 64);
+        ctx.drawImage(graphics[10], (j * 64) + 64, (i * 64) + (64 * 3), 64, 64);
+        ctx.drawImage(graphics[10], (j * 64) + (64 * 2), (i * 64) + (64 * 2), 64, 64);
+        ctx.drawImage(graphics[10], (j * 64) + (64 * 3), (i * 64) + 64, 64, 64);
+        ctx.drawImage(graphics[10], (j * 64) - 64, (i * 64) + (64 * 3), 64, 64);
+        ctx.drawImage(graphics[10], (j * 64) - (64 * 2), (i * 64) + (64 * 2), 64, 64);
+        ctx.drawImage(graphics[10], (j * 64) - (64 * 3), (i * 64) + 64, 64, 64);
+        ctx.drawImage(graphics[10], (j * 64) - (64 * 3), (i * 64) - 64, 64, 64);
+        ctx.drawImage(graphics[10], (j * 64) - (64 * 2), (i * 64) - (64 * 2), 64, 64);
+        ctx.drawImage(graphics[10], (j * 64) - 64, (i * 64) - (64 * 3), 64, 64);
+        ctx.drawImage(graphics[10], (j * 64) + 64, (i * 64) - (64 * 3), 64, 64);
+        ctx.drawImage(graphics[10], (j * 64) + (64 * 2), (i * 64) - (64 * 2), 64, 64);
+        ctx.drawImage(graphics[10], (j * 64) + (64 * 3), (i * 64) - 64, 64, 64);
 
-                ctx.drawImage(graphics[10], j * 64, i * 64, 64, 64);
-                ctx.drawImage(graphics[10], j * 64, (i * 64) + 64, 64, 64);
-                ctx.drawImage(graphics[10], (j * 64) + 64, i * 64, 64, 64);
-                ctx.drawImage(graphics[10], j * 64, (i * 64) - 64, 64, 64);
-                ctx.drawImage(graphics[10], (j * 64) - 64, i * 64, 64, 64);
-            } else if (movesRemaining === 3) {
-                ctx.drawImage(graphics[10], j * 64, (i * 64) + (64 * 3), 64, 64);
-                ctx.drawImage(graphics[10], j * 64, (i * 64) - (64 * 3), 64, 64);
-                ctx.drawImage(graphics[10], (j * 64) + (64 * 3), i * 64, 64, 64);
-                ctx.drawImage(graphics[10], (j * 64) - (64 * 3), i * 64, 64, 64);
-                ctx.drawImage(graphics[10], (j * 64) + 64, (i * 64) + (64 * 2), 64, 64);
-                ctx.drawImage(graphics[10], (j * 64) + (64 * 2), (i * 64) + 64, 64, 64);
-                ctx.drawImage(graphics[10], (j * 64) - 64, (i * 64) + ( 64 * 2), 64, 64);
-                ctx.drawImage(graphics[10], (j * 64) - (64 * 2), (i * 64) + 64, 64, 64);
-                ctx.drawImage(graphics[10], (j * 64) - (64 * 2), (i * 64) - 64, 64, 64);
-                ctx.drawImage(graphics[10], (j * 64) - 64, (i * 64) - (64 * 2), 64, 64);
-                ctx.drawImage(graphics[10], (j * 64) + 64, (i * 64) - (64 * 2), 64, 64);
-                ctx.drawImage(graphics[10], (j * 64) + (64 * 2), (i * 64) - 64, 64, 64);
+        ctx.drawImage(graphics[10], j * 64, (i * 64) + (64 * 3), 64, 64);
+        ctx.drawImage(graphics[10], j * 64, (i * 64) - (64 * 3), 64, 64);
+        ctx.drawImage(graphics[10], (j * 64) + (64 * 3), i * 64, 64, 64);
+        ctx.drawImage(graphics[10], (j * 64) - (64 * 3), i * 64, 64, 64);
+        ctx.drawImage(graphics[10], (j * 64) + 64, (i * 64) + (64 * 2), 64, 64);
+        ctx.drawImage(graphics[10], (j * 64) + (64 * 2), (i * 64) + 64, 64, 64);
+        ctx.drawImage(graphics[10], (j * 64) - 64, (i * 64) + ( 64 * 2), 64, 64);
+        ctx.drawImage(graphics[10], (j * 64) - (64 * 2), (i * 64) + 64, 64, 64);
+        ctx.drawImage(graphics[10], (j * 64) - (64 * 2), (i * 64) - 64, 64, 64);
+        ctx.drawImage(graphics[10], (j * 64) - 64, (i * 64) - (64 * 2), 64, 64);
+        ctx.drawImage(graphics[10], (j * 64) + 64, (i * 64) - (64 * 2), 64, 64);
+        ctx.drawImage(graphics[10], (j * 64) + (64 * 2), (i * 64) - 64, 64, 64);
 
-                ctx.drawImage(graphics[10], (j * 64) - 64, (i * 64) + 64, 64, 64);
-                ctx.drawImage(graphics[10], (j * 64) + 64, (i * 64) - 64, 64, 64);
-                ctx.drawImage(graphics[10], j * 64, (i * 64) + (64 * 2), 64, 64);
-                ctx.drawImage(graphics[10], j * 64, (i * 64) - (64 * 2), 64, 64);
-                ctx.drawImage(graphics[10], (j * 64) + (64 * 2), i * 64, 64, 64);
-                ctx.drawImage(graphics[10], (j * 64) - (64 * 2), i * 64, 64, 64);
-                ctx.drawImage(graphics[10], (j * 64) + 64, (i * 64) + 64, 64, 64);
-                ctx.drawImage(graphics[10], (j * 64) - 64, (i * 64) - 64, 64, 64);
+        ctx.drawImage(graphics[10], (j * 64) - 64, (i * 64) + 64, 64, 64);
+        ctx.drawImage(graphics[10], (j * 64) + 64, (i * 64) - 64, 64, 64);
+        ctx.drawImage(graphics[10], j * 64, (i * 64) + (64 * 2), 64, 64);
+        ctx.drawImage(graphics[10], j * 64, (i * 64) - (64 * 2), 64, 64);
+        ctx.drawImage(graphics[10], (j * 64) + (64 * 2), i * 64, 64, 64);
+        ctx.drawImage(graphics[10], (j * 64) - (64 * 2), i * 64, 64, 64);
+        ctx.drawImage(graphics[10], (j * 64) + 64, (i * 64) + 64, 64, 64);
+        ctx.drawImage(graphics[10], (j * 64) - 64, (i * 64) - 64, 64, 64);
 
-                ctx.drawImage(graphics[10], j * 64, i * 64, 64, 64);
-                ctx.drawImage(graphics[10], j * 64, (i * 64) + 64, 64, 64);
-                ctx.drawImage(graphics[10], (j * 64) + 64, i * 64, 64, 64);
-                ctx.drawImage(graphics[10], j * 64, (i * 64) - 64, 64, 64);
-                ctx.drawImage(graphics[10], (j * 64) - 64, i * 64, 64, 64);
-            } else if (movesRemaining === 2) {
-                ctx.drawImage(graphics[10], (j * 64) - 64, (i * 64) + 64, 64, 64);
-                ctx.drawImage(graphics[10], (j * 64) + 64, (i * 64) - 64, 64, 64);
-                ctx.drawImage(graphics[10], j * 64, (i * 64) + (64 * 2), 64, 64);
-                ctx.drawImage(graphics[10], j * 64, (i * 64) - (64 * 2), 64, 64);
-                ctx.drawImage(graphics[10], (j * 64) + (64 * 2), i * 64, 64, 64);
-                ctx.drawImage(graphics[10], (j * 64) - (64 * 2), i * 64, 64, 64);
-                ctx.drawImage(graphics[10], (j * 64) + 64, (i * 64) + 64, 64, 64);
-                ctx.drawImage(graphics[10], (j * 64) - 64, (i * 64) - 64, 64, 64);
+        ctx.drawImage(graphics[10], j * 64, i * 64, 64, 64);
+        ctx.drawImage(graphics[10], j * 64, (i * 64) + 64, 64, 64);
+        ctx.drawImage(graphics[10], (j * 64) + 64, i * 64, 64, 64);
+        ctx.drawImage(graphics[10], j * 64, (i * 64) - 64, 64, 64);
+        ctx.drawImage(graphics[10], (j * 64) - 64, i * 64, 64, 64);
+    } else if (movesRemaining === 4) {
+        ctx.drawImage(graphics[10], j * 64, (i * 64) + (64 * 4), 64, 64);
+        ctx.drawImage(graphics[10], (j * 64) + (64 * 4), i * 64, 64, 64);
+        ctx.drawImage(graphics[10], j * 64, (i * 64) - (64 * 4), 64, 64);
+        ctx.drawImage(graphics[10], (j * 64) - (64 * 4), i * 64, 64, 64);
+        ctx.drawImage(graphics[10], (j * 64) + 64, (i * 64) + (64 * 3), 64, 64);
+        ctx.drawImage(graphics[10], (j * 64) + (64 * 2), (i * 64) + (64 * 2), 64, 64);
+        ctx.drawImage(graphics[10], (j * 64) + (64 * 3), (i * 64) + 64, 64, 64);
+        ctx.drawImage(graphics[10], (j * 64) - 64, (i * 64) + (64 * 3), 64, 64);
+        ctx.drawImage(graphics[10], (j * 64) - (64 * 2), (i * 64) + (64 * 2), 64, 64);
+        ctx.drawImage(graphics[10], (j * 64) - (64 * 3), (i * 64) + 64, 64, 64);
+        ctx.drawImage(graphics[10], (j * 64) - (64 * 3), (i * 64) - 64, 64, 64);
+        ctx.drawImage(graphics[10], (j * 64) - (64 * 2), (i * 64) - (64 * 2), 64, 64);
+        ctx.drawImage(graphics[10], (j * 64) - 64, (i * 64) - (64 * 3), 64, 64);
+        ctx.drawImage(graphics[10], (j * 64) + 64, (i * 64) - (64 * 3), 64, 64);
+        ctx.drawImage(graphics[10], (j * 64) + (64 * 2), (i * 64) - (64 * 2), 64, 64);
+        ctx.drawImage(graphics[10], (j * 64) + (64 * 3), (i * 64) - 64, 64, 64);
 
-                ctx.drawImage(graphics[10], j * 64, i * 64, 64, 64);
-                ctx.drawImage(graphics[10], j * 64, (i * 64) + 64, 64, 64);
-                ctx.drawImage(graphics[10], (j * 64) + 64, i * 64, 64, 64);
-                ctx.drawImage(graphics[10], j * 64, (i * 64) - 64, 64, 64);
-                ctx.drawImage(graphics[10], (j * 64) - 64, i * 64, 64, 64);
-            } else if (movesRemaining === 1) {
-                ctx.drawImage(graphics[10], j * 64, i * 64, 64, 64);
-                ctx.drawImage(graphics[10], j * 64, (i * 64) + 64, 64, 64);
-                ctx.drawImage(graphics[10], (j * 64) + 64, i * 64, 64, 64);
-                ctx.drawImage(graphics[10], j * 64, (i * 64) - 64, 64, 64);
-                ctx.drawImage(graphics[10], (j * 64) - 64, i * 64, 64, 64);
-            } else {
-                drawMap();
-            }
-                }
-            }
+        ctx.drawImage(graphics[10], j * 64, (i * 64) + (64 * 3), 64, 64);
+        ctx.drawImage(graphics[10], j * 64, (i * 64) - (64 * 3), 64, 64);
+        ctx.drawImage(graphics[10], (j * 64) + (64 * 3), i * 64, 64, 64);
+        ctx.drawImage(graphics[10], (j * 64) - (64 * 3), i * 64, 64, 64);
+        ctx.drawImage(graphics[10], (j * 64) + 64, (i * 64) + (64 * 2), 64, 64);
+        ctx.drawImage(graphics[10], (j * 64) + (64 * 2), (i * 64) + 64, 64, 64);
+        ctx.drawImage(graphics[10], (j * 64) - 64, (i * 64) + ( 64 * 2), 64, 64);
+        ctx.drawImage(graphics[10], (j * 64) - (64 * 2), (i * 64) + 64, 64, 64);
+        ctx.drawImage(graphics[10], (j * 64) - (64 * 2), (i * 64) - 64, 64, 64);
+        ctx.drawImage(graphics[10], (j * 64) - 64, (i * 64) - (64 * 2), 64, 64);
+        ctx.drawImage(graphics[10], (j * 64) + 64, (i * 64) - (64 * 2), 64, 64);
+        ctx.drawImage(graphics[10], (j * 64) + (64 * 2), (i * 64) - 64, 64, 64);
+
+        ctx.drawImage(graphics[10], (j * 64) - 64, (i * 64) + 64, 64, 64);
+        ctx.drawImage(graphics[10], (j * 64) + 64, (i * 64) - 64, 64, 64);
+        ctx.drawImage(graphics[10], j * 64, (i * 64) + (64 * 2), 64, 64);
+        ctx.drawImage(graphics[10], j * 64, (i * 64) - (64 * 2), 64, 64);
+        ctx.drawImage(graphics[10], (j * 64) + (64 * 2), i * 64, 64, 64);
+        ctx.drawImage(graphics[10], (j * 64) - (64 * 2), i * 64, 64, 64);
+        ctx.drawImage(graphics[10], (j * 64) + 64, (i * 64) + 64, 64, 64);
+        ctx.drawImage(graphics[10], (j * 64) - 64, (i * 64) - 64, 64, 64);
+
+        ctx.drawImage(graphics[10], j * 64, i * 64, 64, 64);
+        ctx.drawImage(graphics[10], j * 64, (i * 64) + 64, 64, 64);
+        ctx.drawImage(graphics[10], (j * 64) + 64, i * 64, 64, 64);
+        ctx.drawImage(graphics[10], j * 64, (i * 64) - 64, 64, 64);
+        ctx.drawImage(graphics[10], (j * 64) - 64, i * 64, 64, 64);
+    } else if (movesRemaining === 3) {
+        ctx.drawImage(graphics[10], j * 64, (i * 64) + (64 * 3), 64, 64);
+        ctx.drawImage(graphics[10], j * 64, (i * 64) - (64 * 3), 64, 64);
+        ctx.drawImage(graphics[10], (j * 64) + (64 * 3), i * 64, 64, 64);
+        ctx.drawImage(graphics[10], (j * 64) - (64 * 3), i * 64, 64, 64);
+        ctx.drawImage(graphics[10], (j * 64) + 64, (i * 64) + (64 * 2), 64, 64);
+        ctx.drawImage(graphics[10], (j * 64) + (64 * 2), (i * 64) + 64, 64, 64);
+        ctx.drawImage(graphics[10], (j * 64) - 64, (i * 64) + ( 64 * 2), 64, 64);
+        ctx.drawImage(graphics[10], (j * 64) - (64 * 2), (i * 64) + 64, 64, 64);
+        ctx.drawImage(graphics[10], (j * 64) - (64 * 2), (i * 64) - 64, 64, 64);
+        ctx.drawImage(graphics[10], (j * 64) - 64, (i * 64) - (64 * 2), 64, 64);
+        ctx.drawImage(graphics[10], (j * 64) + 64, (i * 64) - (64 * 2), 64, 64);
+        ctx.drawImage(graphics[10], (j * 64) + (64 * 2), (i * 64) - 64, 64, 64);
+
+        ctx.drawImage(graphics[10], (j * 64) - 64, (i * 64) + 64, 64, 64);
+        ctx.drawImage(graphics[10], (j * 64) + 64, (i * 64) - 64, 64, 64);
+        ctx.drawImage(graphics[10], j * 64, (i * 64) + (64 * 2), 64, 64);
+        ctx.drawImage(graphics[10], j * 64, (i * 64) - (64 * 2), 64, 64);
+        ctx.drawImage(graphics[10], (j * 64) + (64 * 2), i * 64, 64, 64);
+        ctx.drawImage(graphics[10], (j * 64) - (64 * 2), i * 64, 64, 64);
+        ctx.drawImage(graphics[10], (j * 64) + 64, (i * 64) + 64, 64, 64);
+        ctx.drawImage(graphics[10], (j * 64) - 64, (i * 64) - 64, 64, 64);
+
+        ctx.drawImage(graphics[10], j * 64, i * 64, 64, 64);
+        ctx.drawImage(graphics[10], j * 64, (i * 64) + 64, 64, 64);
+        ctx.drawImage(graphics[10], (j * 64) + 64, i * 64, 64, 64);
+        ctx.drawImage(graphics[10], j * 64, (i * 64) - 64, 64, 64);
+        ctx.drawImage(graphics[10], (j * 64) - 64, i * 64, 64, 64);
+    } else if (movesRemaining === 2) {
+        ctx.drawImage(graphics[10], (j * 64) - 64, (i * 64) + 64, 64, 64);
+        ctx.drawImage(graphics[10], (j * 64) + 64, (i * 64) - 64, 64, 64);
+        ctx.drawImage(graphics[10], j * 64, (i * 64) + (64 * 2), 64, 64);
+        ctx.drawImage(graphics[10], j * 64, (i * 64) - (64 * 2), 64, 64);
+        ctx.drawImage(graphics[10], (j * 64) + (64 * 2), i * 64, 64, 64);
+        ctx.drawImage(graphics[10], (j * 64) - (64 * 2), i * 64, 64, 64);
+        ctx.drawImage(graphics[10], (j * 64) + 64, (i * 64) + 64, 64, 64);
+        ctx.drawImage(graphics[10], (j * 64) - 64, (i * 64) - 64, 64, 64);
+
+        ctx.drawImage(graphics[10], j * 64, i * 64, 64, 64);
+        ctx.drawImage(graphics[10], j * 64, (i * 64) + 64, 64, 64);
+        ctx.drawImage(graphics[10], (j * 64) + 64, i * 64, 64, 64);
+        ctx.drawImage(graphics[10], j * 64, (i * 64) - 64, 64, 64);
+        ctx.drawImage(graphics[10], (j * 64) - 64, i * 64, 64, 64);
+    } else if (movesRemaining === 1) {
+        ctx.drawImage(graphics[10], j * 64, i * 64, 64, 64);
+        ctx.drawImage(graphics[10], j * 64, (i * 64) + 64, 64, 64);
+        ctx.drawImage(graphics[10], (j * 64) + 64, i * 64, 64, 64);
+        ctx.drawImage(graphics[10], j * 64, (i * 64) - 64, 64, 64);
+        ctx.drawImage(graphics[10], (j * 64) - 64, i * 64, 64, 64);
+    } else {
+        drawMap();
+    }
 }
 
 // listens for a key up event.
