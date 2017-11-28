@@ -24,46 +24,62 @@
         <button id="resetMove" style="display:none" onclick ="resetMove()">Undo Move</button>
         <button class="everard" style="display:none" onclick="everardStabButton()">Stab It Inna Face!</button>
         <p class="everard" style="display:none" >Range: 1<br>
-                            Damage: 1<br>
+                            Damage: 2<br>
                             Turn Units: 2</p>
         <button class="everard" style="display:none" onclick="everardShootButton()">Shoot It Inna Face!</button>
         <p class="everard" style="display:none">Range: 5<br>
-                            Damage: 1<br>
+                            Damage: 2<br>
+                            Armour Pen.: 1<br>
                             Turn Units: 2</p>
+        <button class="everard" style="display:none" onclick="everardReloadButton()">Reload</button>
+        <p class="everard" style="display:none">Turn Units: 4</p>
         <button class="stanvolm" style="display:none" onclick="stanvolmMissileButton()">Magic Missle!</button>
         <p class="stanvolm" style="display:none">Range: 8<br>
                             Damage: 1<br>
+                            Armour Pen.: 3<br>
                             Turn Units: 3</p>
         <button class="stanvolm" style="display:none" onclick="stanvolmShieldButton()">Mage Shield</button>
         <p class="stanvolm" style="display:none">Range: Self<br>
+                            Armour +1<br>
+                            Does not stack<br>
                             Turn Units: 2</p>
         <button class="victahana" style="display:none" onclick="victahanaShieldButton()">Shield Bash</button>
         <p class="victahana" style="display:none">Range: 1<br>
                             Damage: 1<br>
+                            Knock target back 2 tiles<br>
                             Turn Units: 2</p>
         <button class="victahana" style="display:none" onclick="victahanaDefenseButton()">Stoic Defense</button>
         <p class="victahana" style="display:none">Range: Self<br>
+                            Armour +1 until next turn.
                             Turn Units: 2</p>
         <button class="quxharne" style="display:none" onclick="quxharneProtectButton()">The Spirits Protect Me</button>
         <p class="quxharne" style="display:none">Range: Self<br>
+                            Armour +1<br>
+                            Does not stack<br>
                             Turn Units: 2</p>
         <button class="quxharne" style="display:none" onclick="quxharneHarmButton()">They Don't Protect You</button>
         <p class="quxharne" style="display:none">Range: 8<br>
+                            Damage: 1<br>
+                            Armour Pen.: 1<br>
+                            -1 Target Armour<br>
                             Turn Units: 2</p>
         <button class="koboldDragonshield" style="display:none" onclick="koboldDragonUnhinderedButton()">Unhindered Slash</button>
         <p class="koboldDragonshield" style="display:none">Range: 1<br>
-                            Damage: 1<br>
-                            Turn Units: 2</p>
+                            Damage: 4<br>
+                            0 Armour (self)<br>
+                            Turn Units: 3</p>
         <button class="koboldDragonshield" style="display:none" onclick="koboldDragonShieldButton()">Shield Up!</button>
         <p class="koboldDragonshield" style="display:none">Range: Self<br>
+                            Return armour to starting value<br>
                             Turn Units: 2</p>
         <button class="koboldSlinger" style="display:none" onclick="koboldSlingerSkirmishButton()">Skirmishing Shot</button>
         <p class="koboldSlinger" style="display:none">Range: 6<br>
                             Damage: 1<br>
+                            Instantly move two tiles<br>
                             Turn Units: 3</p>
         <button class="koboldSlinger" style="display:none" onclick="koboldSlingerSlingButton()">Sling Shot</button>
         <p class="koboldSlinger" style="display:none">Range: 6<br>
-                            Damage: 1<br>
+                            Damage: 2<br>
                             Turn Units: 2</p>
         <button class="koboldMage" style="display:none" onclick="koboldMageMissileButton()">Magic Missile</button>
         <p class="koboldMage" style="display:none">Range: 8<br>
@@ -80,7 +96,6 @@
         <p class="goblinWarrior" style="display:none">Range: 4<br>
                             Damage: 1<br>
                             Turn Units: 2</p>
-        <button id="test" onclick="testFunction()">Test</button>
     </div>
 
     <div>
@@ -97,41 +112,49 @@
 <div class="col-sm-1">
     <p>Everard</p>
     <p id="everardHp"></p>
+    <p id="everardArmour"></p>
 </div>
 
 <div class="col-sm-1">
     <p>Stanvolm</p>
     <p id="stanvolmHp"></p>
+    <p id="stanvolmArmour"></p>
 </div>
 
 <div class="col-sm-1">
     <p>Victahana</p>
     <p id="victahanaHp"></p>
+    <p id="victahanaArmour"></p>
 </div>
 
 <div class="col-sm-1">
     <p>Qu'Xharne</p>
     <p id="quxharneHp"></p>
+    <p id="quxharneArmour"></p>
 </div>
 
 <div class="col-sm-1">
     <p>Goblin Warrior</p>
     <p id="goblinWarriorHp"></p>
+    <p id="goblinWarriorArmour"></p>
 </div>
 
 <div class="col-sm-1">
     <p>K. Dragonshield</p>
     <p id="koboldDragonshieldHp"></p>
+    <p id="koboldDragonshieldArmour"></p>
 </div>
 
 <div class="col-sm-1">
     <p>Kobold Slinger</p>
     <p id="koboldSlingerHp"></p>
+    <p id="koboldSlingerArmour"></p>
 </div>
 
 <div class="col-sm-1">
     <p>Kobold Mage</p>
     <p id="koboldMageHp"></p>
+    <p id="koboldMageArmour"></p>
 </div>
 </div>
 
@@ -154,24 +177,22 @@
 
     loadImg();
 
-    document.getElementById("everardHp").innerHTML = everard.hpcur + "/" + everard.hpmax;
-    document.getElementById("stanvolmHp").innerHTML = stanvolm.hpcur + "/" + stanvolm.hpmax;
-    document.getElementById("victahanaHp").innerHTML = victahana.hpcur + "/" + victahana.hpmax;
-    document.getElementById("quxharneHp").innerHTML = quxharne.hpcur + "/" + quxharne.hpmax;
-    document.getElementById("goblinWarriorHp").innerHTML = goblinWarrior.hpcur + "/" + goblinWarrior.hpmax;
-    document.getElementById("koboldDragonshieldHp").innerHTML = koboldDragonshield.hpcur + "/" + koboldDragonshield.hpmax;
-    document.getElementById("koboldSlingerHp").innerHTML = koboldSlinger.hpcur + "/" + koboldSlinger.hpmax;
-    document.getElementById("koboldMageHp").innerHTML = koboldMage.hpcur + "/" + koboldMage.hpmax;
-
-    function testFunction() {
-
-        //testing out drawing HP bars
-
-        var ctx = document.getElementById("map").getContext("2d");
-
-        ctx.fillStyle = "Red";
-        ctx.fillRect(0, 0, 64, 8);
-    }
+    document.getElementById("everardHp").innerHTML = "HP: " + everard.hpcur + "/" + everard.hpmax;
+    document.getElementById("everardArmour").innerHTML = "Armour: " + everard.arm;
+    document.getElementById("stanvolmHp").innerHTML = "HP: " + stanvolm.hpcur + "/" + stanvolm.hpmax;
+    document.getElementById("stanvolmArmour").innerHTML = "Armour: " + stanvolm.arm;
+    document.getElementById("victahanaHp").innerHTML = "HP: " + victahana.hpcur + "/" + victahana.hpmax;
+    document.getElementById("victahanaArmour").innerHTML = "Armour: " + victahana.arm;
+    document.getElementById("quxharneHp").innerHTML = "HP: " + quxharne.hpcur + "/" + quxharne.hpmax;
+    document.getElementById("quxharneArmour").innerHTML = "Armour: " + quxharne.arm;
+    document.getElementById("goblinWarriorHp").innerHTML = "HP: " + goblinWarrior.hpcur + "/" + goblinWarrior.hpmax;
+    document.getElementById("goblinWarriorArmour").innerHTML = "Armour: " + goblinWarrior.arm;
+    document.getElementById("koboldDragonshieldHp").innerHTML = "HP: " + koboldDragonshield.hpcur + "/" + koboldDragonshield.hpmax;
+    document.getElementById("koboldDragonshieldArmour").innerHTML = "Armour: " + koboldDragonshield.arm;
+    document.getElementById("koboldSlingerHp").innerHTML = "HP: " + koboldSlinger.hpcur + "/" + koboldSlinger.hpmax;
+    document.getElementById("koboldSlingerArmour").innerHTML = "Armour: " + koboldSlinger.arm;
+    document.getElementById("koboldMageHp").innerHTML = "HP: " + koboldMage.hpcur + "/" + koboldMage.hpmax;
+    document.getElementById("koboldMageArmour").innerHTML = "Armour: " + koboldMage.arm;
 
 </script>
 </body>

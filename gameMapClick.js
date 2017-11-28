@@ -85,6 +85,10 @@ var canvasClicked = function(event) {
         everardShootItInnaFace()
     }
 
+    if (everardReload === 1) {
+        everardReloadCrossbow()
+    }
+
     if (stanvolmMissile === 1) {
         stanvolmMagicMissile();
     }

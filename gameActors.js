@@ -28,13 +28,13 @@ function Player2(xPos, yPos, player, name, hpmax, hpcur, dmg, arm, spd, tu) {
 }
 
 // create new Player1 Actors.
-var everard = new Player1(3, 3, "Player 1", "Everard", 5, 5, 0, 0, 8, 5);
+var everard = new Player1(3, 3, "Player 1", "Everard", 5, 5, 0, 1, 8, 5);
 var stanvolm = new Player1(0, 4, "Player 1", "Stanvolm", 4, 4, 0, 0, 5, 4);
-var victahana = new Player1(2, 3, "Player 1", "Victahana", 6, 6, 0, 0, 2, 3);
+var victahana = new Player1(2, 3, "Player 1", "Victahana", 6, 6, 0, 2, 2, 3);
 var quxharne = new Player1(0, 5, "Player 1", "Quxharne", 4, 4, 0, 0, 1, 3);
 
 // create new Player2 Actors.
-var goblinWarrior = new Player2(17, 4, "Player 2", "Goblin Warrior", 5, 5, 0, 0, 7, 5);
-var koboldDragonshield = new Player2(16, 6, "Player 2", "Kobold Dragonshield", 6, 6, 0, 0, 3, 4);
+var goblinWarrior = new Player2(17, 4, "Player 2", "Goblin Warrior", 5, 5, 0, 1, 7, 5);
+var koboldDragonshield = new Player2(16, 6, "Player 2", "Kobold Dragonshield", 6, 6, 0, 2, 3, 4);
 var koboldSlinger = new Player2(13, 8, "Player 2", "Kobold Slinger", 4, 4, 0, 0, 6, 5);
 var koboldMage = new Player2(14, 7, "Player 2", "Kobold Mage", 4, 4, 0, 0, 4, 4);

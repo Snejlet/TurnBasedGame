@@ -9,18 +9,24 @@ var targeted;
 
 // used as a crude way of tracking if the everard specific ability buttons were clicked (similar below for other chars)
 var everardStab = 0,
-    everardShoot = 0;
+    everardShoot = 0,
+    everardFired = 0,
+    everardReload = 0;
 
 var stanvolmMissile = 0,
-    stanvolmShield = 0;
+    stanvolmShield = 0,
+    stanvolmShielded = 0;
 
 var victahanaShield = 0,
-    victahanaDefense = 0;
+    victahanaDefense = 0,
+    victahanaDefended = 0;
 
 var quxharneProtect = 0,
+    quxharneProtected = 0;
     quxharneHarm = 0;
 
 var koboldDragonUnhindered = 0,
+    koboldDragonArmourDown = 0;
     koboldDragonShield = 0;
 
 var koboldSlingerSkirmishing = 0,
@@ -37,6 +43,7 @@ function postActionUpdate() {
     //sets stab back to zero to stop this function from being called again unless the button has been clicked first.
     everardStab = 0;
     everardShoot = 0;
+    everardReload = 0;
     stanvolmMissile = 0;
     stanvolmShield = 0;
     victahanaShield = 0;
@@ -60,24 +67,42 @@ function postActionUpdate() {
 function hpUpdate() {
 
     if (targeted.name === "Everard") {
-        document.getElementById("everardHp").innerHTML = everard.hpcur + "/" + everard.hpmax;
+        document.getElementById("everardHp").innerHTML = "HP: " + everard.hpcur + "/" + everard.hpmax;
+        document.getElementById("everardArmour").innerHTML = "Armour: " + everard.arm;
     } else if (targeted.name === "Stanvolm") {
-        document.getElementById("stanvolmHp").innerHTML = stanvolm.hpcur + "/" + stanvolm.hpmax;
+        document.getElementById("stanvolmHp").innerHTML = "HP: " + stanvolm.hpcur + "/" + stanvolm.hpmax;
+        document.getElementById("stanvolmArmour").innerHTML = "Armour: " + stanvolm.arm;
     } else if (targeted.name === "Victahana") {
-        document.getElementById("victahanaHp").innerHTML = victahana.hpcur + "/" + victahana.hpmax;
+        document.getElementById("victahanaHp").innerHTML = "HP: " + victahana.hpcur + "/" + victahana.hpmax;
+        document.getElementById("victahanaArmour").innerHTML = "Armour: " + victahana.arm;
     } else if (targeted.name === "Quxharne") {
-        document.getElementById("quxharneHp").innerHTML = quxharne.hpcur + "/" + quxharne.hpmax;
-    } else if (targeted.name === "goblinWarrior") {
-        document.getElementById("goblinWarriorHp").innerHTML = goblinWarrior.hpcur + "/" + goblinWarrior.hpmax;
-    } else if (targeted.name === "koboldDragonshield") {
-        document.getElementById("koboldDragonshieldHp").innerHTML = koboldDragonshield.hpcur + "/" + koboldDragonshield.hpmax;
-    } else if (targeted.name === "koboldSlinger") {
-        document.getElementById("koboldSlingerHp").innerHTML = koboldSlinger.hpcur + "/" + koboldSlinger.hpmax;
-    } else if (targeted.name === "koboldMage") {
-        document.getElementById("koboldMageHp").innerHTMl = koboldMage.hpcur + "/" + koboldMage.hpmax;
+        document.getElementById("quxharneHp").innerHTML = "HP: " + quxharne.hpcur + "/" + quxharne.hpmax;
+        document.getElementById("quxharneArmour").innerHTML = "Armour: " + quxharne.arm;
+    } else if (targeted.name === "Goblin Warrior") {
+        document.getElementById("goblinWarriorHp").innerHTML = "HP: " + goblinWarrior.hpcur + "/" + goblinWarrior.hpmax;
+        document.getElementById("goblinWarriorArmour").innerHTML = "Armour: " + goblinWarrior.arm;
+    } else if (targeted.name === "Kobold Dragonshield") {
+        document.getElementById("koboldDragonshieldHp").innerHTML = "HP: " + koboldDragonshield.hpcur + "/" + koboldDragonshield.hpmax;
+        document.getElementById("koboldDragonshieldArmour").innerHTML = "Armour: " + koboldDragonshield.arm;
+    } else if (targeted.name === "Kobold Slinger") {
+        document.getElementById("koboldSlingerHp").innerHTML = "HP: " + koboldSlinger.hpcur + "/" + koboldSlinger.hpmax;
+        document.getElementById("koboldSlingerArmour").innerHTML = "Armour: " + koboldSlinger.arm;
+    } else if (targeted.name === "Kobold Mage") {
+        alert(koboldMage.hpcur);
+        document.getElementById("koboldMageHp").innerHTMl = "HP: " + koboldMage.hpcur + "/" + koboldMage.hpmax;
+        document.getElementById("koboldMageArmour").innerHTML = "Armour: " + koboldMage.arm;
     }
 
     targeted = "";
+}
+
+function knockback() {
+
+    if (targeted.xPos === currentActive.xPos + 1) {
+        targeted.xPos++;
+        targeted.xPos++;
+        drawMap();
+    }
 }
 
 // when the button Stab It Inna Face button is clicked, it just sets the stab variable to 1. This allows for the
@@ -111,6 +136,7 @@ function everardShootButton() {
         drawMap();
 
         everardShoot = 1;
+        everardFired = 1;
 
         var ctx = document.getElementById("map").getContext("2d");
 
@@ -146,6 +172,25 @@ function everardShootButton() {
         ctx.drawImage(highlights[0], currentX * 64, downY5 * 64, 64, 64);
     } else {
         alert("You have insufficient Turn Units to perform this action.")
+    }
+}
+
+function everardReloadButton() {
+
+    if (movesRemaining >= 4) {
+
+        drawMap();
+
+        everardReload = 1;
+
+        var ctx = document.getElementById("map").getContext("2d");
+
+        var currentX = currentActive.xPos,
+            currentY = currentActive.yPos;
+
+        ctx.drawImage(highlights[0], currentX * 64, currentY * 64, 64, 64);
+    } else {
+        alert("You have insufficient Turn Units to perform this action")
     }
 }
 
@@ -211,20 +256,24 @@ function stanvolmMissileButton() {
 
 function stanvolmShieldButton() {
 
-    if (movesRemaining >= 2) {
+    if (stanvolmShielded === 0) {
+        if (movesRemaining >= 2) {
 
-        drawMap();
+            drawMap();
 
-        stanvolmShield = 1;
+            stanvolmShield = 1;
 
-        var ctx = document.getElementById("map").getContext("2d");
+            var ctx = document.getElementById("map").getContext("2d");
 
-        var currentX = currentActive.xPos,
-            currentY = currentActive.yPos;
+            var currentX = currentActive.xPos,
+                currentY = currentActive.yPos;
 
-        ctx.drawImage(highlights[0], currentX * 64, currentY * 64, 64, 64);
-    } else {
-        alert("You have insufficient Turn Units to perform this action.")
+            ctx.drawImage(highlights[0], currentX * 64, currentY * 64, 64, 64);
+        } else {
+            alert("You have insufficient Turn Units to perform this action.")
+        }
+    } else if (stanvolmShielded === 1) {
+        alert("You have already cast that on yourself");
     }
 }
 
@@ -255,39 +304,43 @@ function victahanaShieldButton() {
 
 function victahanaDefenseButton() {
 
-    if (movesRemaining >= 2) {
+        if (movesRemaining >= 2) {
 
-        drawMap();
+            drawMap();
 
-        victahanaDefense = 1;
+            victahanaDefense = 1;
 
-        var ctx = document.getElementById("map").getContext("2d");
+            var ctx = document.getElementById("map").getContext("2d");
 
-        var currentX = currentActive.xPos,
-            currentY = currentActive.yPos;
+            var currentX = currentActive.xPos,
+                currentY = currentActive.yPos;
 
-        ctx.drawImage(highlights[0], currentX * 64, currentY * 64, 64, 64);
-    } else {
-        alert("You have insufficient Turn Units to perform this action.")
-    }
+            ctx.drawImage(highlights[0], currentX * 64, currentY * 64, 64, 64);
+        } else {
+            alert("You have insufficient Turn Units to perform this action.")
+        }
 }
 
 function quxharneProtectButton() {
 
-    if (movesRemaining >= 2) {
+    if (quxharneProtected === 0) {
+        if (movesRemaining >= 2) {
 
-        drawMap();
+            drawMap();
 
-        quxharneProtect = 1;
+            quxharneProtect = 1;
 
-        var ctx = document.getElementById("map").getContext("2d");
+            var ctx = document.getElementById("map").getContext("2d");
 
-        var currentX = currentActive.xPos,
-            currentY = currentActive.yPos;
+            var currentX = currentActive.xPos,
+                currentY = currentActive.yPos;
 
-        ctx.drawImage(highlights[0], currentX * 64, currentY * 64, 64, 64);
-    } else {
-        alert("You have insufficient Turn Units to perform this action.")
+            ctx.drawImage(highlights[0], currentX * 64, currentY * 64, 64, 64);
+        } else {
+            alert("You have insufficient Turn Units to perform this action.")
+        }
+    } else if (quxharneProtected === 1) {
+        alert("You have already cast that on yourself");
     }
 }
 
@@ -353,7 +406,7 @@ function quxharneHarmButton() {
 
 function koboldDragonUnhinderedButton() {
 
-    if (movesRemaining >= 2) {
+    if (movesRemaining >= 3) {
 
         drawMap();
 
@@ -644,7 +697,7 @@ function everardStabItInnaFace() {
         if (xClick === leftX && yClick === currentY || xClick === rightX && yClick === currentY ||
             xClick === currentX && yClick === upY || xClick === currentX && yClick === downY) {
             if (initiative[i].xPos === xClick && initiative[i].yPos === yClick) {
-                initiative[i].hpcur = initiative[i].hpcur - 1;
+                initiative[i].hpcur = initiative[i].hpcur + initiative[i].arm - 2;
                 targeted = initiative[i];
                 turnUnitsUsed = 2;
                 postActionUpdate();
@@ -694,13 +747,33 @@ function everardShootItInnaFace() {
             if (currentX === xClick && currentY === yClick) {
 
             } else if (initiative[i].xPos === xClick && initiative[i].yPos === yClick) {
-                initiative[i].hpcur = initiative[i].hpcur - 1;
+                var armour = initiative[i].arm - 1;
+                if (armour < 0) {armour = 0}
+                initiative[i].hpcur = initiative[i].hpcur + armour - 2;
                 targeted = initiative[i];
                 turnUnitsUsed = 2;
                 postActionUpdate();
                 hpUpdate();
+                everardFired = 1;
             }
         }
+    }
+}
+
+function everardReloadCrossbow() {
+
+    if (everardFired === 1) {
+        var currentX = currentActive.xPos,
+            currentY = currentActive.yPos;
+
+        if (currentX === xClick && currentY === yClick) {
+            everardFired = 0;
+            turnUnitsUsed = 4;
+            postActionUpdate();
+        }
+    } else {
+        alert("You haven't fired the crossbow.");
+        postActionUpdate();
     }
 }
 
@@ -762,7 +835,9 @@ function stanvolmMagicMissile() {
             if (currentX === xClick && currentY === yClick) {
 
             } else if (initiative[i].xPos === xClick && initiative[i].yPos === yClick) {
-                initiative[i].hpcur = initiative[i].hpcur - 1;
+                var armour = initiative[i].arm - 3;
+                if (armour < 0) {armour = 0}
+                initiative[i].hpcur = initiative[i].hpcur + armour - 1;
                 targeted = initiative[i];
                 turnUnitsUsed = 3;
                 postActionUpdate();
@@ -778,8 +853,9 @@ function stanvolmMageShield() {
         currentY = currentActive.yPos;
 
     if (xClick === currentX && yClick === currentY) {
-        initiative[i].hpcur = initiative[i].hpcur - 1;
-        targeted = initiative[i];
+        stanvolm.arm = stanvolm.arm + 1;
+        stanvolmShielded = 1;
+        targeted = stanvolm;
         turnUnitsUsed = 2;
         postActionUpdate();
         hpUpdate();
@@ -802,9 +878,10 @@ function victahanaShieldBash() {
             if (currentX === xClick && currentY === yClick) {
 
             } else if (initiative[i].xPos === xClick && initiative[i].yPos === yClick) {
-                initiative[i].hpcur = initiative[i].hpcur - 1;
+                initiative[i].hpcur = initiative[i].hpcur + initiative[i].arm - 1;
                 targeted = initiative[i];
                 turnUnitsUsed = 2;
+                knockback();
                 postActionUpdate();
                 hpUpdate();
             }
@@ -818,11 +895,13 @@ function victahanaStoicDefense() {
         currentY = currentActive.yPos;
 
     if (xClick === currentX && yClick === currentY) {
-        initiative[i].hpcur = initiative[i].hpcur - 1;
-        targeted = initiative[i];
+        victahana.arm = victahana.arm + 1;
+        targeted = victahana;
         turnUnitsUsed = 2;
+        victahanaDefended = 1;
         postActionUpdate();
         hpUpdate();
+        // go to gameTurn line 66 for update.
     }
 }
 
@@ -832,8 +911,9 @@ function quxharneSpiritsProtect() {
         currentY = currentActive.yPos;
 
     if (xClick === currentX && yClick === currentY) {
-        initiative[i].hpcur = initiative[i].hpcur - 1;
-        targeted = initiative[i];
+        quxharne.arm = quxharne.arm + 1;
+        quxharneProtected = 1;
+        targeted = quxharne;
         turnUnitsUsed = 2;
         postActionUpdate();
         hpUpdate();
@@ -898,9 +978,12 @@ function quxharneSpiritsHarm() {
             if (currentX === xClick && currentY === yClick) {
 
             } else if (initiative[i].xPos === xClick && initiative[i].yPos === yClick) {
-                initiative[i].hpcur = initiative[i].hpcur - 1;
+                var armour = initiative[i].arm - 1;
+                if (armour < 0) {armour = 0}
+                initiative[i].hpcur = initiative[i].hpcur + armour - 1;
+                initiative[i].arm--;
                 targeted = initiative[i];
-                turnUnitsUsed = 2;
+                turnUnitsUsed = 3;
                 postActionUpdate();
                 hpUpdate();
             }
@@ -924,9 +1007,13 @@ function koboldDragonUnhinderedSlash() {
             if (currentX === xClick && currentY === yClick) {
 
             } else if (initiative[i].xPos === xClick && initiative[i].yPos === yClick) {
-                initiative[i].hpcur = initiative[i].hpcur - 1;
+                if (koboldDragonArmourDown === 0) {
+                    koboldDragonshield.arm = 0;
+                    document.getElementById("koboldDragonshieldArmour").innerHTML = "Armour: " + koboldDragonshield.arm;
+                    koboldDragonArmourDown = 1;}
+                initiative[i].hpcur = initiative[i].hpcur + initiative[i].arm - 4;
                 targeted = initiative[i];
-                turnUnitsUsed = 2;
+                turnUnitsUsed = 3;
                 postActionUpdate();
                 hpUpdate();
             }
@@ -940,8 +1027,12 @@ function koboldDragonShieldUp() {
         currentY = currentActive.yPos;
 
     if (xClick === currentX && yClick === currentY) {
-        initiative[i].hpcur = initiative[i].hpcur - 1;
-        targeted = initiative[i];
+        if (koboldDragonArmourDown === 1) {
+            koboldDragonshield.arm = 2;
+            document.getElementById("koboldDragonshieldArmour").innerHTML = "Armour: " + koboldDragonshield.arm;
+            koboldDragonArmourDown = 0;
+        }
+        targeted = koboldDragonshield;
         turnUnitsUsed = 2;
         postActionUpdate();
         hpUpdate();
@@ -1049,7 +1140,7 @@ function koboldSlingerSlingShot() {
             if (currentX === xClick && currentY === yClick) {
 
             } else if (initiative[i].xPos === xClick && initiative[i].yPos === yClick) {
-                initiative[i].hpcur = initiative[i].hpcur - 1;
+                initiative[i].hpcur = initiative[i].hpcur + initiative[i].arm - 2;
                 targeted = initiative[i];
                 turnUnitsUsed = 2;
                 postActionUpdate();

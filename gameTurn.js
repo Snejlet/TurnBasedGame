@@ -63,11 +63,18 @@ function endTurn() {
             turnOrderReset = 0;
             document.getElementById("turnNumber").innerHTML = "Round " + roundNumber;
         }
+        // checks if Victahana has used Stoic Defense on herself.
+        if (initiative[i] === victahana && victahanaDefended === 1) {
+            victahana.arm = victahana.arm - 1;
+            victahanaDefended = 0;
+            targeted = victahana;
+            hpUpdate();
+        }
         break;
     }
 
     // highlights the maximum remaining moves the actor can make this turn.
-    highlightRemaining()
+    highlightRemaining();
 
     // couldn't find a better way of doing this that worked. Think about this later.
     if (active.name === "Everard") {

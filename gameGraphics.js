@@ -104,7 +104,7 @@ function drawMap() {
                 }
             }
             if (goblinWarrior.xPos === i && goblinWarrior.yPos === j) {
-                if (goblinWarrior.hpcur) {
+                if (goblinWarrior.hpcur > 0) {
                     ctx.drawImage(graphics[6], i * 64, j * 64, 64, 64)
                 }
             }
