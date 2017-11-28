@@ -37,7 +37,7 @@
         <button class="stanvolm" style="display:none" onclick="stanvolmShieldButton()">Mage Shield</button>
         <p class="stanvolm" style="display:none">Range: Self<br>
                             Turn Units: 2</p>
-        <button class="victahana" style="display:none" onclick="victahanaShieldButton()">Shield Base</button>
+        <button class="victahana" style="display:none" onclick="victahanaShieldButton()">Shield Bash</button>
         <p class="victahana" style="display:none">Range: 1<br>
                             Damage: 1<br>
                             Turn Units: 2</p>
@@ -68,6 +68,17 @@
         <button class="koboldMage" style="display:none" onclick="koboldMageMissileButton()">Magic Missile</button>
         <p class="koboldMage" style="display:none">Range: 8<br>
                             Damage: 1<br>
+                            Turn Units: 3</p>
+        <button class="koboldMage" style="display:none" onclick="koboldMageDraconicButton()">Draconic Incantation</button>
+        <p class="koboldMage" style="display:none">Range: Self<br>
+                            Turn Units: 2</p>
+        <button class="goblinWarrior" style="display:none" onclick="goblinWarriorGodsButton()">The Gods Await Me!</button>
+        <p class="goblinWarrior" style="display:none">Range: Self<br>
+                            Damage: 1<br>
+                            Turn Units: 4</p>
+        <button class="goblinWarrior" style="display:none" onclick="goblinWarriorBlindButton()">Blind Charge</button>
+        <p class="goblinWarrior" style="display:none">Range: 4<br>
+                            Damage: 1<br>
                             Turn Units: 2</p>
         <button id="test" onclick="testFunction()">Test</button>
     </div>
@@ -82,11 +93,54 @@
     </div>
 </div>
 
+<div class="row">
+<div class="col-sm-1">
+    <p>Everard</p>
+    <p id="everardHp"></p>
+</div>
+
+<div class="col-sm-1">
+    <p>Stanvolm</p>
+    <p id="stanvolmHp"></p>
+</div>
+
+<div class="col-sm-1">
+    <p>Victahana</p>
+    <p id="victahanaHp"></p>
+</div>
+
+<div class="col-sm-1">
+    <p>Qu'Xharne</p>
+    <p id="quxharneHp"></p>
+</div>
+
+<div class="col-sm-1">
+    <p>Goblin Warrior</p>
+    <p id="goblinWarriorHp"></p>
+</div>
+
+<div class="col-sm-1">
+    <p>K. Dragonshield</p>
+    <p id="koboldDragonshieldHp"></p>
+</div>
+
+<div class="col-sm-1">
+    <p>Kobold Slinger</p>
+    <p id="koboldSlingerHp"></p>
+</div>
+
+<div class="col-sm-1">
+    <p>Kobold Mage</p>
+    <p id="koboldMageHp"></p>
+</div>
+</div>
+
 <div>
     <p>Hotkeys:</p>
     <p>WADS to move</p>
     <p>R to reset movement</p>
 </div>
+
 
 <script src="gameMapClick.js"></script>
 <script src="gameActors.js"></script>
@@ -99,6 +153,15 @@
 <script>
 
     loadImg();
+
+    document.getElementById("everardHp").innerHTML = everard.hpcur + "/" + everard.hpmax;
+    document.getElementById("stanvolmHp").innerHTML = stanvolm.hpcur + "/" + stanvolm.hpmax;
+    document.getElementById("victahanaHp").innerHTML = victahana.hpcur + "/" + victahana.hpmax;
+    document.getElementById("quxharneHp").innerHTML = quxharne.hpcur + "/" + quxharne.hpmax;
+    document.getElementById("goblinWarriorHp").innerHTML = goblinWarrior.hpcur + "/" + goblinWarrior.hpmax;
+    document.getElementById("koboldDragonshieldHp").innerHTML = koboldDragonshield.hpcur + "/" + koboldDragonshield.hpmax;
+    document.getElementById("koboldSlingerHp").innerHTML = koboldSlinger.hpcur + "/" + koboldSlinger.hpmax;
+    document.getElementById("koboldMageHp").innerHTML = koboldMage.hpcur + "/" + koboldMage.hpmax;
 
     function testFunction() {
 

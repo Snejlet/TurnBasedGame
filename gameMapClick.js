@@ -128,6 +128,14 @@ var canvasClicked = function(event) {
     if (koboldMageMissile === 1) {
             koboldMageMagicMissile();
     }
+
+    if (koboldMageDraconic === 1) {
+            koboldMageDraconicIncantation();
+    }
+
+    if (goblinWarriorGods === 1) {
+            goblinWarriorTheGodsAwaitMe();
+    }
 };
 
 window.addEventListener('click', canvasClicked, true);

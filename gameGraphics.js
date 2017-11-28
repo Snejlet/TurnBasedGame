@@ -84,28 +84,44 @@ function drawMap() {
             }*/
             // places sprites at the starting position defined in gameActors.js
             if (everard.xPos === i && everard.yPos === j) {
-                ctx.drawImage(graphics[2], i * 64, j * 64, 64, 64)
+                if (everard.hpcur > 0) {
+                    ctx.drawImage(graphics[2], i * 64, j * 64, 64, 64)
+                }
             }
             if (stanvolm.xPos === i && stanvolm.yPos === j) {
-                ctx.drawImage(graphics[3], i * 64, j * 64, 64, 64)
+                if (stanvolm.hpcur > 0) {
+                    ctx.drawImage(graphics[3], i * 64, j * 64, 64, 64)
+                }
             }
             if (victahana.xPos === i && victahana.yPos === j) {
-                ctx.drawImage(graphics[4], i * 64, j * 64, 64, 64)
+                if (victahana.hpcur > 0) {
+                    ctx.drawImage(graphics[4], i * 64, j * 64, 64, 64)
+                }
             }
             if (quxharne.xPos === i && quxharne.yPos === j) {
-                ctx.drawImage(graphics[5], i * 64, j * 64, 64, 64)
+                if (quxharne.hpcur > 0) {
+                    ctx.drawImage(graphics[5], i * 64, j * 64, 64, 64)
+                }
             }
             if (goblinWarrior.xPos === i && goblinWarrior.yPos === j) {
-                ctx.drawImage(graphics[6], i * 64, j * 64, 64, 64)
+                if (goblinWarrior.hpcur) {
+                    ctx.drawImage(graphics[6], i * 64, j * 64, 64, 64)
+                }
             }
             if (koboldDragonshield.xPos === i && koboldDragonshield.yPos === j) {
-                ctx.drawImage(graphics[7], i * 64, j * 64, 64, 64)
+                if (koboldDragonshield.hpcur > 0) {
+                    ctx.drawImage(graphics[7], i * 64, j * 64, 64, 64)
+                }
             }
             if (koboldSlinger.xPos === i && koboldSlinger.yPos === j) {
-                ctx.drawImage(graphics[8], i * 64, j * 64, 64, 64)
+                if (koboldSlinger.hpcur > 0) {
+                    ctx.drawImage(graphics[8], i * 64, j * 64, 64, 64)
+                }
             }
             if (koboldMage.xPos === i && koboldMage.yPos === j) {
-                ctx.drawImage(graphics[9], i * 64, j * 64, 64, 64)
+                if (koboldMage.hpcur > 0) {
+                    ctx.drawImage(graphics[9], i * 64, j * 64, 64, 64)
+                }
             }
         }
     }

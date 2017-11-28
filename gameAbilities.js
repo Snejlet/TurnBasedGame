@@ -4,6 +4,9 @@ var len = initiative.length;
 // amount to change the movesRemaining by when an ability is used.
 var turnUnitsUsed = 0;
 
+// holds the actor targeted by the most recently used ability
+var targeted;
+
 // used as a crude way of tracking if the everard specific ability buttons were clicked (similar below for other chars)
 var everardStab = 0,
     everardShoot = 0;
@@ -23,10 +26,13 @@ var koboldDragonUnhindered = 0,
 var koboldSlingerSkirmishing = 0,
     koboldSlingerSling = 0;
 
-var koboldMageMissile = 0;
+var koboldMageMissile = 0,
+    koboldMageDraconic = 0;
+
+var goblinWarriorGods = 0,
+    goblinWarriorBlind = 0;
 
 function postActionUpdate() {
-
 
     //sets stab back to zero to stop this function from being called again unless the button has been clicked first.
     everardStab = 0;
@@ -41,11 +47,37 @@ function postActionUpdate() {
     koboldDragonShield = 0;
     koboldSlingerSkirmishing = 0;
     koboldSlingerSling = 0;
+    koboldMageMissile = 0;
+    koboldMageDraconic = 0;
+    goblinWarriorGods = 0;
     movesRemaining = movesRemaining - turnUnitsUsed;
     document.getElementById("uiMovesRemaining").innerHTML = "Turn Units: "+movesRemaining+"/"+ currentActive.tu;
     drawMap();
     highlightRemaining();
     turnUnitsUsed = 0;
+}
+
+function hpUpdate() {
+
+    if (targeted.name === "Everard") {
+        document.getElementById("everardHp").innerHTML = everard.hpcur + "/" + everard.hpmax;
+    } else if (targeted.name === "Stanvolm") {
+        document.getElementById("stanvolmHp").innerHTML = stanvolm.hpcur + "/" + stanvolm.hpmax;
+    } else if (targeted.name === "Victahana") {
+        document.getElementById("victahanaHp").innerHTML = victahana.hpcur + "/" + victahana.hpmax;
+    } else if (targeted.name === "Quxharne") {
+        document.getElementById("quxharneHp").innerHTML = quxharne.hpcur + "/" + quxharne.hpmax;
+    } else if (targeted.name === "goblinWarrior") {
+        document.getElementById("goblinWarriorHp").innerHTML = goblinWarrior.hpcur + "/" + goblinWarrior.hpmax;
+    } else if (targeted.name === "koboldDragonshield") {
+        document.getElementById("koboldDragonshieldHp").innerHTML = koboldDragonshield.hpcur + "/" + koboldDragonshield.hpmax;
+    } else if (targeted.name === "koboldSlinger") {
+        document.getElementById("koboldSlingerHp").innerHTML = koboldSlinger.hpcur + "/" + koboldSlinger.hpmax;
+    } else if (targeted.name === "koboldMage") {
+        document.getElementById("koboldMageHp").innerHTMl = koboldMage.hpcur + "/" + koboldMage.hpmax;
+    }
+
+    targeted = "";
 }
 
 // when the button Stab It Inna Face button is clicked, it just sets the stab variable to 1. This allows for the
@@ -525,6 +557,78 @@ function koboldMageMissileButton() {
     }
 }
 
+function koboldMageDraconicButton() {
+
+    if (movesRemaining >= 2) {
+
+        drawMap();
+
+        koboldMageDraconic = 1;
+
+        var ctx = document.getElementById("map").getContext("2d");
+
+        var currentX = currentActive.xPos,
+            currentY = currentActive.yPos;
+
+        ctx.drawImage(highlights[0], currentX * 64, currentY * 64, 64, 64);
+    }
+}
+
+function goblinWarriorGodsButton() {
+
+    if (movesRemaining >= 4) {
+
+        drawMap();
+
+        goblinWarriorGods = 1;
+
+        var ctx = document.getElementById("map").getContext("2d");
+
+        var currentX = currentActive.xPos,
+            currentY = currentActive.yPos;
+
+        ctx.drawImage(highlights[0], currentX * 64, currentY * 64, 64, 64);
+    }
+}
+
+function goblinWarriorBlindButton() {
+
+    if (movesRemaining >= 2) {
+
+        drawMap();
+
+        goblinWarriorBlind = 1;
+
+        var ctx = document.getElementById("map").getContext("2d");
+
+        var currentX = currentActive.xPos,
+            currentY = currentActive.yPos;
+
+        var leftX1 = currentX - 1,
+            leftX2 = currentX - 2,
+            leftX3 = currentX - 3,
+            leftX4 = currentX - 4,
+            upY1 = currentY - 1,
+            upY2 = currentY - 2,
+            upY3 = currentY - 3,
+            upY4 = currentY - 4,
+            downY1 = currentY + 1,
+            downY2 = currentY + 2,
+            downY3 = currentY + 3,
+            downY4 = currentY + 4;
+
+        ctx.drawImage(highlights[0], currentX * 64, upY4 * 64, 64, 64);
+        ctx.drawImage(highlights[1], leftX1 * 64, upY3 * 64, 192, 64);
+        ctx.drawImage(highlights[2], leftX2 * 64, upY2 * 64, 320, 64);
+        ctx.drawImage(highlights[3], leftX3 * 64, upY1 * 64, 448, 64);
+        ctx.drawImage(highlights[4], leftX4 * 64, currentY * 64, 576, 64);
+        ctx.drawImage(highlights[3], leftX3 * 64, downY1 * 64, 448, 64);
+        ctx.drawImage(highlights[2], leftX2 * 64, downY2 * 64, 320, 64);
+        ctx.drawImage(highlights[1], leftX1 * 64, downY3 * 64, 192, 64);
+        ctx.drawImage(highlights[0], currentX * 64, downY4 * 64, 64, 64);
+    }
+}
+
 function everardStabItInnaFace() {
 
     // stores the current position of the current actor for use in calculations below.
@@ -540,9 +644,11 @@ function everardStabItInnaFace() {
         if (xClick === leftX && yClick === currentY || xClick === rightX && yClick === currentY ||
             xClick === currentX && yClick === upY || xClick === currentX && yClick === downY) {
             if (initiative[i].xPos === xClick && initiative[i].yPos === yClick) {
-                alert(initiative[i].name);
+                initiative[i].hpcur = initiative[i].hpcur - 1;
+                targeted = initiative[i];
                 turnUnitsUsed = 2;
                 postActionUpdate();
+                hpUpdate();
             }
         }
     }
@@ -588,14 +694,14 @@ function everardShootItInnaFace() {
             if (currentX === xClick && currentY === yClick) {
 
             } else if (initiative[i].xPos === xClick && initiative[i].yPos === yClick) {
-                alert(initiative[i].name);
+                initiative[i].hpcur = initiative[i].hpcur - 1;
+                targeted = initiative[i];
                 turnUnitsUsed = 2;
                 postActionUpdate();
+                hpUpdate();
             }
         }
     }
-
-    everardShoot = 0;
 }
 
 function stanvolmMagicMissile() {
@@ -656,9 +762,11 @@ function stanvolmMagicMissile() {
             if (currentX === xClick && currentY === yClick) {
 
             } else if (initiative[i].xPos === xClick && initiative[i].yPos === yClick) {
-                alert(initiative[i].name);
+                initiative[i].hpcur = initiative[i].hpcur - 1;
+                targeted = initiative[i];
                 turnUnitsUsed = 3;
                 postActionUpdate();
+                hpUpdate();
             }
         }
     }
@@ -670,9 +778,11 @@ function stanvolmMageShield() {
         currentY = currentActive.yPos;
 
     if (xClick === currentX && yClick === currentY) {
-        alert(currentActive.name);
+        initiative[i].hpcur = initiative[i].hpcur - 1;
+        targeted = initiative[i];
         turnUnitsUsed = 2;
         postActionUpdate();
+        hpUpdate();
     }
 }
 
@@ -692,9 +802,11 @@ function victahanaShieldBash() {
             if (currentX === xClick && currentY === yClick) {
 
             } else if (initiative[i].xPos === xClick && initiative[i].yPos === yClick) {
-                alert(initiative[i].name);
+                initiative[i].hpcur = initiative[i].hpcur - 1;
+                targeted = initiative[i];
                 turnUnitsUsed = 2;
                 postActionUpdate();
+                hpUpdate();
             }
         }
     }
@@ -706,9 +818,11 @@ function victahanaStoicDefense() {
         currentY = currentActive.yPos;
 
     if (xClick === currentX && yClick === currentY) {
-        alert(currentActive.name);
+        initiative[i].hpcur = initiative[i].hpcur - 1;
+        targeted = initiative[i];
         turnUnitsUsed = 2;
         postActionUpdate();
+        hpUpdate();
     }
 }
 
@@ -718,9 +832,11 @@ function quxharneSpiritsProtect() {
         currentY = currentActive.yPos;
 
     if (xClick === currentX && yClick === currentY) {
-        alert(currentActive.name);
+        initiative[i].hpcur = initiative[i].hpcur - 1;
+        targeted = initiative[i];
         turnUnitsUsed = 2;
         postActionUpdate();
+        hpUpdate();
     }
 }
 
@@ -782,9 +898,11 @@ function quxharneSpiritsHarm() {
             if (currentX === xClick && currentY === yClick) {
 
             } else if (initiative[i].xPos === xClick && initiative[i].yPos === yClick) {
-                alert(initiative[i].name);
+                initiative[i].hpcur = initiative[i].hpcur - 1;
+                targeted = initiative[i];
                 turnUnitsUsed = 2;
                 postActionUpdate();
+                hpUpdate();
             }
         }
     }
@@ -806,9 +924,11 @@ function koboldDragonUnhinderedSlash() {
             if (currentX === xClick && currentY === yClick) {
 
             } else if (initiative[i].xPos === xClick && initiative[i].yPos === yClick) {
-                alert(initiative[i].name);
+                initiative[i].hpcur = initiative[i].hpcur - 1;
+                targeted = initiative[i];
                 turnUnitsUsed = 2;
                 postActionUpdate();
+                hpUpdate();
             }
         }
     }
@@ -820,9 +940,11 @@ function koboldDragonShieldUp() {
         currentY = currentActive.yPos;
 
     if (xClick === currentX && yClick === currentY) {
-        alert(currentActive.name);
+        initiative[i].hpcur = initiative[i].hpcur - 1;
+        targeted = initiative[i];
         turnUnitsUsed = 2;
         postActionUpdate();
+        hpUpdate();
     }
 }
 
@@ -872,9 +994,11 @@ function koboldSlingerSkirmish() {
             if (currentX === xClick && currentY === yClick) {
 
             } else if (initiative[i].xPos === xClick && initiative[i].yPos === yClick) {
-                alert(initiative[i].name);
+                initiative[i].hpcur = initiative[i].hpcur - 1;
+                targeted = initiative[i];
                 turnUnitsUsed = 3;
                 postActionUpdate();
+                hpUpdate();
             }
     }
 }
@@ -925,9 +1049,11 @@ function koboldSlingerSlingShot() {
             if (currentX === xClick && currentY === yClick) {
 
             } else if (initiative[i].xPos === xClick && initiative[i].yPos === yClick) {
-                alert(initiative[i].name);
+                initiative[i].hpcur = initiative[i].hpcur - 1;
+                targeted = initiative[i];
                 turnUnitsUsed = 2;
                 postActionUpdate();
+                hpUpdate();
             }
     }
 }
@@ -990,10 +1116,40 @@ function koboldMageMagicMissile() {
             if (currentX === xClick && currentY === yClick) {
 
             } else if (initiative[i].xPos === xClick && initiative[i].yPos === yClick) {
-                alert(initiative[i].name);
+                initiative[i].hpcur = initiative[i].hpcur - 1;
+                targeted = initiative[i];
                 turnUnitsUsed = 3;
                 postActionUpdate();
+                hpUpdate();
             }
         }
+    }
+}
+
+function koboldMageDraconicIncantation() {
+
+    var currentX = currentActive.xPos,
+        currentY = currentActive.yPos;
+
+    if (xClick === currentX && yClick === currentY) {
+        initiative[i].hpcur = initiative[i].hpcur - 1;
+        targeted = initiative[i];
+        turnUnitsUsed = 2;
+        postActionUpdate();
+        hpUpdate();
+    }
+}
+
+function goblinWarriorTheGodsAwaitMe() {
+
+    var currentX = currentActive.xPos,
+        currentY = currentActive.yPos;
+
+    if (xClick === currentX && yClick === currentY) {
+        initiative[i].hpcur = initiative[i].hpcur - 1;
+        targeted = initiative[i];
+        turnUnitsUsed = 2;
+        postActionUpdate();
+        hpUpdate();
     }
 }
