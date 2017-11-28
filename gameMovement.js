@@ -94,18 +94,25 @@ function highlightRemaining() {
             // sets the map context for the purpose of this function
             var ctx = document.getElementById("map").getContext("2d");
 
-            showMovement1(movesRemaining, i,j, ctx);
+            // calls the showMovement() and passes in the i, j and ctx variables, and the movesRemaining global variable.
+            showMovement(movesRemaining, i,j, ctx);
         }
     }
 }
-function showMovement1(mr,i,j,ctx) {
+function showMovement(mr,i,j,ctx) {
     console.log("in show movement "+mr);
+    // if movesRemaining = 0, simply ends.
     if (mr == 0){
         console.log("mr is 0"+mr);
 
         drawMap();
         return;
     }
+    // for loop to draw the tile  highlights to show movement.
+    // ol here just stands for onion layer. ol is set to be equal to the movesRemaining value, and decrements each time
+    // it loops until it reaches 1.
+    // the u and d variables are used to handle the x and y offsets from the current X and Y axis that the actor is on.
+    // u increments up from 0, and d decrements down to 1 (from the value of movesRemaining (or ol)).
     for (var ol = mr; ol>=1; ol--){
         var u=0;
         for (var d = ol; d>=1; d--){
@@ -118,7 +125,10 @@ function showMovement1(mr,i,j,ctx) {
         }
     }
 }
-function showMovement(mr,i,j,ctx){
+
+// This function is replaced by the showMovement(). Leaving it here to help with reading the showMovement() when
+// I come back to try and read this.
+function showMovementOld(mr,i,j,ctx){
     if (movesRemaining === 5) {
         ctx.drawImage(graphics[10], (j * 64) + (64 * 0), (i * 64) - (64 * 5), 64, 64);
         ctx.drawImage(graphics[10], (j * 64) + (64 * 1), (i * 64) - (64 * 4), 64, 64);
