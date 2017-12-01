@@ -33,7 +33,8 @@ var koboldSlingerSkirmishing = 0,
     koboldSlingerSling = 0;
 
 var koboldMageMissile = 0,
-    koboldMageDraconic = 0;
+    koboldMageDraconic = 0,
+    koboldMageIncanted = 0;
 
 var goblinWarriorGods = 0,
     goblinWarriorBlind = 0;
@@ -612,18 +613,22 @@ function koboldMageMissileButton() {
 
 function koboldMageDraconicButton() {
 
-    if (movesRemaining >= 2) {
+    if (koboldMageIncanted === 0) {
+        if (movesRemaining >= 2) {
 
-        drawMap();
+            drawMap();
 
-        koboldMageDraconic = 1;
+            koboldMageDraconic = 1;
 
-        var ctx = document.getElementById("map").getContext("2d");
+            var ctx = document.getElementById("map").getContext("2d");
 
-        var currentX = currentActive.xPos,
-            currentY = currentActive.yPos;
+            var currentX = currentActive.xPos,
+                currentY = currentActive.yPos;
 
-        ctx.drawImage(highlights[0], currentX * 64, currentY * 64, 64, 64);
+            ctx.drawImage(highlights[0], currentX * 64, currentY * 64, 64, 64);
+        }
+    } else if (koboldMageIncanted === 1) {
+        alert("You have already cast that on yourself.")
     }
 }
 
@@ -640,7 +645,13 @@ function goblinWarriorGodsButton() {
         var currentX = currentActive.xPos,
             currentY = currentActive.yPos;
 
-        ctx.drawImage(highlights[0], currentX * 64, currentY * 64, 64, 64);
+        var leftX1 = currentX - 1,
+            upY1 = currentY - 1,
+            downY1 = currentY + 1;
+
+        ctx.drawImage(highlights[0], currentX * 64, upY1 * 64, 64, 64);
+        ctx.drawImage(highlights[1], leftX1 * 64, currentY * 64, 192, 64);
+        ctx.drawImage(highlights[0], currentX * 64, downY1 * 64, 64, 64);
     }
 }
 
@@ -1207,7 +1218,9 @@ function koboldMageMagicMissile() {
             if (currentX === xClick && currentY === yClick) {
 
             } else if (initiative[i].xPos === xClick && initiative[i].yPos === yClick) {
-                initiative[i].hpcur = initiative[i].hpcur - 1;
+                var armour = initiative[i].arm - 3;
+                if (armour < 0) {armour = 0}
+                initiative[i].hpcur = initiative[i].hpcur + armour - 1;
                 targeted = initiative[i];
                 turnUnitsUsed = 3;
                 postActionUpdate();
@@ -1223,9 +1236,10 @@ function koboldMageDraconicIncantation() {
         currentY = currentActive.yPos;
 
     if (xClick === currentX && yClick === currentY) {
-        initiative[i].hpcur = initiative[i].hpcur - 1;
-        targeted = initiative[i];
+        koboldMage.tu++;
+        targeted = koboldMage;
         turnUnitsUsed = 2;
+        koboldMageIncanted = 1;
         postActionUpdate();
         hpUpdate();
     }
@@ -1236,11 +1250,90 @@ function goblinWarriorTheGodsAwaitMe() {
     var currentX = currentActive.xPos,
         currentY = currentActive.yPos;
 
-    if (xClick === currentX && yClick === currentY) {
-        initiative[i].hpcur = initiative[i].hpcur - 1;
-        targeted = initiative[i];
-        turnUnitsUsed = 2;
-        postActionUpdate();
-        hpUpdate();
+    var leftX = currentX - 1,
+        rightX = currentX + 1,
+        upY = currentY - 1,
+        downY = currentY + 1;
+
+    for (var i = 0; i < len; i++) {
+        if (xClick === currentX && yClick === upY || xClick === currentX && yClick === downY ||
+            xClick === leftX && yClick === currentY || xClick === rightX && yClick === currentY) {
+            if (currentX === xClick && currentY === yClick) {
+
+            } else if (initiative[i].xPos === xClick && initiative[i].yPos === yClick) {
+                initiative[i].arm--;
+                if (initiative[i].arm < 0) {initiative[i].arm = 0}
+                initiative[i].hpcur = initiative[i].hpcur + initiative[i].arm - 4;
+                goblinWarrior.arm -=2;
+                if (goblinWarrior.arm < 0) {goblinWarrior.arm = 0}
+                document.getElementById("goblinWarriorArmour").innerHTML = "Armour: " + goblinWarrior.arm;
+                targeted = initiative[i];
+                turnUnitsUsed = 4;
+                postActionUpdate();
+                hpUpdate();
+            }
+        }
+    }
+}
+
+function goblinWarriorBlindCharge() {
+
+    var currentX = currentActive.xPos,
+        currentY = currentActive.yPos;
+
+    var leftX1 = currentX - 1,
+        leftX2 = currentX - 2,
+        leftX3 = currentX - 3,
+        leftX4 = currentX - 4,
+        rightX1 = currentX + 1,
+        rightX2 = currentX + 2,
+        rightX3 = currentX + 3,
+        rightX4 = currentX + 4,
+        upY1 = currentY - 1,
+        upY2 = currentY - 2,
+        upY3 = currentY - 3,
+        upY4 = currentY - 4,
+        downY1 = currentY + 1,
+        downY2 = currentY + 2,
+        downY3 = currentY + 3,
+        downY4 = currentY + 4;
+
+
+
+    for (var i = 0; i < len; i++) {
+        if (xClick === currentX && yClick === upY4 ||
+            xClick === currentX && yClick === downY4||
+            xClick >= leftX1 && xClick <= rightX1 && yClick === upY3||
+            xClick >= leftX1 && xClick <= rightX1 && yClick === downY3||
+            xClick >= leftX2 && xClick <= rightX2 && yClick === upY2||
+            xClick >= leftX2 && xClick <= rightX2 && yClick === downY2||
+            xClick >= leftX3 && xClick <= rightX3 && yClick === upY1||
+            xClick >= leftX3 && xClick <= rightX3 && yClick === downY1||
+            xClick >= leftX4 && xClick <= rightX4 && yClick === currentY) {
+            if (currentX === xClick && currentY === yClick) {
+
+            } else if (initiative[i].xPos === xClick && initiative[i].yPos === yClick) {
+
+                var ctx = document.getElementById("map").getContext("2d");
+
+                var targetX = initiative[i].xPos,
+                    targetY = initiative[i].yPos;
+
+                var targetLeftX = targetX - 1,
+                    targetRightX = targetX + 1,
+                    targetUpY = targetY - 1,
+                    targetDownY = targetY + 1;
+
+                if (initiative[i].xPos < currentX && initiative[i].yPos === currentY) {
+                } else if (initiative[i].xPos < currentX && initiative[i].yPos > currentY) {
+                    drawMap();
+                    ctx.drawImage(highlights[0], targetRightX * 64, targetY * 64, 64, 64);
+                    ctx.drawImage(highlights[0], targetX * 64, targetUpY * 64, 64, 64);
+                    if (targetX < xClick) {
+                        alert("Well, the click is working");
+                    }
+                }
+            }
+        }
     }
 }

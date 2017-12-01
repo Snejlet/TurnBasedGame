@@ -140,6 +140,10 @@ var canvasClicked = function(event) {
     if (goblinWarriorGods === 1) {
             goblinWarriorTheGodsAwaitMe();
     }
+
+    if (goblinWarriorBlind === 1) {
+            goblinWarriorBlindCharge();
+    }
 };
 
 window.addEventListener('click', canvasClicked, true);
